@@ -1,0 +1,227 @@
+@import "tailwindcss";
+
+/* ============================================================
+   TECHANEYAT — COMMAND LAYER DESIGN SYSTEM
+   Brand tokens: locked. Never approximate or substitute.
+   ============================================================ */
+
+:root {
+  /* Backgrounds — layered dark navy */
+  --tn-bg:          #070B14;   /* page background — deepest */
+  --tn-bg-2:        #0A0E1A;   /* section alternate */
+  --tn-bg-3:        #111827;   /* card / glass morphism surface */
+  --tn-bg-4:        #1a2234;   /* card hover state */
+
+  /* Accent — electric teal */
+  --tn-accent:      #00C8FF;
+  --tn-accent-dim:  rgba(0, 200, 255, 0.12);
+  --tn-accent-glow: rgba(0, 200, 255, 0.25);
+
+  /* Text */
+  --tn-text:        #F0F4FF;                   /* primary — cold white */
+  --tn-text-2:      rgba(240, 244, 255, 0.60); /* secondary */
+  --tn-text-3:      rgba(240, 244, 255, 0.30); /* dim / labels */
+
+  /* Borders */
+  --tn-border:        rgba(255, 255, 255, 0.07);
+  --tn-border-accent: rgba(0, 200, 255, 0.20);
+
+  /* Gradients */
+  --tn-gradient-hero: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0,200,255,0.10) 0%, transparent 70%);
+  --tn-gradient-card: linear-gradient(135deg, rgba(0,200,255,0.05) 0%, transparent 60%);
+
+  /* Semantic */
+  --tn-success: #22C55E;
+  --tn-warning: #F59E0B;
+  --tn-error:   #EF4444;
+
+  /* Typography */
+  --tn-font-display: 'Space Grotesk', sans-serif;
+  --tn-font-body:    'Inter', sans-serif;
+  --tn-font-mono:    'JetBrains Mono', monospace;
+}
+
+/* ============================================================
+   BASE RESET & GLOBAL STYLES
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--tn-bg);
+  color: var(--tn-text);
+  font-family: var(--tn-font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   TYPOGRAPHY SCALE
+   ============================================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--tn-font-display);
+  line-height: 1.1;
+  color: var(--tn-text);
+}
+
+h1 {
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+p {
+  color: var(--tn-text-2);
+}
+
+/* ============================================================
+   COMPONENT UTILITIES
+   ============================================================ */
+
+/* GlowCard — standard card surface */
+.glow-card {
+  background: var(--tn-bg-3);
+  border: 1px solid var(--tn-border);
+  border-radius: 12px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glow-card:hover {
+  border-color: var(--tn-border-accent);
+  box-shadow: 0 0 24px var(--tn-accent-glow), 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Eyebrow label — section identifier */
+.eyebrow {
+  font-family: var(--tn-font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tn-accent);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--tn-accent);
+  flex-shrink: 0;
+}
+
+/* Primary button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  background: var(--tn-accent);
+  color: var(--tn-bg);
+  border-radius: 4px;
+  font-family: var(--tn-font-display);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, box-shadow 0.2s ease;
+  min-height: 44px;
+}
+
+.btn-primary:hover {
+  opacity: 0.88;
+  box-shadow: 0 0 20px var(--tn-accent-glow);
+}
+
+/* Ghost button */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  border: 1px solid var(--tn-border-accent);
+  color: var(--tn-accent);
+  border-radius: 4px;
+  font-family: var(--tn-font-display);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  min-height: 44px;
+}
+
+.btn-ghost:hover {
+  background: var(--tn-accent-dim);
+  border-color: var(--tn-accent);
+}
+
+/* Section container */
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 768px) {
+  .section-container {
+    padding: 0 48px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .section-container {
+    padding: 0 64px;
+  }
+}
+
+/* Mono text utility */
+.mono {
+  font-family: var(--tn-font-mono);
+}
+
+/* Selection highlight */
+::selection {
+  background: var(--tn-accent-dim);
+  color: var(--tn-accent);
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--tn-accent);
+  outline-offset: 2px;
+}

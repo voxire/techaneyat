@@ -1,0 +1,157 @@
+{
+  "nav": {
+    "services": "Services",
+    "caseStudies": "Case Studies",
+    "about": "About",
+    "contact": "Contact",
+    "cta": "Get a Quote",
+    "langToggle": "ع"
+  },
+  "hero": {
+    "eyebrow": "Smart Infrastructure Partner",
+    "h1Line1": "Your infrastructure.",
+    "h1Line2": "Always online.",
+    "h1Line3": "Always secure.",
+    "sub": "One SLA. One partner. Network, cybersecurity, cloud, power, and hardware — all managed so your team never has to.",
+    "cta1": "Talk to an Engineer",
+    "cta2": "See Our Work"
+  },
+  "terminal": {
+    "line1": "Establishing secure connection...",
+    "line2": "Scanning infrastructure endpoints...",
+    "line3": "Running diagnostics...",
+    "line4": "All systems operational."
+  },
+  "services": {
+    "eyebrow": "What We Do",
+    "heading": "Every Technology Problem. One Partner.",
+    "sub": "From the cable in the wall to the cloud above it — we design, build, and manage the full technology backbone of your organization.",
+    "learnMore": "Learn more",
+    "network": {
+      "name": "Network & Infrastructure",
+      "description": "Structured cabling, switches, routers, WiFi, and fiber. We build networks that do not slow you down or let you down.",
+      "short": "The backbone everything runs on."
+    },
+    "cybersecurity": {
+      "name": "Cybersecurity",
+      "description": "Firewalls, endpoint protection, EDR, and threat monitoring. We protect your data before the problem happens — not after.",
+      "short": "Protection before the breach, not after."
+    },
+    "smartSecurity": {
+      "name": "Smart Security Systems",
+      "description": "CCTV, access control, alarms, and facial recognition. Know who enters your premises and respond before it becomes an incident.",
+      "short": "Full perimeter visibility."
+    },
+    "cloud": {
+      "name": "Cloud & Managed Services",
+      "description": "Microsoft 365, Google Workspace, cloud backup, and remote monitoring under SLA. Your systems managed proactively, not reactively.",
+      "short": "Managed infrastructure that doesn't sleep."
+    },
+    "power": {
+      "name": "Energy & Power Continuity",
+      "description": "UPS systems, battery backup, and solar. In Lebanon, power is not guaranteed — your business continuity should be.",
+      "short": "No power cut stops your business."
+    },
+    "hardware": {
+      "name": "Computing & Hardware",
+      "description": "Laptops, servers, NAS, and workstations. Sourced, configured, and deployed by us.",
+      "short": "The right hardware, properly deployed."
+    }
+  },
+  "networkMap": {
+    "eyebrow": "Infrastructure Presence",
+    "heading": "One SLA across every sector.",
+    "sub": "Enterprise, government, healthcare, education, NGOs, and retail. One partner handles it all."
+  },
+  "stats": {
+    "years": { "value": "10+", "label": "Years in Lebanon" },
+    "projects": { "value": "500+", "label": "Projects Delivered" },
+    "uptime": { "value": "99.9%", "label": "Network Uptime" },
+    "support": { "value": "24/7", "label": "Support Coverage" }
+  },
+  "caseStudies": {
+    "eyebrow": "Client Results",
+    "heading": "Real results. Real clients.",
+    "sub": "We measure success in uptime, speed of recovery, and problems that never happen.",
+    "viewAll": "View all case studies",
+    "sectors": {
+      "all": "All",
+      "enterprise": "Enterprise",
+      "education": "Education",
+      "healthcare": "Healthcare",
+      "government": "Government",
+      "ngo": "NGO",
+      "retail": "Retail"
+    }
+  },
+  "contactCta": {
+    "eyebrow": "Get Started",
+    "heading": "Ready to secure your infrastructure?",
+    "sub": "We respond within 4 hours. No sales pitch — just a direct conversation about your technology needs.",
+    "cta1": "Talk to an Engineer",
+    "cta2": "Call +961 76 100 766"
+  },
+  "contact": {
+    "eyebrow": "Get in Touch",
+    "heading": "Let's talk infrastructure.",
+    "sub": "Tell us what you're running, what's breaking, or what you want to build. We'll respond within 4 hours.",
+    "form": {
+      "name": "Full Name",
+      "company": "Company",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "message": "Tell us about your infrastructure",
+      "submit": "Send Message",
+      "submitting": "Sending...",
+      "success": "Message sent. We'll respond within 4 hours.",
+      "error": "Something went wrong. Please email Sales@techaneyat.com directly."
+    },
+    "details": {
+      "email": "Sales@techaneyat.com",
+      "phone": "+961 76 100 766",
+      "location": "Beirut, Lebanon",
+      "responseTime": "Response within 4 hours"
+    }
+  },
+  "about": {
+    "eyebrow": "About Techaneyat",
+    "heading": "Built to own your technology problem.",
+    "founding": "Founded in 2015",
+    "foundingDetail": "Techaneyat was built around one principle: the client should never hear 'that's not our problem.' One partner, one contract, full accountability.",
+    "philosophy": {
+      "eyebrow": "The One-SLA Philosophy",
+      "heading": "One contract. Every system.",
+      "body": "Most IT environments in Lebanon are stitched together from different vendors. When something breaks, everyone points at each other. Techaneyat eliminates that. We design, build, and manage your entire technology backbone — network, security, cloud, power, hardware — under a single SLA. One number to call. One team accountable."
+    }
+  },
+  "footer": {
+    "tagline": "One partner. One SLA. Every infrastructure system your organization runs.",
+    "servicesHeading": "Services",
+    "companyHeading": "Company",
+    "links": {
+      "about": "About",
+      "caseStudies": "Case Studies",
+      "blog": "Blog",
+      "contact": "Contact"
+    },
+    "copyright": "© 2025 Techaneyat Solutions. All rights reserved.",
+    "linkedin": "LinkedIn"
+  },
+  "blog": {
+    "eyebrow": "Technical Insights",
+    "heading": "Infrastructure intelligence.",
+    "empty": "Articles coming soon."
+  },
+  "serviceDetail": {
+    "included": "What's Included",
+    "howItWorks": "How It Works",
+    "useCases": "Who Benefits",
+    "getCta": "Get a quote for this service"
+  },
+  "metadata": {
+    "home": {
+      "title": "Techaneyat | Smart Infrastructure Partner — Lebanon",
+      "description": "Techaneyat designs, builds, and manages the full technology backbone of your organization under one SLA. Network, cybersecurity, cloud, power, and hardware — Beirut, Lebanon."
+    }
+  }
+}
