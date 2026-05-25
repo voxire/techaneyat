@@ -43,6 +43,48 @@
 }
 
 /* ============================================================
+   LIGHT MODE TOKENS
+   Applied via [data-theme="light"] on <html>
+   Cold blue-slate palette — keeps the brand's technical DNA
+   ============================================================ */
+
+[data-theme="light"] {
+  /* Backgrounds — cold blue-slate */
+  --tn-bg:          #F2F5FC;
+  --tn-bg-2:        #EBF0FA;
+  --tn-bg-3:        #FFFFFF;
+  --tn-bg-4:        #DDE5F5;
+
+  /* Accent — deeper teal for contrast on white */
+  --tn-accent:      #0080B8;
+  --tn-accent-dim:  rgba(0, 128, 184, 0.08);
+  --tn-accent-glow: rgba(0, 128, 184, 0.18);
+
+  /* Text — dark navy on light bg */
+  --tn-text:        #070B14;
+  --tn-text-2:      rgba(7, 11, 20, 0.62);
+  --tn-text-3:      rgba(7, 11, 20, 0.36);
+
+  /* Borders */
+  --tn-border:        rgba(7, 11, 20, 0.09);
+  --tn-border-accent: rgba(0, 128, 184, 0.22);
+
+  /* Gradients */
+  --tn-gradient-hero: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0,128,184,0.07) 0%, transparent 70%);
+  --tn-gradient-card: linear-gradient(135deg, rgba(0,128,184,0.04) 0%, transparent 60%);
+}
+
+/* Light mode: glow-card shadow is lighter */
+[data-theme="light"] .glow-card:hover {
+  box-shadow: 0 0 20px var(--tn-accent-glow), 0 12px 32px rgba(7,11,20,0.10);
+}
+
+/* Light mode: transition on theme switch */
+html {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ============================================================
    BASE RESET & GLOBAL STYLES
    ============================================================ */
 

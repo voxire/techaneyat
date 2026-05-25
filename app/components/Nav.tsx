@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useTheme } from '@/app/providers/ThemeProvider'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -25,6 +25,7 @@ export function Nav({ locale = 'en' }: NavProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const isAr = locale === 'ar'
   const basePath = isAr ? '/ar' : ''
+  const { theme, toggle } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -146,6 +147,48 @@ export function Nav({ locale = 'en' }: NavProps) {
             >
               {isAr ? 'EN' : 'ع'}
             </Link>
+
+            {/* Theme toggle — sun / moon */}
+            <button
+              onClick={toggle}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              style={{
+                background: 'none',
+                border: '1px solid var(--tn-border)',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                padding: '6px 8px',
+                color: 'var(--tn-text-3)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'color 0.2s ease, border-color 0.2s ease',
+                lineHeight: 1,
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget
+                el.style.color = 'var(--tn-text)'
+                el.style.borderColor = 'var(--tn-border-accent)'
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget
+                el.style.color = 'var(--tn-text-3)'
+                el.style.borderColor = 'var(--tn-border)'
+              }}
+            >
+              {theme === 'dark' ? (
+                /* Sun icon */
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="4"/>
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                </svg>
+              ) : (
+                /* Moon icon */
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+              )}
+            </button>
 
             {/* CTA */}
             <Link

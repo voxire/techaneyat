@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Space_Grotesk, Inter, JetBrains_Mono, Noto_Kufi_Arabic } from 'next/font/google'
 import { SmoothScrollProvider } from '@/app/providers/SmoothScrollProvider'
+import { ThemeProvider } from '@/app/providers/ThemeProvider'
 import './globals.css'
 
 const spaceGrotesk = Space_Grotesk({
@@ -86,8 +87,18 @@ export default function RootLayout({
       lang="en"
       className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} ${notoKufiArabic.variable}`}
     >
+      <head>
+        {/* Anti-FOUC: apply theme before paint to prevent flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=localStorage.getItem('tn-theme');var m=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',s||m)}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body>
-        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <ThemeProvider>
+          <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
