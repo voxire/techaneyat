@@ -13,7 +13,7 @@ type NavProps = {
 }
 
 const navLinks = [
-  { label: 'Services', labelAr: 'الخدمات', href: '/#services' },
+  { label: 'Services', labelAr: 'الخدمات', href: '/services' },
   { label: 'Case Studies', labelAr: 'دراسات الحالة', href: '/case-studies' },
   { label: 'About', labelAr: 'من نحن', href: '/about' },
   { label: 'Contact', labelAr: 'تواصل معنا', href: '/contact' },
@@ -37,8 +37,7 @@ export function Nav({ locale = 'en' }: NavProps) {
   const linkLabel = (link: (typeof navLinks)[0]) =>
     isAr ? link.labelAr : link.label
 
-  const hrefWithLocale = (href: string) =>
-    href.startsWith('/#') ? `${basePath}${href}` : `${basePath}${href}`
+  const hrefWithLocale = (href: string) => `${basePath}${href}`
 
   return (
     <header
