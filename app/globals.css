@@ -270,6 +270,29 @@ p {
   max-width: 400px;
 }
 
+/* Responsive visibility utilities */
+/* hidden-mobile: visible on desktop, hidden on mobile */
+.hidden-mobile {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .hidden-mobile {
+    display: flex !important;
+  }
+}
+
+/* show-mobile: visible on mobile, hidden on desktop */
+.show-mobile {
+  display: flex !important;
+}
+
+@media (min-width: 768px) {
+  .show-mobile {
+    display: none !important;
+  }
+}
+
 /* Selection highlight */
 ::selection {
   background: var(--tn-accent-dim);
