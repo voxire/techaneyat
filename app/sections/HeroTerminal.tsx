@@ -154,6 +154,20 @@ export function HeroTerminal() {
 
   const { completedLines, isDone } = useTypewriter(TERMINAL_LINES, activeLineRef, handleComplete)
 
+  // Fallback: if the terminal animation never finishes (e.g. Chrome throttles
+  // setInterval in background/inactive tabs), force the hero visible after 8s.
+  useEffect(() => {
+    const MAX_WAIT = 8000
+    const fallback = setTimeout(() => {
+      if (!heroVisible) {
+        if (terminalRef.current) terminalRef.current.style.display = 'none'
+        setCanvasActive(true)
+        setHeroVisible(true)
+      }
+    }, MAX_WAIT)
+    return () => clearTimeout(fallback)
+  }, [heroVisible])
+
   return (
     <section
       style={{
