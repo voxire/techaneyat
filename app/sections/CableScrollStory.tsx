@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
-import { ServiceIcon3D, type ServiceIconType } from './ServiceIcon3D'
+import { ServiceIllustration, type ServiceIllustrationKey } from './ServiceIllustrations'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -30,7 +30,7 @@ interface Service {
   benefit: string
   href: string
   side: 'left' | 'right'
-  icon: ServiceIconType
+  icon: ServiceIllustrationKey
 }
 
 const SERVICES: Service[] = [
@@ -477,7 +477,7 @@ export function CableScrollStory() {
               >
                 <div style={{ position: 'absolute', inset: 0, background: 'var(--tn-gradient-card)', borderRadius: 'inherit', pointerEvents: 'none', zIndex: 1 }} />
                 <div style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
-                  <ServiceIcon3D type={svc.icon} />
+                  <ServiceIllustration type={svc.icon} />
                 </div>
               </div>
             </div>
