@@ -6,6 +6,7 @@ import { HeroTerminal } from '@/app/sections/HeroTerminal'
 import { CableScrollStory } from '@/app/sections/CableScrollStory'
 import { NetworkMap } from '@/app/sections/NetworkMap'
 import { StatCounter } from '@/app/sections/StatCounter'
+import { WhyTechaneyat } from '@/app/sections/WhyTechaneyat'
 import { CaseStudiesGrid } from '@/app/sections/CaseStudiesGrid'
 import { ContactCTA } from '@/app/sections/ContactCTA'
 
@@ -86,6 +87,8 @@ export default function HomePage() {
         <NetworkMap />
 
         <StatCounter />
+
+        <WhyTechaneyat />
 
         <CaseStudiesGrid />
 
