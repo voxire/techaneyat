@@ -66,7 +66,7 @@ const serviceContent: Record<string, {
   },
   power: {
     name: 'Energy & Power Continuity',
-    description: 'UPS systems, battery backup, and solar. In Lebanon, power is not guaranteed — your business continuity should be.',
+    description: 'UPS systems, battery backup, and solar. In Lebanon, power is not guaranteed. Your business continuity should be.',
     keyBenefit: 'Business continuity guaranteed',
     included: ['UPS and battery backup systems', 'Generator integration', 'Solar power systems', 'Power monitoring', 'Load balancing'],
     steps: [
@@ -82,7 +82,7 @@ const serviceContent: Record<string, {
     keyBenefit: 'Sourced, configured, deployed',
     included: ['Laptops and workstations', 'Servers and NAS storage', 'Printers and peripherals', 'Configuration and deployment', 'Warranty and support management'],
     steps: [
-      { title: 'Requirements', body: 'We spec hardware to your workload — no over-buying, no under-spec.' },
+      { title: 'Requirements', body: 'We spec hardware to your workload. No over-buying, no under-spec.' },
       { title: 'Procurement', body: 'We source from trusted suppliers with warranty coverage.' },
       { title: 'Deployment', body: 'Pre-configured, tested, and delivered ready to use.' },
     ],

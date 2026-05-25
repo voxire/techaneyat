@@ -26,18 +26,11 @@ export default function ContactPage() {
           }}
         >
           <div className="section-container">
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr',
-                gap: '64px',
-                alignItems: 'start',
-              }}
-            >
+            <div className="contact-grid">
               {/* Left: heading + details */}
               <div>
                 <p className="eyebrow" style={{ marginBottom: '24px' }}>Get in Touch</p>
-                <h1 style={{ marginBottom: '16px', maxWidth: '480px' }}>
+                <h1 className="contact-heading">
                   Let&apos;s talk infrastructure.
                 </h1>
                 <p style={{ color: 'var(--tn-text-2)', fontSize: '18px', marginBottom: '48px', maxWidth: '420px' }}>

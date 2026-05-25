@@ -3,7 +3,7 @@ import { Nav } from '@/app/components/Nav'
 import { Footer } from '@/app/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'تكنيات | شريك البنية التحتية الذكية — لبنان',
+  title: 'تكنيات | شريك البنية التحتية الذكية، لبنان',
   description:
     'تكنيات تصمم وتبني وتدير العمود الفقري التقني الكامل لمؤسستك تحت اتفاقية خدمة واحدة. بيروت، لبنان.',
   alternates: {
@@ -45,7 +45,7 @@ export default function ArabicHomePage() {
                 lineHeight: 1.8,
               }}
             >
-              اتفاقية خدمة واحدة. شريك واحد. الشبكة، الأمن السيبراني، السحابة، الطاقة، والأجهزة — كل شيء تحت إدارة واحدة.
+              اتفاقية خدمة واحدة. شريك واحد. الشبكة، الأمن السيبراني، السحابة، الطاقة، والأجهزة. كل شيء تحت إدارة واحدة.
             </p>
             <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <a href="/ar/contact" className="btn-primary">تحدث مع مهندس</a>

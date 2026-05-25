@@ -5,7 +5,7 @@ import { Footer } from '@/app/components/Footer'
 export const metadata: Metadata = {
   title: 'Blog',
   description:
-    'Technical insights on network infrastructure, cybersecurity, cloud, and power continuity — from the Techaneyat team.',
+    'Technical insights on network infrastructure, cybersecurity, cloud, and power continuity. From the Techaneyat team.',
   alternates: {
     canonical: 'https://techaneyat.com/blog',
     languages: { ar: 'https://techaneyat.com/ar/blog' },

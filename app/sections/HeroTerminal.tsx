@@ -12,13 +12,13 @@ const TERMINAL_LINES = [
   '> All systems operational. ✓',
 ]
 
-const CHAR_MS    = 30   // ms per character — setInterval fires independently of React
+const CHAR_MS    = 30   // ms per character; setInterval fires independently of React
 const LINE_MS    = 260  // ms pause between lines
 const START_MS   = 180  // ms before typing begins
 const DONE_MS    = 480  // ms after last line before exit
 
 // ─── Typewriter ──────────────────────────────────────────────────────────────
-// setInterval drives per-character pacing — completely detached from React renders.
+// setInterval drives per-character pacing; completely detached from React renders.
 // DOM writes go directly through activeLineRef.current.textContent.
 // React state only updates once per completed line (4 renders total for 4 lines).
 // ─────────────────────────────────────────────────────────────────────────────
@@ -41,7 +41,7 @@ function useTypewriter(
 
       let lineIdx = 0
       let charIdx = 0
-      let transitioning = false // pausing between lines — skip interval ticks
+      let transitioning = false // pausing between lines; skip interval ticks
 
       intervalId = setInterval(() => {
         if (cancelled || transitioning) return
@@ -49,7 +49,7 @@ function useTypewriter(
 
         const line = lines[lineIdx]
 
-        // Direct DOM write — zero React overhead
+        // Direct DOM write: zero React overhead
         if (activeLineRef.current) {
           activeLineRef.current.textContent = line.slice(0, charIdx)
         }
@@ -90,7 +90,7 @@ function useTypewriter(
       clearTimeout(startTimer)
       if (intervalId) clearInterval(intervalId)
     }
-  }, [lines, activeLineRef]) // stable refs — runs once on mount
+  }, [lines, activeLineRef]) // stable refs; runs once on mount
 
   return { completedLines, isDone }
 }

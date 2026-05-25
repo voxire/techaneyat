@@ -8,7 +8,7 @@ export type CaseStudy = {
   resultDetail: string
   servicesUsed: string[]
   featured: boolean
-  // Full case study fields (optional — only filled when content is confirmed)
+  // Full case study fields (optional: only filled when content is confirmed)
   challenge?: string
   solution?: string
   results?: string
@@ -16,7 +16,7 @@ export type CaseStudy = {
   clientQuote?: string
 }
 
-// Placeholder data — replace with real client results from Ahmad
+// Placeholder data: replace with real client results from Ahmad
 export const caseStudies: CaseStudy[] = [
   {
     id: 'hospital-network',

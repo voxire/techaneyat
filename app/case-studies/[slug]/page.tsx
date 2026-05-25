@@ -69,7 +69,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
               {cs.resultDetail}
             </p>
             <p style={{ color: 'var(--tn-text-3)', fontFamily: 'var(--tn-font-mono)', fontSize: '12px' }}>
-              Full case study content — to be added when Ahmad provides details.
+              Full case study content: to be added when Ahmad provides details.
             </p>
           </div>
         </section>

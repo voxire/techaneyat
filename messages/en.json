@@ -12,7 +12,7 @@
     "h1Line1": "Your infrastructure.",
     "h1Line2": "Always online.",
     "h1Line3": "Always secure.",
-    "sub": "One SLA. One partner. Network, cybersecurity, cloud, power, and hardware — all managed so your team never has to.",
+    "sub": "One SLA. One partner. Network, cybersecurity, cloud, power, and hardware. All managed so your team never has to.",
     "cta1": "Talk to an Engineer",
     "cta2": "See Our Work"
   },
@@ -25,7 +25,7 @@
   "services": {
     "eyebrow": "What We Do",
     "heading": "Every Technology Problem. One Partner.",
-    "sub": "From the cable in the wall to the cloud above it — we design, build, and manage the full technology backbone of your organization.",
+    "sub": "From the cable in the wall to the cloud above it: we design, build, and manage the full technology backbone of your organization.",
     "learnMore": "Learn more",
     "network": {
       "name": "Network & Infrastructure",
@@ -34,7 +34,7 @@
     },
     "cybersecurity": {
       "name": "Cybersecurity",
-      "description": "Firewalls, endpoint protection, EDR, and threat monitoring. We protect your data before the problem happens — not after.",
+      "description": "Firewalls, endpoint protection, EDR, and threat monitoring. We protect your data before the problem happens. Not after.",
       "short": "Protection before the breach, not after."
     },
     "smartSecurity": {
@@ -49,7 +49,7 @@
     },
     "power": {
       "name": "Energy & Power Continuity",
-      "description": "UPS systems, battery backup, and solar. In Lebanon, power is not guaranteed — your business continuity should be.",
+      "description": "UPS systems, battery backup, and solar. In Lebanon, power is not guaranteed. Your business continuity should be.",
       "short": "No power cut stops your business."
     },
     "hardware": {
@@ -87,7 +87,7 @@
   "contactCta": {
     "eyebrow": "Get Started",
     "heading": "Ready to secure your infrastructure?",
-    "sub": "We respond within 4 hours. No sales pitch — just a direct conversation about your technology needs.",
+    "sub": "We respond within 4 hours. No sales pitch: just a direct conversation about your technology needs.",
     "cta1": "Talk to an Engineer",
     "cta2": "Call +961 76 100 766"
   },
@@ -121,7 +121,7 @@
     "philosophy": {
       "eyebrow": "The One-SLA Philosophy",
       "heading": "One contract. Every system.",
-      "body": "Most IT environments in Lebanon are stitched together from different vendors. When something breaks, everyone points at each other. Techaneyat eliminates that. We design, build, and manage your entire technology backbone — network, security, cloud, power, hardware — under a single SLA. One number to call. One team accountable."
+      "body": "Most IT environments in Lebanon are stitched together from different vendors. When something breaks, everyone points at each other. Techaneyat eliminates that. We design, build, and manage your entire technology backbone: network, security, cloud, power, hardware. One SLA. One number to call. One team accountable."
     }
   },
   "footer": {
@@ -150,8 +150,8 @@
   },
   "metadata": {
     "home": {
-      "title": "Techaneyat | Smart Infrastructure Partner — Lebanon",
-      "description": "Techaneyat designs, builds, and manages the full technology backbone of your organization under one SLA. Network, cybersecurity, cloud, power, and hardware — Beirut, Lebanon."
+      "title": "Techaneyat | Smart Infrastructure Partner, Lebanon",
+      "description": "Techaneyat designs, builds, and manages the full technology backbone of your organization under one SLA. Network, cybersecurity, cloud, power, and hardware. Based in Beirut, Lebanon."
     }
   }
 }

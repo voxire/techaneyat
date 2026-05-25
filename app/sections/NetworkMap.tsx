@@ -130,7 +130,7 @@ export function NetworkMap() {
   const pulse2Ref    = useRef<SVGCircleElement>(null)
   const sectorRefs   = useRef<(SVGGElement | null)[]>([])
   const lineRefs     = useRef<(SVGLineElement | null)[]>([])
-  // packetRefs[i][p] — 6 spokes × 2 packets each
+  // packetRefs[i][p]: 6 spokes × 2 packets each
   const packetRefs   = useRef<(SVGCircleElement | null)[][]>(
     Array.from({ length: SECTORS.length }, () => Array(PACKETS_PER_SPOKE).fill(null))
   )
@@ -184,7 +184,7 @@ export function NetworkMap() {
         })
       })
 
-      // Data packets — travel hub → sector, fade in then out
+      // Data packets: travel hub → sector, fade in then out
       SECTORS.forEach((s, i) => {
         const tweens: gsap.core.Tween[] = []
         for (let p = 0; p < PACKETS_PER_SPOKE; p++) {
@@ -468,7 +468,7 @@ export function NetworkMap() {
               </radialGradient>
 
               {/* Bounce light: small secondary highlight at bottom          */}
-              {/* (reflected light from below — classic sphere cue)          */}
+              {/* (reflected light from below: classic sphere cue)          */}
               <radialGradient id="nm2-sphere-bounce" cx="50%" cy="94%" r="24%">
                 <stop offset="0%"   stopColor="#00C8FF" stopOpacity="0.40" />
                 <stop offset="100%" stopColor="#00C8FF" stopOpacity="0.00" />
@@ -544,7 +544,7 @@ export function NetworkMap() {
               />
             ))}
 
-            {/* ── Data packets — one group per spoke, two packets each ── */}
+            {/* ── Data packets: one group per spoke, two packets each ── */}
             {SECTORS.map((s, i) =>
               Array.from({ length: PACKETS_PER_SPOKE }, (_, p) => (
                 <circle
@@ -561,7 +561,7 @@ export function NetworkMap() {
               ))
             )}
 
-            {/* ── Sector nodes — 3D spheres ── */}
+            {/* ── Sector nodes: 3D spheres ── */}
             {SECTORS.map((s, i) => {
               const active = hovered === s.id
               return (
@@ -580,9 +580,9 @@ export function NetworkMap() {
                     filter="url(#nm2-drop-shadow)"
                     style={{ pointerEvents: 'none' }}
                   />
-                  {/* Layer 1: dark base — shadow hemisphere lives here */}
+                  {/* Layer 1: dark base, shadow hemisphere lives here */}
                   <circle cx={s.cx} cy={s.cy} r={s.r} fill="#060d1c" />
-                  {/* Layer 2: directional teal diffuse — only covers lit side */}
+                  {/* Layer 2: directional teal diffuse, only covers lit side */}
                   <circle
                     cx={s.cx} cy={s.cy} r={s.r}
                     fill={active ? 'url(#nm2-sphere-diffuse-hov)' : 'url(#nm2-sphere-diffuse)'}
@@ -624,7 +624,7 @@ export function NetworkMap() {
               )
             })}
 
-            {/* ── Hub node — 3D sphere, larger + more dramatic ── */}
+            {/* ── Hub node: 3D sphere, larger + more dramatic ── */}
             <g style={{ pointerEvents: 'none' }}>
               {/* Pulse rings (expand outward) */}
               <circle ref={pulse1Ref}

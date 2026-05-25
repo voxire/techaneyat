@@ -9,9 +9,9 @@ import { CaseStudiesGrid } from '@/app/sections/CaseStudiesGrid'
 import { ContactCTA } from '@/app/sections/ContactCTA'
 
 export const metadata: Metadata = {
-  title: 'Techaneyat | Smart Infrastructure Partner — Lebanon',
+  title: 'Techaneyat | Smart Infrastructure Partner, Lebanon',
   description:
-    'Techaneyat designs, builds, and manages the full technology backbone of your organization under one SLA. Network, cybersecurity, cloud, power, and hardware — Beirut, Lebanon.',
+    'Techaneyat designs, builds, and manages the full technology backbone of your organization under one SLA. Network, cybersecurity, cloud, power, and hardware. Based in Beirut, Lebanon.',
   alternates: {
     canonical: 'https://techaneyat.com/',
     languages: { ar: 'https://techaneyat.com/ar' },

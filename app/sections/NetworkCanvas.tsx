@@ -326,7 +326,7 @@ export function NetworkCanvas({ active }: NetworkCanvasProps) {
     if (!reducedMotion) {
       window.addEventListener('mousemove', onMouseMove)
       canvas.addEventListener('mouseleave', onMouseLeave)
-      // rAF loop starts only when active — don't burn CPU during typewriter
+      // rAF loop starts only when active; don't burn CPU during typewriter
     }
 
     return () => {
@@ -350,7 +350,7 @@ export function NetworkCanvas({ active }: NetworkCanvasProps) {
       const canvas = canvasRef.current
       if (canvas) canvas.style.opacity = String(CANVAS_OPACITY)
     } else {
-      // Not yet active — cancel any stray loop
+      // Not yet active: cancel any stray loop
       cancelAnimationFrame(state.rafId)
     }
   }, [active, animate])

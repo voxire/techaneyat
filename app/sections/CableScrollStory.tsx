@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// ─── Cable definitions — realistic cable colors ────────────────────────────────
+// ─── Cable definitions: realistic cable colors ────────────────────────────────
 // Each cable has a main jacket color, a darker rim, a bright highlight, and
 // a small x-offset so they run as a bundle side-by-side.
 
@@ -310,7 +310,7 @@ export function CableScrollStory() {
   const bodyRefs = useRef<(SVGPathElement | null)[]>([])
   const hiRefs   = useRef<(SVGPathElement | null)[]>([])
 
-  // Tip circle — rides at the front of the drawn cable
+  // Tip circle: rides at the front of the drawn cable
   const tipRef = useRef<SVGCircleElement>(null)
 
   // Per-card: what scroll progress (0-1) does the tip reach that card?
@@ -417,7 +417,7 @@ export function CableScrollStory() {
             const card = illusRefs.current[i]
             if (!card) return
             if (progress >= threshold && !hitRef.current[i]) {
-              // Tip just reached this card — pulse the border
+              // Tip just reached this card: pulse the border
               hitRef.current[i] = true
               gsap.timeline()
                 .to(card, {
@@ -433,7 +433,7 @@ export function CableScrollStory() {
                   ease: 'power2.inOut',
                 })
             } else if (progress < threshold && hitRef.current[i]) {
-              // Scrolled back above this card — reset so it can re-fire
+              // Scrolled back above this card: reset so it can re-fire
               hitRef.current[i] = false
               gsap.set(card, {
                 boxShadow: '',
@@ -525,7 +525,7 @@ export function CableScrollStory() {
                 </filter>
               </React.Fragment>
             ))}
-            {/* Tip glow — bright halo for the traveling signal dot */}
+            {/* Tip glow: bright halo for the traveling signal dot */}
             <filter id="tip-glow" x="-400%" y="-400%" width="900%" height="900%">
               <feGaussianBlur stdDeviation="10" result="blur1" />
               <feGaussianBlur stdDeviation="4"  result="blur2" in="SourceGraphic" />
@@ -540,7 +540,7 @@ export function CableScrollStory() {
           {/* Render cables back-to-front so blues appear under reds */}
           {CABLE_DEFS.map((def, ci) => (
             <g key={ci}>
-              {/* 1. Dark rim — gives depth, slightly thicker */}
+              {/* 1. Dark rim: gives depth, slightly thicker */}
               <path
                 ref={el => { rimRefs.current[ci] = el }}
                 d=""
@@ -562,7 +562,7 @@ export function CableScrollStory() {
                 fill="none"
                 filter={`url(#glow-${ci})`}
               />
-              {/* 3. Highlight — thin bright stroke simulating cylindrical gloss */}
+              {/* 3. Highlight: thin bright stroke simulating cylindrical gloss */}
               <path
                 ref={el => { hiRefs.current[ci] = el }}
                 d=""
@@ -577,7 +577,7 @@ export function CableScrollStory() {
             </g>
           ))}
 
-          {/* ── Traveling signal tip — glowing dot at the cable front ── */}
+          {/* ── Traveling signal tip: glowing dot at the cable front ── */}
           <circle
             ref={tipRef}
             cx="0" cy="0" r="6"

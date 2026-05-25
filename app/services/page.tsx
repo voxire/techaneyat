@@ -7,7 +7,7 @@ import { services } from '@/data/services'
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    'Network, cybersecurity, smart security, cloud, power continuity, and hardware — all under one SLA. Techaneyat, Beirut Lebanon.',
+    'Network, cybersecurity, smart security, cloud, power continuity, and hardware: all under one SLA. Techaneyat, Beirut Lebanon.',
   alternates: {
     canonical: 'https://techaneyat.com/services',
     languages: { ar: 'https://techaneyat.com/ar/services' },
@@ -28,7 +28,7 @@ const serviceDescs: Record<string, string> = {
   cybersecurity: 'Firewalls, endpoint protection, EDR, and threat monitoring. We protect your data before the problem happens.',
   'smart-security': 'CCTV, access control, alarms, and facial recognition. Full perimeter visibility.',
   cloud: 'Microsoft 365, Google Workspace, cloud backup, and remote monitoring under SLA.',
-  power: 'UPS systems, battery backup, and solar. In Lebanon, power is not guaranteed — your business continuity should be.',
+  power: 'UPS systems, battery backup, and solar. In Lebanon, power is not guaranteed. Your business continuity should be.',
   hardware: 'Laptops, servers, NAS, and workstations. Sourced, configured, and deployed by us.',
 }
 
@@ -50,7 +50,7 @@ export default function ServicesPage() {
               Every Technology Problem. One Partner.
             </h1>
             <p style={{ color: 'var(--tn-text-2)', fontSize: '18px', maxWidth: '520px' }}>
-              From the cable in the wall to the cloud above it — we design, build, and manage the full technology backbone of your organization.
+              From the cable in the wall to the cloud above it: we design, build, and manage the full technology backbone of your organization.
             </p>
           </div>
         </section>

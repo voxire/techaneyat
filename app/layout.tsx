@@ -29,11 +29,11 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Techaneyat | Smart Infrastructure Partner — Lebanon',
+    default: 'Techaneyat | Smart Infrastructure Partner, Lebanon',
     template: '%s | Techaneyat',
   },
   description:
-    'Techaneyat designs, builds, and manages the full technology backbone of your organization under one SLA. Network, cybersecurity, cloud, power, and hardware — Beirut, Lebanon.',
+    'Techaneyat designs, builds, and manages the full technology backbone of your organization under one SLA. Network, cybersecurity, cloud, power, and hardware. Based in Beirut, Lebanon.',
   metadataBase: new URL('https://techaneyat.com'),
   alternates: {
     canonical: '/',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
         url: '/og/og-default.jpg',
         width: 1200,
         height: 630,
-        alt: 'Techaneyat — Smart Infrastructure Partner',
+        alt: 'Techaneyat: Smart Infrastructure Partner',
       },
     ],
   },

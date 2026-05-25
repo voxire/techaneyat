@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     console.log('Contact form submission:', {
       to: 'Sales@techaneyat.com',
       from: data.email,
-      subject: `Techaneyat inquiry from ${data.name} — ${data.company}`,
+      subject: `Techaneyat inquiry from ${data.name} at ${data.company}`,
       body: data.message,
       phone: data.phone,
     })
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     // await resend.emails.send({
     //   from: 'noreply@techaneyat.com',
     //   to: 'Sales@techaneyat.com',
-    //   subject: `Inquiry from ${data.name} — ${data.company}`,
+    //   subject: `Inquiry from ${data.name} at ${data.company}`,
     //   text: `Name: ${data.name}\nCompany: ${data.company}\nEmail: ${data.email}\nPhone: ${data.phone}\n\n${data.message}`,
     // })
 

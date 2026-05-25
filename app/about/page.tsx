@@ -52,7 +52,7 @@ export default function AboutPage() {
               Most IT environments in Lebanon are stitched together from different vendors. When something breaks, everyone points at each other.
             </p>
             <p style={{ color: 'var(--tn-text-2)', fontSize: '18px', lineHeight: 1.8 }}>
-              Techaneyat eliminates that. We design, build, and manage your entire technology backbone: network, cybersecurity, smart security, cloud, power continuity, and hardware — under a single SLA. One number to call. One team accountable.
+              Techaneyat eliminates that. We design, build, and manage your entire technology backbone: network, cybersecurity, smart security, cloud, power continuity, and hardware. One SLA. One number to call. One team accountable.
             </p>
           </div>
         </section>
@@ -78,12 +78,12 @@ export default function AboutPage() {
                 {
                   label: 'WE SECURE IT',
                   heading: 'We Secure It',
-                  body: 'Cybersecurity, CCTV, access control, firewalls, and endpoint protection. Every solution we build has security at its core — not added as an afterthought.',
+                  body: 'Cybersecurity, CCTV, access control, firewalls, and endpoint protection. Every solution we build has security at its core. Never bolted on after the fact.',
                 },
                 {
                   label: 'WE OWN IT',
                   heading: 'We Own It',
-                  body: 'Proactive monitoring, SLA-driven support, and a team that picks up the phone. We do not disappear after the project — we stay accountable.',
+                  body: 'Proactive monitoring, SLA-driven support, and a team that picks up the phone. We do not disappear after the project. We stay accountable.',
                 },
               ].map((pillar) => (
                 <div key={pillar.label} className="glow-card" style={{ padding: '32px' }}>
@@ -113,7 +113,7 @@ export default function AboutPage() {
             <p className="eyebrow" style={{ justifyContent: 'center', marginBottom: '16px' }}>Our Team</p>
             <h2 style={{ marginBottom: '16px' }}>The people behind the SLA.</h2>
             <p style={{ color: 'var(--tn-text-3)', fontFamily: 'var(--tn-font-mono)', fontSize: '12px' }}>
-              Team profiles — to be added (waiting on Ahmad)
+              Team profiles: to be added (waiting on Ahmad)
             </p>
           </div>
         </section>

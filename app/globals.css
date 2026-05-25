@@ -214,6 +214,30 @@ p {
   font-family: var(--tn-font-mono);
 }
 
+/* Contact page — info + form two-column layout */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (min-width: 992px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+  }
+}
+
+/* Contact page h1 — more contained than hero */
+.contact-heading {
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 16px;
+  max-width: 400px;
+}
+
 /* Selection highlight */
 ::selection {
   background: var(--tn-accent-dim);
