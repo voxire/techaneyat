@@ -15,50 +15,70 @@ interface ServiceIcon3DProps {
   type: ServiceIconType
 }
 
-// ─── Brand colours ────────────────────────────────────────────────────────────
-const C_TEAL     = 0x00c8ff
-const C_TEAL_DIM = 0x004466
-const C_DARK     = 0x070b14
-const C_SURFACE  = 0x111827
-const C_SURFACE2 = 0x1a2234
+// ─── Theme-aware colour palettes ──────────────────────────────────────────────
+// Dark mode: deep navy surfaces, bright teal accent
+// Light mode: mid-blue surfaces that contrast on white cards, deeper teal
+const PALETTE = {
+  dark: {
+    teal:      0x00c8ff,
+    surface:   0x111827,
+    surface2:  0x1a2234,
+    edgeOpacity: 0.45,
+    emissiveMult: 1.0,
+  },
+  light: {
+    teal:      0x0080b8,   // deeper teal, readable on white
+    surface:   0x1e3a5a,   // dark blue-slate — visible on white
+    surface2:  0x2a4e78,   // lighter dark blue
+    edgeOpacity: 0.7,      // more opaque so edges show on white
+    emissiveMult: 0.7,     // reduce emissive blowout in light mode
+  },
+}
 
-// ─── Shared material factories ────────────────────────────────────────────────
-const matSurface = () =>
-  new THREE.MeshStandardMaterial({ color: C_SURFACE, metalness: 0.75, roughness: 0.35 })
-const matSurface2 = () =>
-  new THREE.MeshStandardMaterial({ color: C_SURFACE2, metalness: 0.6, roughness: 0.4 })
-const matTeal = (emissiveIntensity = 0.6) =>
-  new THREE.MeshStandardMaterial({
-    color: C_TEAL, emissive: C_TEAL, emissiveIntensity, metalness: 0.3, roughness: 0.5,
-  })
-const matEdge = (opacity = 0.45) =>
-  new THREE.LineBasicMaterial({ color: C_TEAL, transparent: true, opacity })
+function getTheme(): 'dark' | 'light' {
+  if (typeof document === 'undefined') return 'dark'
+  return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark'
+}
 
-function addEdges(geom: THREE.BufferGeometry, parent: THREE.Object3D, opacity = 0.35) {
-  const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geom, 15), matEdge(opacity))
+// ─── Shared material factories (theme-aware) ──────────────────────────────────
+const matSurface = (theme: 'dark' | 'light') =>
+  new THREE.MeshStandardMaterial({ color: PALETTE[theme].surface, metalness: 0.75, roughness: 0.35 })
+const matSurface2 = (theme: 'dark' | 'light') =>
+  new THREE.MeshStandardMaterial({ color: PALETTE[theme].surface2, metalness: 0.6, roughness: 0.4 })
+const matTeal = (theme: 'dark' | 'light', emissiveIntensity = 0.6) => {
+  const t = PALETTE[theme].teal
+  const ei = emissiveIntensity * PALETTE[theme].emissiveMult
+  return new THREE.MeshStandardMaterial({ color: t, emissive: t, emissiveIntensity: ei, metalness: 0.3, roughness: 0.5 })
+}
+const matEdge = (theme: 'dark' | 'light', opacity = 0.45) =>
+  new THREE.LineBasicMaterial({ color: PALETTE[theme].teal, transparent: true, opacity: opacity * (theme === 'light' ? 1.5 : 1) })
+
+function addEdges(geom: THREE.BufferGeometry, parent: THREE.Object3D, theme: 'dark' | 'light', opacity = 0.35) {
+  const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geom, 15), matEdge(theme, opacity))
   parent.add(edges)
 }
 
 // ─── Scene builders ───────────────────────────────────────────────────────────
 
-function buildNetwork(group: THREE.Group) {
+function buildNetwork(group: THREE.Group, theme: 'dark' | 'light') {
+  const T = PALETTE[theme]
   // Rack enclosure
   const rackGeom = new THREE.BoxGeometry(1.4, 2.6, 0.9)
-  const rack = new THREE.Mesh(rackGeom, matSurface())
+  const rack = new THREE.Mesh(rackGeom, matSurface(theme))
   group.add(rack)
-  addEdges(rackGeom, group, 0.25)
+  addEdges(rackGeom, group, theme, 0.25)
 
   // 5 server sleds
   for (let i = 0; i < 5; i++) {
     const sledGeom = new THREE.BoxGeometry(1.1, 0.34, 0.55)
-    const sled = new THREE.Mesh(sledGeom, matSurface2())
+    const sled = new THREE.Mesh(sledGeom, matSurface2(theme))
     sled.position.set(0, 0.86 - i * 0.44, 0.2)
     group.add(sled)
 
     // LED strip per sled
     const stripGeom = new THREE.BoxGeometry(0.55, 0.04, 0.01)
     const stripMat = new THREE.MeshStandardMaterial({
-      color: C_TEAL, emissive: C_TEAL, emissiveIntensity: i === 4 ? 0.2 : 0.9,
+      color: T.teal, emissive: T.teal, emissiveIntensity: i === 4 ? 0.2 : 0.9 * T.emissiveMult,
     })
     const strip = new THREE.Mesh(stripGeom, stripMat)
     strip.position.set(-0.15, 0.86 - i * 0.44, 0.48)
@@ -67,8 +87,8 @@ function buildNetwork(group: THREE.Group) {
     // Status dot
     const dotGeom = new THREE.SphereGeometry(0.04, 8, 8)
     const dotMat = new THREE.MeshStandardMaterial({
-      color: i < 4 ? C_TEAL : 0x22c55e,
-      emissive: i < 4 ? C_TEAL : 0x22c55e,
+      color: i < 4 ? T.teal : 0x22c55e,
+      emissive: i < 4 ? T.teal : 0x22c55e,
       emissiveIntensity: 1,
     })
     const dot = new THREE.Mesh(dotGeom, dotMat)
@@ -78,20 +98,21 @@ function buildNetwork(group: THREE.Group) {
 
   // Teal glow rim on the rack front
   const rimGeom = new THREE.EdgesGeometry(rackGeom, 15)
-  const rim = new THREE.LineSegments(rimGeom, matEdge(0.6))
+  const rim = new THREE.LineSegments(rimGeom, matEdge(theme, 0.6))
   group.add(rim)
 
   // Cable port cluster (bottom right)
   for (let j = 0; j < 4; j++) {
     const portGeom = new THREE.BoxGeometry(0.1, 0.1, 0.12)
-    const port = new THREE.Mesh(portGeom, matSurface2())
+    const port = new THREE.Mesh(portGeom, matSurface2(theme))
     port.position.set(0.3 + j * 0.14, -1.1, 0.5)
     group.add(port)
-    addEdges(portGeom, port, 0.5)
+    addEdges(portGeom, port, theme, 0.5)
   }
 }
 
-function buildCybersecurity(group: THREE.Group) {
+function buildCybersecurity(group: THREE.Group, theme: 'dark' | 'light') {
+  const T = PALETTE[theme]
   // Shield shape via ShapeGeometry
   const shield = new THREE.Shape()
   shield.moveTo(0, 1.4)
@@ -102,7 +123,7 @@ function buildCybersecurity(group: THREE.Group) {
 
   const extSettings: THREE.ExtrudeGeometryOptions = { depth: 0.3, bevelEnabled: true, bevelThickness: 0.06, bevelSize: 0.06, bevelSegments: 3 }
   const shieldGeom = new THREE.ExtrudeGeometry(shield, extSettings)
-  const shieldMat = new THREE.MeshStandardMaterial({ color: C_SURFACE, metalness: 0.8, roughness: 0.25 })
+  const shieldMat = new THREE.MeshStandardMaterial({ color: T.surface, metalness: 0.8, roughness: 0.25 })
   const shieldMesh = new THREE.Mesh(shieldGeom, shieldMat)
   shieldMesh.position.set(-0.02, -0.05, -0.15)
   group.add(shieldMesh)
@@ -110,46 +131,47 @@ function buildCybersecurity(group: THREE.Group) {
   // Teal shield border glow (thin outline plane)
   const outline = new THREE.Mesh(
     new THREE.ExtrudeGeometry(shield, { ...extSettings, depth: 0.05 }),
-    new THREE.MeshStandardMaterial({ color: C_TEAL, emissive: C_TEAL, emissiveIntensity: 0.5, transparent: true, opacity: 0.7 }),
+    new THREE.MeshStandardMaterial({ color: T.teal, emissive: T.teal, emissiveIntensity: 0.5 * T.emissiveMult, transparent: true, opacity: 0.7 }),
   )
   outline.position.set(-0.02, -0.05, 0.15)
   group.add(outline)
 
   // Lock body
   const bodyGeom = new THREE.BoxGeometry(0.55, 0.5, 0.22)
-  const lockBody = new THREE.Mesh(bodyGeom, matTeal(0.6))
+  const lockBody = new THREE.Mesh(bodyGeom, matTeal(theme, 0.6))
   lockBody.position.set(0, -0.22, 0.32)
   group.add(lockBody)
-  addEdges(bodyGeom, lockBody, 0.8)
+  addEdges(bodyGeom, lockBody, theme, 0.8)
 
   // Lock shackle (half-torus)
   const shackleGeom = new THREE.TorusGeometry(0.22, 0.06, 8, 16, Math.PI)
-  const shackle = new THREE.Mesh(shackleGeom, matTeal(0.5))
+  const shackle = new THREE.Mesh(shackleGeom, matTeal(theme, 0.5))
   shackle.position.set(0, 0.22, 0.32)
   shackle.rotation.z = Math.PI
   group.add(shackle)
 }
 
-function buildCamera(group: THREE.Group) {
+function buildCamera(group: THREE.Group, theme: 'dark' | 'light') {
+  const T = PALETTE[theme]
   // Camera housing (main body)
   const bodyGeom = new THREE.CylinderGeometry(0.5, 0.55, 1.1, 24)
-  const body = new THREE.Mesh(bodyGeom, matSurface())
+  const body = new THREE.Mesh(bodyGeom, matSurface(theme))
   body.rotation.z = Math.PI / 2
   body.position.set(0, 0.15, 0)
   group.add(body)
-  addEdges(bodyGeom, body, 0.25)
+  addEdges(bodyGeom, body, theme, 0.25)
 
   // Lens barrel
   const barrelGeom = new THREE.CylinderGeometry(0.35, 0.4, 0.45, 24)
-  const barrel = new THREE.Mesh(barrelGeom, matSurface2())
+  const barrel = new THREE.Mesh(barrelGeom, matSurface2(theme))
   barrel.rotation.z = Math.PI / 2
   barrel.position.set(0.77, 0.15, 0)
   group.add(barrel)
-  addEdges(barrelGeom, barrel, 0.35)
+  addEdges(barrelGeom, barrel, theme, 0.35)
 
   // Lens glass
   const lensGeom = new THREE.CircleGeometry(0.28, 32)
-  const lensMat = new THREE.MeshStandardMaterial({ color: C_TEAL, emissive: C_TEAL, emissiveIntensity: 0.7, transparent: true, opacity: 0.85 })
+  const lensMat = new THREE.MeshStandardMaterial({ color: T.teal, emissive: T.teal, emissiveIntensity: 0.7 * T.emissiveMult, transparent: true, opacity: 0.85 })
   const lens = new THREE.Mesh(lensGeom, lensMat)
   lens.rotation.y = Math.PI / 2
   lens.position.set(1.01, 0.15, 0)
@@ -157,37 +179,38 @@ function buildCamera(group: THREE.Group) {
 
   // Lens ring
   const ringGeom = new THREE.TorusGeometry(0.3, 0.045, 8, 32)
-  const ring = new THREE.Mesh(ringGeom, matTeal(0.5))
+  const ring = new THREE.Mesh(ringGeom, matTeal(theme, 0.5))
   ring.rotation.y = Math.PI / 2
   ring.position.set(0.99, 0.15, 0)
   group.add(ring)
 
   // Mount bracket
   const mountGeom = new THREE.BoxGeometry(0.2, 0.8, 0.2)
-  const mount = new THREE.Mesh(mountGeom, matSurface())
+  const mount = new THREE.Mesh(mountGeom, matSurface(theme))
   mount.position.set(-0.1, -0.6, 0)
   group.add(mount)
-  addEdges(mountGeom, mount, 0.4)
+  addEdges(mountGeom, mount, theme, 0.4)
 
   // Wall/ceiling plate
   const plateGeom = new THREE.BoxGeometry(0.7, 0.14, 0.5)
-  const plate = new THREE.Mesh(plateGeom, matSurface2())
+  const plate = new THREE.Mesh(plateGeom, matSurface2(theme))
   plate.position.set(0, -0.98, 0)
   group.add(plate)
-  addEdges(plateGeom, plate, 0.45)
+  addEdges(plateGeom, plate, theme, 0.45)
 
   // IR LEDs around lens
   for (let k = 0; k < 6; k++) {
     const angle = (k / 6) * Math.PI * 2
     const ledGeom = new THREE.SphereGeometry(0.045, 8, 8)
-    const ledMat = new THREE.MeshStandardMaterial({ color: C_TEAL, emissive: C_TEAL, emissiveIntensity: 0.8 })
+    const ledMat = new THREE.MeshStandardMaterial({ color: T.teal, emissive: T.teal, emissiveIntensity: 0.8 })
     const led = new THREE.Mesh(ledGeom, ledMat)
     led.position.set(0.97, 0.15 + Math.sin(angle) * 0.38, Math.cos(angle) * 0.38)
     group.add(led)
   }
 }
 
-function buildCloud(group: THREE.Group) {
+function buildCloud(group: THREE.Group, theme: 'dark' | 'light') {
+  const T = PALETTE[theme]
   // Cloud made of 5 spheres in organic arrangement
   const cloudNodes: [number, number, number, number][] = [
     [0,    0.3,  0, 0.7],
@@ -197,8 +220,8 @@ function buildCloud(group: THREE.Group) {
     [ 0.35, 0.6, 0, 0.45],
   ]
 
-  const cloudMat = new THREE.MeshStandardMaterial({ color: C_SURFACE, metalness: 0.6, roughness: 0.4 })
-  const glowMat  = new THREE.MeshStandardMaterial({ color: C_TEAL, emissive: C_TEAL, emissiveIntensity: 0.3, transparent: true, opacity: 0.15 })
+  const cloudMat = new THREE.MeshStandardMaterial({ color: T.surface, metalness: 0.6, roughness: 0.4 })
+  const glowMat  = new THREE.MeshStandardMaterial({ color: T.teal, emissive: T.teal, emissiveIntensity: 0.3 * T.emissiveMult, transparent: true, opacity: 0.15 })
 
   cloudNodes.forEach(([x, y, z, r]) => {
     const geom = new THREE.SphereGeometry(r, 24, 24)
@@ -220,7 +243,7 @@ function buildCloud(group: THREE.Group) {
     const [bx, by, bz] = cloudNodes[b]
     const points = [new THREE.Vector3(ax, ay, az), new THREE.Vector3(bx, by, bz)]
     const lineGeom = new THREE.BufferGeometry().setFromPoints(points)
-    const line = new THREE.Line(lineGeom, new THREE.LineBasicMaterial({ color: C_TEAL, transparent: true, opacity: 0.4 }))
+    const line = new THREE.Line(lineGeom, new THREE.LineBasicMaterial({ color: T.teal, transparent: true, opacity: 0.4 * T.edgeOpacity / 0.45 }))
     group.add(line)
   })
 
@@ -232,41 +255,42 @@ function buildCloud(group: THREE.Group) {
   ]
   packetPositions.forEach(([x, y, z]) => {
     const pGeom = new THREE.SphereGeometry(0.08, 8, 8)
-    const pMat = new THREE.MeshStandardMaterial({ color: C_TEAL, emissive: C_TEAL, emissiveIntensity: 1 })
+    const pMat = new THREE.MeshStandardMaterial({ color: T.teal, emissive: T.teal, emissiveIntensity: 1 })
     const packet = new THREE.Mesh(pGeom, pMat)
     packet.position.set(x, y, z)
     group.add(packet)
   })
 }
 
-function buildPower(group: THREE.Group) {
+function buildPower(group: THREE.Group, theme: 'dark' | 'light') {
+  const T = PALETTE[theme]
   // UPS main chassis
   const chassisGeom = new THREE.BoxGeometry(1.6, 2.2, 0.85)
-  const chassis = new THREE.Mesh(chassisGeom, matSurface())
+  const chassis = new THREE.Mesh(chassisGeom, matSurface(theme))
   group.add(chassis)
-  addEdges(chassisGeom, group, 0.3)
+  addEdges(chassisGeom, group, theme, 0.3)
 
   // Ventilation grill (rows of thin boxes)
   for (let r = 0; r < 5; r++) {
     const grillGeom = new THREE.BoxGeometry(1.0, 0.045, 0.06)
-    const grill = new THREE.Mesh(grillGeom, matSurface2())
+    const grill = new THREE.Mesh(grillGeom, matSurface2(theme))
     grill.position.set(0, -0.55 + r * 0.12, 0.46)
     group.add(grill)
   }
 
   // Battery level bars (glowing)
   const barCount = 4
-  const barColors = [C_TEAL, C_TEAL, C_TEAL, 0x22c55e]
+  const barColors = [T.teal, T.teal, T.teal, 0x22c55e]
   for (let b = 0; b < barCount; b++) {
     const barGeom = new THREE.BoxGeometry(1.0, 0.17, 0.06)
-    const barMat = new THREE.MeshStandardMaterial({ color: barColors[b], emissive: barColors[b], emissiveIntensity: b < 3 ? 0.8 : 0.6 })
+    const barMat = new THREE.MeshStandardMaterial({ color: barColors[b], emissive: barColors[b], emissiveIntensity: (b < 3 ? 0.8 : 0.6) * T.emissiveMult })
     const bar = new THREE.Mesh(barGeom, barMat)
     bar.position.set(0, 0.52 - b * 0.24, 0.46)
     group.add(bar)
   }
 
   // Lightning bolt (power symbol) — composed of boxes
-  const boltMat = new THREE.MeshStandardMaterial({ color: C_TEAL, emissive: C_TEAL, emissiveIntensity: 0.7 })
+  const boltMat = new THREE.MeshStandardMaterial({ color: T.teal, emissive: T.teal, emissiveIntensity: 0.7 * T.emissiveMult })
   const topGeom = new THREE.BoxGeometry(0.14, 0.5, 0.05)
   const topBolt = new THREE.Mesh(topGeom, boltMat)
   topBolt.position.set(0.08, 1.1, 0.46)
@@ -287,23 +311,24 @@ function buildPower(group: THREE.Group) {
   group.add(led)
 }
 
-function buildHardware(group: THREE.Group) {
+function buildHardware(group: THREE.Group, theme: 'dark' | 'light') {
+  const T = PALETTE[theme]
   // Monitor — outer bezel
   const bezelGeom = new THREE.BoxGeometry(2.2, 1.5, 0.14)
-  const bezel = new THREE.Mesh(bezelGeom, matSurface())
+  const bezel = new THREE.Mesh(bezelGeom, matSurface(theme))
   bezel.position.set(0.25, 0.45, 0)
   group.add(bezel)
-  addEdges(bezelGeom, bezel, 0.3)
+  addEdges(bezelGeom, bezel, theme, 0.3)
 
   // Monitor — screen (inset, glowing)
   const screenGeom = new THREE.BoxGeometry(2.0, 1.3, 0.05)
-  const screenMat = new THREE.MeshStandardMaterial({ color: 0x001122, emissive: C_TEAL, emissiveIntensity: 0.22, roughness: 0.05, metalness: 0.1 })
+  const screenMat = new THREE.MeshStandardMaterial({ color: 0x001122, emissive: T.teal, emissiveIntensity: 0.22 * T.emissiveMult, roughness: 0.05, metalness: 0.1 })
   const screen = new THREE.Mesh(screenGeom, screenMat)
   screen.position.set(0.25, 0.45, 0.08)
   group.add(screen)
 
   // Screen content lines (UI mockup)
-  const lineMat = new THREE.LineBasicMaterial({ color: C_TEAL, transparent: true, opacity: 0.6 })
+  const lineMat = new THREE.LineBasicMaterial({ color: T.teal, transparent: true, opacity: 0.6 })
   const lineWidths = [1.1, 0.7, 0.9, 0.5]
   lineWidths.forEach((w, i) => {
     const pts = [
@@ -316,35 +341,35 @@ function buildHardware(group: THREE.Group) {
 
   // Monitor stand neck
   const neckGeom = new THREE.BoxGeometry(0.14, 0.45, 0.14)
-  const neck = new THREE.Mesh(neckGeom, matSurface2())
+  const neck = new THREE.Mesh(neckGeom, matSurface2(theme))
   neck.position.set(0.25, -0.36, 0)
   group.add(neck)
 
   // Monitor stand base
   const baseGeom = new THREE.BoxGeometry(0.8, 0.1, 0.45)
-  const base = new THREE.Mesh(baseGeom, matSurface2())
+  const base = new THREE.Mesh(baseGeom, matSurface2(theme))
   base.position.set(0.25, -0.62, 0.1)
   group.add(base)
-  addEdges(baseGeom, base, 0.4)
+  addEdges(baseGeom, base, theme, 0.4)
 
   // Tower — chassis
   const towerGeom = new THREE.BoxGeometry(0.7, 1.8, 0.6)
-  const tower = new THREE.Mesh(towerGeom, matSurface())
+  const tower = new THREE.Mesh(towerGeom, matSurface(theme))
   tower.position.set(-1.05, -0.12, 0)
   group.add(tower)
-  addEdges(towerGeom, tower, 0.3)
+  addEdges(towerGeom, tower, theme, 0.3)
 
   // Tower — drive bay
   for (let d = 0; d < 2; d++) {
     const bayGeom = new THREE.BoxGeometry(0.46, 0.14, 0.08)
-    const bay = new THREE.Mesh(bayGeom, matSurface2())
+    const bay = new THREE.Mesh(bayGeom, matSurface2(theme))
     bay.position.set(-1.05, 0.55 - d * 0.22, 0.32)
     group.add(bay)
   }
 
   // Tower — power button
   const btnGeom = new THREE.CylinderGeometry(0.07, 0.07, 0.04, 16)
-  const btnMat = new THREE.MeshStandardMaterial({ color: C_TEAL, emissive: C_TEAL, emissiveIntensity: 0.8 })
+  const btnMat = new THREE.MeshStandardMaterial({ color: T.teal, emissive: T.teal, emissiveIntensity: 0.8 * T.emissiveMult })
   const btn = new THREE.Mesh(btnGeom, btnMat)
   btn.rotation.x = Math.PI / 2
   btn.position.set(-1.05, 0.12, 0.33)
@@ -360,14 +385,14 @@ function buildHardware(group: THREE.Group) {
 
 // ─── Scene dispatch ───────────────────────────────────────────────────────────
 
-function buildScene(type: ServiceIconType, group: THREE.Group) {
+function buildScene(type: ServiceIconType, group: THREE.Group, theme: 'dark' | 'light') {
   switch (type) {
-    case 'network':       buildNetwork(group);      break
-    case 'cybersecurity': buildCybersecurity(group); break
-    case 'smart-security': buildCamera(group);      break
-    case 'cloud':         buildCloud(group);         break
-    case 'power':         buildPower(group);         break
-    case 'hardware':      buildHardware(group);      break
+    case 'network':        buildNetwork(group, theme);       break
+    case 'cybersecurity':  buildCybersecurity(group, theme); break
+    case 'smart-security': buildCamera(group, theme);        break
+    case 'cloud':          buildCloud(group, theme);          break
+    case 'power':          buildPower(group, theme);          break
+    case 'hardware':       buildHardware(group, theme);       break
   }
 }
 
@@ -413,23 +438,33 @@ export function ServiceIcon3D({ type }: ServiceIcon3DProps) {
     const camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 100)
     camera.position.z = cfg.z
 
-    // ── Lighting ──────────────────────────────────────────────────────────────
-    scene.add(new THREE.AmbientLight(0xffffff, 0.45))
+    // ── Theme detection ───────────────────────────────────────────────────────
+    const theme = getTheme()
+    const T = PALETTE[theme]
 
-    const key = new THREE.DirectionalLight(0x80e0ff, 1.6)
+    // In light mode: give the canvas a card-matching background so dark geometry shows clearly
+    if (theme === 'light') {
+      renderer.setClearColor(0xf2f5fc, 1)
+    }
+
+    // ── Lighting ──────────────────────────────────────────────────────────────
+    // Light mode gets stronger ambient (less dramatic shadows on white bg)
+    scene.add(new THREE.AmbientLight(0xffffff, theme === 'light' ? 0.85 : 0.45))
+
+    const key = new THREE.DirectionalLight(theme === 'light' ? 0x4080c0 : 0x80e0ff, theme === 'light' ? 1.2 : 1.6)
     key.position.set(3, 5, 4)
     scene.add(key)
 
-    const fill = new THREE.DirectionalLight(0xffffff, 0.4)
+    const fill = new THREE.DirectionalLight(0xffffff, theme === 'light' ? 0.7 : 0.4)
     fill.position.set(-3, -2, 3)
     scene.add(fill)
 
-    const rim = new THREE.DirectionalLight(0x00c8ff, 0.8)
+    const rim = new THREE.DirectionalLight(T.teal, theme === 'light' ? 0.5 : 0.8)
     rim.position.set(-2, 3, -5)
     scene.add(rim)
 
     // Subtle point light for glow on front face
-    const pointLight = new THREE.PointLight(0x00c8ff, 0.9, 8)
+    const pointLight = new THREE.PointLight(T.teal, 0.9, 8)
     pointLight.position.set(0.5, 0.5, 3)
     scene.add(pointLight)
 
@@ -437,7 +472,7 @@ export function ServiceIcon3D({ type }: ServiceIcon3DProps) {
     const group = new THREE.Group()
     group.rotation.y = cfg.ry
     group.rotation.x = cfg.rx
-    buildScene(type, group)
+    buildScene(type, group, theme)
     scene.add(group)
 
     // ── Mouse hover tilt ──────────────────────────────────────────────────────

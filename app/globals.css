@@ -26,9 +26,13 @@
   --tn-border:        rgba(255, 255, 255, 0.07);
   --tn-border-accent: rgba(0, 200, 255, 0.20);
 
-  /* Gradients */
-  --tn-gradient-hero: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0,200,255,0.10) 0%, transparent 70%);
-  --tn-gradient-card: linear-gradient(135deg, rgba(0,200,255,0.05) 0%, transparent 60%);
+  /* Gradients — multi-layer for cinematic depth */
+  --tn-gradient-hero:
+    radial-gradient(ellipse 140% 80% at 50% -10%, rgba(0,200,255,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 80% 120%, rgba(0,100,220,0.10) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(0,60,160,0.08) 0%, transparent 50%);
+  --tn-gradient-card: linear-gradient(135deg, rgba(0,200,255,0.07) 0%, transparent 60%);
+  --tn-gradient-section: radial-gradient(ellipse 100% 60% at 50% 50%, rgba(0,200,255,0.05) 0%, transparent 70%);
 
   /* Semantic */
   --tn-success: #22C55E;
@@ -152,12 +156,39 @@ p {
   background: var(--tn-bg-3);
   border: 1px solid var(--tn-border);
   border-radius: 12px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--tn-gradient-card);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: inherit;
 }
 
 .glow-card:hover {
   border-color: var(--tn-border-accent);
-  box-shadow: 0 0 24px var(--tn-accent-glow), 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 40px var(--tn-accent-glow), 0 24px 64px rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+.glow-card:hover::before {
+  opacity: 1;
+}
+
+/* Glass card — backdrop blur variant for overlays */
+.glass-card {
+  background: rgba(7, 11, 20, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 200, 255, 0.15);
+  border-radius: 12px;
 }
 
 /* Eyebrow label — section identifier */
@@ -187,25 +218,45 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 28px;
+  gap: 8px;
+  padding: 14px 32px;
   background: var(--tn-accent);
-  color: var(--tn-bg);
-  border-radius: 4px;
+  color: #070B14;
+  border-radius: 6px;
   font-family: var(--tn-font-display);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   text-decoration: none;
   border: none;
   cursor: pointer;
-  transition: opacity 0.2s ease, box-shadow 0.2s ease;
-  min-height: 44px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
 .btn-primary:hover {
-  opacity: 0.88;
-  box-shadow: 0 0 20px var(--tn-accent-glow);
+  transform: translateY(-1px);
+  box-shadow: 0 0 32px var(--tn-accent-glow), 0 8px 24px rgba(0, 200, 255, 0.25);
+}
+
+.btn-primary:hover::after {
+  opacity: 1;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
 }
 
 /* Ghost button */
@@ -213,10 +264,11 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 28px;
+  gap: 8px;
+  padding: 14px 32px;
   border: 1px solid var(--tn-border-accent);
   color: var(--tn-accent);
-  border-radius: 4px;
+  border-radius: 6px;
   font-family: var(--tn-font-display);
   font-size: 14px;
   font-weight: 500;
@@ -224,13 +276,14 @@ p {
   text-decoration: none;
   background: transparent;
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease;
-  min-height: 44px;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  min-height: 48px;
 }
 
 .btn-ghost:hover {
   background: var(--tn-accent-dim);
   border-color: var(--tn-accent);
+  transform: translateY(-1px);
 }
 
 /* Section container */

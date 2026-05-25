@@ -28,14 +28,14 @@ interface NetworkCanvasProps {
   active: boolean
 }
 
-const MAX_EDGE_DIST = 180
-const PACKET_COUNT = 12
-const HUB_RADIUS = 8
+const MAX_EDGE_DIST = 200
+const PACKET_COUNT = 18
+const HUB_RADIUS = 10
 const FPS_CAP = 45
 const FRAME_INTERVAL = 1000 / FPS_CAP
-const MOUSE_REPULSION_RADIUS = 120
-const MOUSE_REPULSION_STRENGTH = 0.18
-const CANVAS_OPACITY = 0.45
+const MOUSE_REPULSION_RADIUS = 150
+const MOUSE_REPULSION_STRENGTH = 0.22
+const CANVAS_OPACITY = 0.65
 
 function buildGraph(
   width: number,
@@ -98,6 +98,14 @@ function buildPackets(edges: Edge[]): Packet[] {
   return packets
 }
 
+// Returns [r, g, b] for the current theme accent
+function getAccentRGB(): [number, number, number] {
+  if (typeof document === 'undefined') return [0, 200, 255]
+  return document.documentElement.getAttribute('data-theme') === 'light'
+    ? [0, 128, 184]   // --tn-accent in light mode
+    : [0, 200, 255]   // --tn-accent in dark mode
+}
+
 export function NetworkCanvas({ active }: NetworkCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const stateRef = useRef<{
@@ -110,6 +118,8 @@ export function NetworkCanvas({ active }: NetworkCanvasProps) {
     opacity: number
     targetOpacity: number
     reducedMotion: boolean
+    accentRGB: [number, number, number]
+    isLight: boolean
   }>({
     nodes: [],
     edges: [],
@@ -120,10 +130,12 @@ export function NetworkCanvas({ active }: NetworkCanvasProps) {
     opacity: 0,
     targetOpacity: 0,
     reducedMotion: false,
+    accentRGB: [0, 200, 255],
+    isLight: false,
   })
 
   const drawStatic = useCallback((ctx: CanvasRenderingContext2D, width: number, height: number) => {
-    const { nodes, edges } = stateRef.current
+    const { nodes, edges, accentRGB: [r, g, b] } = stateRef.current
     ctx.clearRect(0, 0, width, height)
 
     // Draw edges
@@ -133,7 +145,7 @@ export function NetworkCanvas({ active }: NetworkCanvasProps) {
       ctx.beginPath()
       ctx.moveTo(from.x, from.y)
       ctx.lineTo(to.x, to.y)
-      ctx.strokeStyle = `rgba(0, 200, 255, ${edge.opacity})`
+      ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${edge.opacity})`
       ctx.lineWidth = 0.5
       ctx.stroke()
     }
@@ -142,12 +154,12 @@ export function NetworkCanvas({ active }: NetworkCanvasProps) {
     for (const node of nodes) {
       ctx.beginPath()
       ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2)
-      ctx.fillStyle = `rgba(0, 200, 255, ${node.opacity})`
+      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${node.opacity})`
       ctx.fill()
       if (node.isHub) {
         ctx.beginPath()
         ctx.arc(node.x, node.y, node.radius + 4, 0, Math.PI * 2)
-        ctx.strokeStyle = 'rgba(0, 200, 255, 0.25)'
+        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, 0.25)`
         ctx.lineWidth = 1
         ctx.stroke()
       }
@@ -221,6 +233,9 @@ export function NetworkCanvas({ active }: NetworkCanvasProps) {
       }
     }
 
+    const [r, g, b] = state.accentRGB
+    const isLight = state.isLight
+
     // Draw edges dynamically (recalculate based on current positions)
     for (const node of state.nodes) {
       for (const other of state.nodes) {
@@ -229,12 +244,12 @@ export function NetworkCanvas({ active }: NetworkCanvasProps) {
         const dy = node.y - other.y
         const dist = Math.sqrt(dx * dx + dy * dy)
         if (dist < MAX_EDGE_DIST) {
-          const opacity = (1 - dist / MAX_EDGE_DIST) * 0.2
+          const opacity = (1 - dist / MAX_EDGE_DIST) * (isLight ? 0.45 : 0.35)
           ctx.beginPath()
           ctx.moveTo(node.x, node.y)
           ctx.lineTo(other.x, other.y)
-          ctx.strokeStyle = `rgba(0, 200, 255, ${opacity})`
-          ctx.lineWidth = 0.5
+          ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`
+          ctx.lineWidth = node.isHub || other.isHub ? 1 : 0.6
           ctx.stroke()
         }
       }
@@ -242,29 +257,48 @@ export function NetworkCanvas({ active }: NetworkCanvasProps) {
 
     // Draw nodes
     for (const node of state.nodes) {
+      // Node fill
       ctx.beginPath()
       ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2)
-      ctx.fillStyle = `rgba(0, 200, 255, ${node.opacity})`
+      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${node.opacity})`
       ctx.fill()
 
       if (node.isHub) {
-        // Outer glow ring
-        const gradient = ctx.createRadialGradient(node.x, node.y, node.radius, node.x, node.y, node.radius + 12)
-        gradient.addColorStop(0, 'rgba(0, 200, 255, 0.18)')
-        gradient.addColorStop(1, 'rgba(0, 200, 255, 0)')
+        // Large ambient glow
+        const glow = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, node.radius + 24)
+        glow.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.30)`)
+        glow.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, 0.12)`)
+        glow.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`)
         ctx.beginPath()
-        ctx.arc(node.x, node.y, node.radius + 12, 0, Math.PI * 2)
-        ctx.fillStyle = gradient
+        ctx.arc(node.x, node.y, node.radius + 24, 0, Math.PI * 2)
+        ctx.fillStyle = glow
+        ctx.fill()
+        // Bright ring
+        ctx.beginPath()
+        ctx.arc(node.x, node.y, node.radius + 4, 0, Math.PI * 2)
+        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, 0.45)`
+        ctx.lineWidth = 1.5
+        ctx.stroke()
+      } else {
+        // Subtle glow on regular nodes
+        const smallGlow = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, node.radius + 8)
+        smallGlow.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.15)`)
+        smallGlow.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`)
+        ctx.beginPath()
+        ctx.arc(node.x, node.y, node.radius + 8, 0, Math.PI * 2)
+        ctx.fillStyle = smallGlow
         ctx.fill()
       }
     }
 
-    // Move and draw packets
+    // Move and draw packets — bright travelling dots
+    // Packet core: white in dark mode, dark teal in light mode (white invisible on light bg)
+    const packetCoreColor = isLight ? `rgba(0, 60, 120, 0.95)` : `rgba(255, 255, 255, 0.95)`
+
     for (const packet of state.packets) {
       packet.progress += packet.speed
       if (packet.progress >= 1) {
         packet.progress = 0
-        // Pick a new random edge
         packet.edgeIndex = Math.floor(Math.random() * state.edges.length)
       }
 
@@ -277,9 +311,19 @@ export function NetworkCanvas({ active }: NetworkCanvasProps) {
       const px = fromNode.x + (toNode.x - fromNode.x) * packet.progress
       const py = fromNode.y + (toNode.y - fromNode.y) * packet.progress
 
+      // Packet glow
+      const pGlow = ctx.createRadialGradient(px, py, 0, px, py, 6)
+      pGlow.addColorStop(0, `rgba(${r}, ${Math.min(g + 20, 255)}, ${b}, 1)`)
+      pGlow.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`)
       ctx.beginPath()
-      ctx.arc(px, py, 2, 0, Math.PI * 2)
-      ctx.fillStyle = 'rgba(0, 200, 255, 0.9)'
+      ctx.arc(px, py, 6, 0, Math.PI * 2)
+      ctx.fillStyle = pGlow
+      ctx.fill()
+
+      // Bright core
+      ctx.beginPath()
+      ctx.arc(px, py, 2.5, 0, Math.PI * 2)
+      ctx.fillStyle = packetCoreColor
       ctx.fill()
     }
 
@@ -292,6 +336,17 @@ export function NetworkCanvas({ active }: NetworkCanvasProps) {
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     stateRef.current.reducedMotion = reducedMotion
+
+    // Initialise theme-aware colors
+    stateRef.current.accentRGB = getAccentRGB()
+    stateRef.current.isLight = document.documentElement.getAttribute('data-theme') === 'light'
+
+    // Watch for theme toggles and update colors live
+    const themeObserver = new MutationObserver(() => {
+      stateRef.current.accentRGB = getAccentRGB()
+      stateRef.current.isLight = document.documentElement.getAttribute('data-theme') === 'light'
+    })
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
 
     const isMobile = window.innerWidth < 768
     const nodeCount = isMobile ? 20 : 40
@@ -330,6 +385,7 @@ export function NetworkCanvas({ active }: NetworkCanvasProps) {
     }
 
     return () => {
+      themeObserver.disconnect()
       window.removeEventListener('resize', resize)
       window.removeEventListener('mousemove', onMouseMove)
       canvas.removeEventListener('mouseleave', onMouseLeave)

@@ -18,12 +18,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('dark')
 
   useEffect(() => {
-    // Priority: localStorage > system preference
+    // Priority: localStorage > dark (site is dark-first; light is opt-in via toggle)
     const saved = localStorage.getItem('tn-theme') as Theme | null
-    const system = window.matchMedia('(prefers-color-scheme: light)').matches
-      ? 'light'
-      : 'dark'
-    const initial = saved ?? system
+    const initial = saved ?? 'dark'
     setTheme(initial)
     document.documentElement.setAttribute('data-theme', initial)
   }, [])

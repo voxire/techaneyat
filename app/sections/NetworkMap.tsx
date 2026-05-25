@@ -2,6 +2,23 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import gsap from 'gsap'
 
+// Live accent colour: reads CSS variable, updates on theme toggle
+function useAccentColor(): string {
+  const [color, setColor] = useState('#00C8FF')
+  useEffect(() => {
+    const read = () => {
+      const raw = getComputedStyle(document.documentElement)
+        .getPropertyValue('--tn-accent').trim()
+      setColor(raw || '#00C8FF')
+    }
+    read()
+    const obs = new MutationObserver(read)
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => obs.disconnect()
+  }, [])
+  return color
+}
+
 // ─── Layout: viewBox 1000 × 860 ──────────────────────────────────────────────
 const HUB = { id: 'enterprise', cx: 500, cy: 420, r: 70 }
 
@@ -121,6 +138,8 @@ interface MatrixState {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export function NetworkMap() {
+  const accentColor = useAccentColor()
+
   const [hovered, setHovered]       = useState<string | null>(null)
   const [matrix, setMatrix]         = useState<MatrixState | null>(null)
   const [overlayPos, setOverlayPos] = useState<{ x: number; y: number } | null>(null)
@@ -441,17 +460,17 @@ export function NetworkMap() {
               {/* so the shadow hemisphere (bottom-right) gets zero teal     */}
 
               <radialGradient id="nm2-sphere-diffuse" cx="24%" cy="16%" r="62%">
-                <stop offset="0%"   stopColor="#00C8FF" stopOpacity="0.80" />
-                <stop offset="40%"  stopColor="#00C8FF" stopOpacity="0.35" />
-                <stop offset="75%"  stopColor="#00C8FF" stopOpacity="0.08" />
-                <stop offset="100%" stopColor="#00C8FF" stopOpacity="0.00" />
+                <stop offset="0%"   stopColor={accentColor} stopOpacity="0.80" />
+                <stop offset="40%"  stopColor={accentColor} stopOpacity="0.35" />
+                <stop offset="75%"  stopColor={accentColor} stopOpacity="0.08" />
+                <stop offset="100%" stopColor={accentColor} stopOpacity="0.00" />
               </radialGradient>
 
               <radialGradient id="nm2-sphere-diffuse-hov" cx="24%" cy="16%" r="62%">
-                <stop offset="0%"   stopColor="#00C8FF" stopOpacity="1.00" />
-                <stop offset="35%"  stopColor="#00C8FF" stopOpacity="0.50" />
-                <stop offset="72%"  stopColor="#00C8FF" stopOpacity="0.12" />
-                <stop offset="100%" stopColor="#00C8FF" stopOpacity="0.00" />
+                <stop offset="0%"   stopColor={accentColor} stopOpacity="1.00" />
+                <stop offset="35%"  stopColor={accentColor} stopOpacity="0.50" />
+                <stop offset="72%"  stopColor={accentColor} stopOpacity="0.12" />
+                <stop offset="100%" stopColor={accentColor} stopOpacity="0.00" />
               </radialGradient>
 
               {/* Specular: tiny pinpoint at same lit corner */}
@@ -470,16 +489,16 @@ export function NetworkMap() {
               {/* Bounce light: small secondary highlight at bottom          */}
               {/* (reflected light from below: classic sphere cue)          */}
               <radialGradient id="nm2-sphere-bounce" cx="50%" cy="94%" r="24%">
-                <stop offset="0%"   stopColor="#00C8FF" stopOpacity="0.40" />
-                <stop offset="100%" stopColor="#00C8FF" stopOpacity="0.00" />
+                <stop offset="0%"   stopColor={accentColor} stopOpacity="0.40" />
+                <stop offset="100%" stopColor={accentColor} stopOpacity="0.00" />
               </radialGradient>
 
               {/* Hub: same physics, stronger values */}
               <radialGradient id="nm2-hub-diffuse" cx="24%" cy="16%" r="62%">
-                <stop offset="0%"   stopColor="#00C8FF" stopOpacity="1.00" />
-                <stop offset="35%"  stopColor="#00C8FF" stopOpacity="0.50" />
-                <stop offset="70%"  stopColor="#00C8FF" stopOpacity="0.12" />
-                <stop offset="100%" stopColor="#00C8FF" stopOpacity="0.00" />
+                <stop offset="0%"   stopColor={accentColor} stopOpacity="1.00" />
+                <stop offset="35%"  stopColor={accentColor} stopOpacity="0.50" />
+                <stop offset="70%"  stopColor={accentColor} stopOpacity="0.12" />
+                <stop offset="100%" stopColor={accentColor} stopOpacity="0.00" />
               </radialGradient>
 
               <radialGradient id="nm2-hub-spec" cx="25%" cy="15%" r="20%">
@@ -489,8 +508,8 @@ export function NetworkMap() {
               </radialGradient>
 
               <radialGradient id="nm2-hub-bounce" cx="50%" cy="94%" r="30%">
-                <stop offset="0%"   stopColor="#00C8FF" stopOpacity="0.55" />
-                <stop offset="100%" stopColor="#00C8FF" stopOpacity="0.00" />
+                <stop offset="0%"   stopColor={accentColor} stopOpacity="0.55" />
+                <stop offset="100%" stopColor={accentColor} stopOpacity="0.00" />
               </radialGradient>
 
               {/* ── Filters ───────────────────────────────────────────── */}
@@ -576,12 +595,12 @@ export function NetworkMap() {
                   <ellipse
                     cx={s.cx} cy={s.cy + s.r * 0.92}
                     rx={s.r * 0.80} ry={s.r * 0.20}
-                    fill="rgba(0,0,0,0.55)"
+                    fill="var(--tn-bg)"
                     filter="url(#nm2-drop-shadow)"
                     style={{ pointerEvents: 'none' }}
                   />
                   {/* Layer 1: dark base, shadow hemisphere lives here */}
-                  <circle cx={s.cx} cy={s.cy} r={s.r} fill="#060d1c" />
+                  <circle cx={s.cx} cy={s.cy} r={s.r} fill="var(--tn-bg)" />
                   {/* Layer 2: directional teal diffuse, only covers lit side */}
                   <circle
                     cx={s.cx} cy={s.cy} r={s.r}
@@ -640,11 +659,11 @@ export function NetworkMap() {
               <ellipse
                 cx={HUB.cx} cy={HUB.cy + HUB.r * 0.90}
                 rx={HUB.r * 0.82} ry={HUB.r * 0.22}
-                fill="rgba(0,0,0,0.65)"
+                fill="var(--tn-bg)"
                 filter="url(#nm2-drop-shadow)"
               />
               {/* Dark sphere base */}
-              <circle cx={HUB.cx} cy={HUB.cy} r={HUB.r} fill="#060d1c" />
+              <circle cx={HUB.cx} cy={HUB.cy} r={HUB.r} fill="var(--tn-bg)" />
               {/* Hub diffuse (strong teal lit side) */}
               <circle cx={HUB.cx} cy={HUB.cy} r={HUB.r} fill="url(#nm2-hub-diffuse)" />
               {/* Hub bounce light */}
@@ -675,7 +694,7 @@ export function NetworkMap() {
               <text
                 x={HUB.cx} y={HUB.cy + 32}
                 textAnchor="middle"
-                fill="rgba(240,244,255,0.40)"
+                fill="var(--tn-text-3)"
                 fontSize="8.5" fontFamily="var(--tn-font-mono)" letterSpacing="1"
                 style={{ textTransform: 'uppercase' }}
               >

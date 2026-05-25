@@ -92,7 +92,7 @@ export default function RootLayout({
         {/* Anti-FOUC: apply theme before paint to prevent flash */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var s=localStorage.getItem('tn-theme');var m=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',s||m)}catch(e){}})()`,
+            __html: `(function(){try{var s=localStorage.getItem('tn-theme');document.documentElement.setAttribute('data-theme',s||'dark')}catch(e){document.documentElement.setAttribute('data-theme','dark')}})()`,
           }}
         />
       </head>

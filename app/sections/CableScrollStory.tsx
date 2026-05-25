@@ -278,7 +278,7 @@ export function CableScrollStory() {
                 })
                 .to(card, {
                   boxShadow: '0 0 8px rgba(0,200,255,0.08)',
-                  borderColor: 'rgba(255,255,255,0.07)',
+                  borderColor: 'var(--tn-border)',
                   duration: 1.8,
                   ease: 'power2.inOut',
                 })

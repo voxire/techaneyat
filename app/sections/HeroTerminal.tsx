@@ -154,18 +154,31 @@ export function HeroTerminal() {
 
   const { completedLines, isDone } = useTypewriter(TERMINAL_LINES, activeLineRef, handleComplete)
 
-  // Fallback: if the terminal animation never finishes (e.g. Chrome throttles
-  // setInterval in background/inactive tabs), force the hero visible after 8s.
+  // Fallback: show hero if tab was in background during animation (Chrome
+  // throttles all timers in inactive tabs). Two triggers:
+  // 1. visibilitychange: fires the instant user switches back to this tab
+  // 2. setTimeout at 8s for when tab stays active but animation stalls
   useEffect(() => {
-    const MAX_WAIT = 8000
-    const fallback = setTimeout(() => {
-      if (!heroVisible) {
-        if (terminalRef.current) terminalRef.current.style.display = 'none'
-        setCanvasActive(true)
-        setHeroVisible(true)
-      }
-    }, MAX_WAIT)
-    return () => clearTimeout(fallback)
+    if (heroVisible) return // already shown — nothing to do
+
+    const showHero = () => {
+      if (heroVisible) return
+      if (terminalRef.current) terminalRef.current.style.display = 'none'
+      setCanvasActive(true)
+      setHeroVisible(true)
+    }
+
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') showHero()
+    }
+
+    const fallback = setTimeout(showHero, 8000)
+    document.addEventListener('visibilitychange', onVisibility)
+
+    return () => {
+      clearTimeout(fallback)
+      document.removeEventListener('visibilitychange', onVisibility)
+    }
   }, [heroVisible])
 
   return (
@@ -280,37 +293,100 @@ export function HeroTerminal() {
           width: '100%',
           maxWidth: '1200px',
           margin: '0 auto',
-          padding: '0 clamp(20px, 5vw, 60px)',
+          padding: '0 clamp(24px, 5vw, 80px)',
           display: heroVisible ? 'block' : 'none',
         }}
       >
         <div ref={heroContentRef}>
-          <p className="eyebrow" style={{ marginBottom: '28px' }}>
-            Smart Infrastructure Partner
+          <p className="eyebrow" style={{ marginBottom: '36px', fontSize: '11px', letterSpacing: '0.22em' }}>
+            Smart Infrastructure Partner — Lebanon
           </p>
 
-          <h1 style={{ marginBottom: '24px', maxWidth: '760px' }}>
+          <h1 style={{
+            marginBottom: '8px',
+            maxWidth: '820px',
+            letterSpacing: '-0.04em',
+            lineHeight: 1.0,
+            color: 'var(--tn-text)',
+          }}>
             Your infrastructure.
-            <br />
+          </h1>
+          <h1 style={{
+            marginBottom: '8px',
+            maxWidth: '820px',
+            letterSpacing: '-0.04em',
+            lineHeight: 1.0,
+            background: 'linear-gradient(90deg, var(--tn-accent) 0%, rgba(0,200,255,0.75) 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}>
             Always online.
-            <br />
+          </h1>
+          <h1 style={{
+            marginBottom: '48px',
+            maxWidth: '820px',
+            letterSpacing: '-0.04em',
+            lineHeight: 1.0,
+            background: 'linear-gradient(90deg, rgba(0,200,255,0.75) 0%, rgba(0,150,220,0.6) 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}>
             Always secure.
           </h1>
 
           <p style={{
             color: 'var(--tn-text-2)',
-            fontSize: 'clamp(16px, 1.8vw, 18px)',
-            lineHeight: 1.7,
-            maxWidth: '520px',
-            marginBottom: '44px',
+            fontSize: 'clamp(16px, 1.6vw, 19px)',
+            lineHeight: 1.75,
+            maxWidth: '500px',
+            marginBottom: '52px',
+            fontWeight: 400,
           }}>
-            One SLA. One partner. Network, cybersecurity, cloud, power,
-            and hardware: all managed so your team never has to.
+            One partner. One SLA. Network, cybersecurity, cloud, power,
+            and hardware: managed end-to-end so your team never has to.
           </p>
 
-          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '64px' }}>
             <Link href="/contact" className="btn-primary">Talk to an Engineer</Link>
             <Link href="/case-studies" className="btn-ghost">See Our Work</Link>
+          </div>
+
+          {/* Trust micro-stats */}
+          <div style={{
+            display: 'flex',
+            gap: 'clamp(24px, 4vw, 48px)',
+            flexWrap: 'wrap',
+          }}>
+            {[
+              { value: '10+', label: 'Years in Lebanon' },
+              { value: '500+', label: 'Projects delivered' },
+              { value: '99.9%', label: 'Network uptime SLA' },
+              { value: '24/7', label: 'Support coverage' },
+            ].map(({ value, label }) => (
+              <div key={label}>
+                <div style={{
+                  fontFamily: 'var(--tn-font-display)',
+                  fontSize: 'clamp(20px, 2vw, 28px)',
+                  fontWeight: 700,
+                  color: 'var(--tn-text)',
+                  letterSpacing: '-0.02em',
+                }}>
+                  {value}
+                </div>
+                <div style={{
+                  fontFamily: 'var(--tn-font-mono)',
+                  fontSize: '10px',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  color: 'var(--tn-text-3)',
+                  marginTop: '2px',
+                }}>
+                  {label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
