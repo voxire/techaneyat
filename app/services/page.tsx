@@ -2,16 +2,93 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Nav } from '@/app/components/Nav'
 import { Footer } from '@/app/components/Footer'
+import { JsonLd } from '@/app/components/JsonLd'
 import { services } from '@/data/services'
 
 export const metadata: Metadata = {
-  title: 'Services',
+  title: 'Infrastructure Services | Techaneyat Lebanon',
   description:
     'Network, cybersecurity, smart security, cloud, power continuity, and hardware: all under one SLA. Techaneyat, Beirut Lebanon.',
   alternates: {
     canonical: 'https://techaneyat.com/services',
     languages: { ar: 'https://techaneyat.com/ar/services' },
   },
+}
+
+const servicesSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Techaneyat Infrastructure Services',
+  url: 'https://techaneyat.com/services',
+  numberOfItems: 6,
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      item: {
+        '@type': 'Service',
+        name: 'Network & Infrastructure',
+        description: 'Structured cabling, switches, routers, WiFi, and fiber. We build networks that do not slow you down or let you down.',
+        url: 'https://techaneyat.com/services/network',
+        provider: { '@id': 'https://techaneyat.com/#organization' },
+      },
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      item: {
+        '@type': 'Service',
+        name: 'Cybersecurity',
+        description: 'Firewalls, endpoint protection, EDR, and threat monitoring. We protect your data before the problem happens.',
+        url: 'https://techaneyat.com/services/cybersecurity',
+        provider: { '@id': 'https://techaneyat.com/#organization' },
+      },
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      item: {
+        '@type': 'Service',
+        name: 'Smart Security Systems',
+        description: 'CCTV, access control, alarms, and facial recognition. Full perimeter visibility.',
+        url: 'https://techaneyat.com/services/smart-security',
+        provider: { '@id': 'https://techaneyat.com/#organization' },
+      },
+    },
+    {
+      '@type': 'ListItem',
+      position: 4,
+      item: {
+        '@type': 'Service',
+        name: 'Cloud & Managed Services',
+        description: 'Microsoft 365, Google Workspace, cloud backup, and remote monitoring under SLA.',
+        url: 'https://techaneyat.com/services/cloud',
+        provider: { '@id': 'https://techaneyat.com/#organization' },
+      },
+    },
+    {
+      '@type': 'ListItem',
+      position: 5,
+      item: {
+        '@type': 'Service',
+        name: 'Energy & Power Continuity',
+        description: 'UPS systems, battery backup, and solar. In Lebanon, power is not guaranteed. Your business continuity should be.',
+        url: 'https://techaneyat.com/services/power',
+        provider: { '@id': 'https://techaneyat.com/#organization' },
+      },
+    },
+    {
+      '@type': 'ListItem',
+      position: 6,
+      item: {
+        '@type': 'Service',
+        name: 'Computing & Hardware',
+        description: 'Laptops, servers, NAS, and workstations. Sourced, configured, and deployed by us.',
+        url: 'https://techaneyat.com/services/hardware',
+        provider: { '@id': 'https://techaneyat.com/#organization' },
+      },
+    },
+  ],
 }
 
 const serviceNames: Record<string, string> = {
@@ -35,6 +112,7 @@ const serviceDescs: Record<string, string> = {
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={servicesSchema} />
       <Nav locale="en" />
       <main style={{ paddingTop: '64px' }}>
         <section

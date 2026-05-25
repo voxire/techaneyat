@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Nav } from '@/app/components/Nav'
 import { Footer } from '@/app/components/Footer'
+import { JsonLd } from '@/app/components/JsonLd'
 import { services, getServiceBySlug } from '@/data/services'
 
 type Props = {
@@ -96,7 +97,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!content) return { title: 'Not Found' }
 
   return {
-    title: content.name,
+    title: `${content.name} | Techaneyat Lebanon`,
     description: content.description,
     alternates: {
       canonical: `https://techaneyat.com/services/${slug}`,
@@ -114,8 +115,19 @@ export default async function ServiceDetailPage({ params }: Props) {
   const content = serviceContent[slug]
   if (!content) notFound()
 
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: content.name,
+    description: content.description,
+    url: `https://techaneyat.com/services/${slug}`,
+    provider: { '@id': 'https://techaneyat.com/#organization' },
+    areaServed: { '@type': 'Country', name: 'Lebanon' },
+  }
+
   return (
     <>
+      <JsonLd data={serviceSchema} />
       <Nav locale="en" />
       <main style={{ paddingTop: '64px' }}>
         {/* Hero */}

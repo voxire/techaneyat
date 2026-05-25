@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import { Nav } from '@/app/components/Nav'
 import { Footer } from '@/app/components/Footer'
+import { JsonLd } from '@/app/components/JsonLd'
 import { ContactForm } from './ContactForm'
 
 export const metadata: Metadata = {
-  title: 'Contact',
+  title: 'Contact Techaneyat | Infrastructure Partner, Lebanon',
   description:
     'Get in touch with Techaneyat. We respond within 4 hours. Beirut, Lebanon. +961 76 100 766.',
   alternates: {
@@ -13,9 +14,47 @@ export const metadata: Metadata = {
   },
 }
 
+const contactPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  '@id': 'https://techaneyat.com/contact#webpage',
+  url: 'https://techaneyat.com/contact',
+  name: 'Contact Techaneyat',
+  description: 'Get in touch with Techaneyat. We respond within 4 hours.',
+  publisher: { '@id': 'https://techaneyat.com/#organization' },
+  inLanguage: 'en',
+  mainEntity: {
+    '@type': 'LocalBusiness',
+    '@id': 'https://techaneyat.com/#organization',
+    name: 'Techaneyat',
+    telephone: '+961-76-100-766',
+    email: 'Sales@techaneyat.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Beirut',
+      addressCountry: 'LB',
+    },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+      ],
+      opens: '00:00',
+      closes: '23:59',
+    },
+  },
+}
+
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={contactPageSchema} />
       <Nav locale="en" />
       <main style={{ paddingTop: '64px' }}>
         <section

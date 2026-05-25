@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { Nav } from '@/app/components/Nav'
 import { Footer } from '@/app/components/Footer'
+import { JsonLd } from '@/app/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'About',
+  title: 'About Techaneyat | Smart Infrastructure Partner, Lebanon',
   description:
     'Founded in 2015, Techaneyat is a smart infrastructure partner based in Beirut, Lebanon. One partner, one SLA, full accountability.',
   alternates: {
@@ -12,9 +13,22 @@ export const metadata: Metadata = {
   },
 }
 
+const aboutPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  '@id': 'https://techaneyat.com/about#webpage',
+  url: 'https://techaneyat.com/about',
+  name: 'About Techaneyat',
+  description:
+    'Founded in 2015, Techaneyat is a smart infrastructure partner based in Beirut, Lebanon. One partner, one SLA, full accountability.',
+  publisher: { '@id': 'https://techaneyat.com/#organization' },
+  inLanguage: 'en',
+}
+
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={aboutPageSchema} />
       <Nav locale="en" />
       <main style={{ paddingTop: '64px' }}>
         {/* Hero */}
