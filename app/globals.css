@@ -39,6 +39,7 @@
   --tn-font-display: 'Space Grotesk', sans-serif;
   --tn-font-body:    'Inter', sans-serif;
   --tn-font-mono:    'JetBrains Mono', monospace;
+  --tn-font-arabic:  var(--font-noto-kufi-arabic), 'Noto Kufi Arabic', sans-serif;
 }
 
 /* ============================================================
@@ -303,4 +304,78 @@ p {
 :focus-visible {
   outline: 2px solid var(--tn-accent);
   outline-offset: 2px;
+}
+
+/* ============================================================
+   RTL OVERRIDES — Arabic layout direction
+   Applied under [dir="rtl"] which wraps all /ar routes
+   ============================================================ */
+
+[dir="rtl"] {
+  /* Arabic headings use Noto Kufi Arabic */
+  font-family: var(--tn-font-arabic);
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: var(--tn-font-arabic);
+  letter-spacing: 0; /* Arabic doesn't use letter-spacing */
+}
+
+/* Eyebrow label: line moves to the right side in RTL */
+[dir="rtl"] .eyebrow {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .eyebrow::before {
+  display: none;
+}
+
+[dir="rtl"] .eyebrow::after {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--tn-accent);
+  flex-shrink: 0;
+}
+
+/* Buttons: icon/arrow alignment */
+[dir="rtl"] .btn-primary,
+[dir="rtl"] .btn-ghost {
+  font-family: var(--tn-font-arabic);
+  letter-spacing: 0;
+}
+
+/* Footer grid: natural column reversal from RTL flow */
+[dir="rtl"] .footer-grid {
+  direction: rtl;
+}
+
+/* Contact grid: form stays on the left (visually right in RTL) */
+[dir="rtl"] .contact-grid {
+  direction: rtl;
+}
+
+/* Mono labels in RTL: keep Latin mono font for codes/numbers */
+[dir="rtl"] .mono,
+[dir="rtl"] [style*="font-family: var(--tn-font-mono)"] {
+  font-family: var(--tn-font-mono);
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+/* Nav items in RTL */
+[dir="rtl"] nav ul {
+  flex-direction: row-reverse;
+}
+
+/* Glow card left-border accent flips to right in RTL */
+[dir="rtl"] [style*="border-left: 3px solid var(--tn-accent)"] {
+  border-left: none;
+  border-right: 3px solid var(--tn-accent);
 }

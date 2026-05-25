@@ -1,12 +1,17 @@
-// Arabic locale layout: RTL wrapper
-// Note: <html> and <body> are in the root app/layout.tsx.
-// RTL direction is applied via a wrapper div here.
-// The root layout lang/dir attributes will be updated properly in Phase 7
-// when we complete the full next-intl locale routing refactor.
+// Arabic locale layout: RTL direction wrapper
+// Wraps all /ar routes with dir="rtl" lang="ar" so RTL CSS overrides apply.
+// Root <html> and <body> remain in app/layout.tsx — this is a nested layout.
 
 export default function ArabicLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div lang="ar" dir="rtl" style={{ fontFamily: 'var(--tn-font-body)' }}>
+    <div
+      lang="ar"
+      dir="rtl"
+      style={{
+        fontFamily: 'var(--tn-font-arabic)',
+        textAlign: 'right',
+      }}
+    >
       {children}
     </div>
   )
