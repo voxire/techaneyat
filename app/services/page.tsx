@@ -112,7 +112,7 @@ const serviceCards: ServiceCard[] = [
     name: 'Network & Infrastructure',
     tagline: 'The backbone everything runs on.',
     description:
-      'Structured cabling, managed switching, enterprise WiFi, and dual-ISP failover. We design and build networks that stay up — with full documentation handed over at completion.',
+      'Structured cabling, managed switching, enterprise WiFi, and dual-ISP failover. We design and build networks that stay up, with full documentation handed over at completion.',
     keyPoints: ['Cat6A and fiber cabling', 'Enterprise WiFi with seamless roaming', 'Dual-ISP failover', '24/7 monitoring'],
     metric: { value: '99.9%', label: 'uptime' },
   },
@@ -130,7 +130,7 @@ const serviceCards: ServiceCard[] = [
     name: 'Smart Security Systems',
     tagline: 'Know who enters. Know when. Know why.',
     description:
-      'HD and 4K IP CCTV, access control with full audit trail, intrusion alarms, and video analytics — all integrated into one platform you can manage from your phone.',
+      'HD and 4K IP CCTV, access control with full audit trail, intrusion alarms, and video analytics: all integrated into one platform you can manage from your phone.',
     keyPoints: ['4K IP CCTV systems', 'Access control with audit log', 'Video management system', 'Remote monitoring app'],
     metric: { value: '100%', label: 'perimeter coverage' },
   },
@@ -148,7 +148,7 @@ const serviceCards: ServiceCard[] = [
     name: 'Energy & Power Continuity',
     tagline: 'No power cut stops your business.',
     description:
-      'UPS systems sized to your actual load, battery expansion, generator ATS integration, and solar. Built for Lebanon — where reliable power is the exception, not the rule.',
+      'UPS systems sized to your actual load, battery expansion, generator ATS integration, and solar. Built for Lebanon: where reliable power is the exception, not the rule.',
     keyPoints: ['Load-calculated UPS', 'Generator ATS integration', 'Solar PV and battery storage', 'Power monitoring dashboard'],
     metric: { value: '0sec', label: 'downtime on transition' },
   },
@@ -184,7 +184,7 @@ export default function ServicesPage() {
               Every Technology Problem. One Partner.
             </h1>
             <p style={{ color: 'var(--tn-text-2)', fontSize: '18px', maxWidth: '560px', lineHeight: 1.8 }}>
-              From the cable in the wall to the cloud above it: we design, build, and manage the full technology backbone of your organization. Network, cybersecurity, physical security, cloud, power, and hardware — all under one SLA.
+              From the cable in the wall to the cloud above it: we design, build, and manage the full technology backbone of your organization. Network, cybersecurity, physical security, cloud, power, and hardware. All under one SLA.
             </p>
           </div>
         </section>
@@ -208,7 +208,7 @@ export default function ServicesPage() {
             >
               {[
                 { value: '1', label: 'SLA for everything', detail: 'One contract, one point of accountability, regardless of which system needs attention.' },
-                { value: '4hr', label: 'Response time', detail: 'Our committed response time across all managed clients. Not a target — an SLA.' },
+                { value: '4hr', label: 'Response time', detail: 'Our committed response time across all managed clients. Not a target. An SLA.' },
                 { value: '10+', label: 'Years in Lebanon', detail: 'Operating since 2015. We understand the local environment deeply.' },
                 { value: '500+', label: 'Projects delivered', detail: 'Enterprise, government, healthcare, education, and NGOs across Lebanon.' },
               ].map((item) => (
@@ -360,7 +360,7 @@ export default function ServicesPage() {
             </p>
             <h2 style={{ marginBottom: '16px' }}>Not sure where to start?</h2>
             <p style={{ color: 'var(--tn-text-2)', maxWidth: '480px', margin: '0 auto 36px', fontSize: '16px', lineHeight: 1.8 }}>
-              Tell us what you are running and what is not working. We will do the assessment and come back with a prioritized plan — no commitment required.
+              Tell us what you are running and what is not working. We will do the assessment and come back with a prioritized plan. No commitment required.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
               <Link href="/contact" className="btn-primary">Talk to an Engineer</Link>

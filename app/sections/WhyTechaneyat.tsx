@@ -11,7 +11,7 @@ const differentiators = [
   {
     number: '01',
     heading: 'One SLA. Not seven.',
-    body: 'Most Lebanese businesses manage separate contracts for network, security, cloud, and hardware. When something breaks, vendors point at each other. We own the entire stack — network to cloud — under one contract. One call resolves anything.',
+    body: 'Most Lebanese businesses manage separate contracts for network, security, cloud, and hardware. When something breaks, vendors point at each other. We own the entire stack: network to cloud, under one contract. One call resolves anything.',
   },
   {
     number: '02',
@@ -31,12 +31,12 @@ const differentiators = [
   {
     number: '05',
     heading: 'Documentation you actually own.',
-    body: 'Cable schedules, rack diagrams, IP plans, VLAN maps, access control logs — all documented and handed to you at project close. If you ever move to another provider, you take your documentation with you.',
+    body: 'Cable schedules, rack diagrams, IP plans, VLAN maps, access control logs: all documented and handed to you at project close. If you ever move to another provider, you take your documentation with you.',
   },
   {
     number: '06',
     heading: 'Proactive monitoring, not reactive firefighting.',
-    body: 'We know about most issues before your team does. Disk health, battery depletion, interface errors, failed backups — our monitoring catches them before they become incidents.',
+    body: 'We know about most issues before your team does. Disk health, battery depletion, interface errors, failed backups: our monitoring catches them before they become incidents.',
   },
 ]
 
@@ -95,7 +95,7 @@ export function WhyTechaneyat() {
             There are other IT companies in Lebanon. Here is why clients choose us.
           </h2>
           <p style={{ color: 'var(--tn-text-2)', fontSize: '17px', lineHeight: 1.8 }}>
-            Ten years. Over 500 projects. Enterprise, government, healthcare, education, and NGOs across Lebanon. The difference is not a product list — it is how we approach the work.
+            Ten years. Over 500 projects. Enterprise, government, healthcare, education, and NGOs across Lebanon. The difference is not a product list. It is how we approach the work.
           </p>
         </div>
 
@@ -161,7 +161,7 @@ export function WhyTechaneyat() {
               Ready to consolidate your infrastructure?
             </p>
             <p style={{ color: 'var(--tn-text-2)', fontSize: '14px' }}>
-              We respond within 4 hours. No sales script — just a direct technical conversation.
+              We respond within 4 hours. No sales script. Just a direct technical conversation.
             </p>
           </div>
           <div style={{ display: 'flex', gap: '12px', flexShrink: 0 }}>

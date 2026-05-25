@@ -37,9 +37,9 @@ const serviceContent: Record<string, ServiceContent> = {
     eyebrow: 'Network & Infrastructure',
     headline: 'The backbone everything runs on.',
     description:
-      'A properly designed network is invisible — it just works. Structured cabling, managed switching, enterprise WiFi, and dual-ISP failover built to stay up when your team needs it most.',
+      'A properly designed network is invisible: it just works. Structured cabling, managed switching, enterprise WiFi, and dual-ISP failover built to stay up when your team needs it most.',
     context:
-      'Most networks in Lebanon were laid by whoever was cheapest at the time. No documentation. No redundancy. A single failed switch brings down a floor. A power cut from EDL kills the router and nobody knows the failover password. We have inherited hundreds of these environments. We know exactly what breaks and why — and we build yours so it does not.',
+      'Most networks in Lebanon were laid by whoever was cheapest at the time. No documentation. No redundancy. A single failed switch brings down a floor. A power cut from EDL kills the router and nobody knows the failover password. We have inherited hundreds of these environments. We know exactly what breaks and why. We build yours so it does not.',
     keyMetric: { value: '99.9%', label: 'Network uptime across managed clients' },
     included: [
       {
@@ -50,7 +50,7 @@ const serviceContent: Record<string, ServiceContent> = {
       {
         label: 'Managed switches and routers',
         description:
-          'Layer 2/3 switching with VLAN segmentation, QoS, and central management. We spec Cisco, Ubiquiti, or MikroTik depending on your scale and budget — no single vendor lock-in.',
+          'Layer 2/3 switching with VLAN segmentation, QoS, and central management. We spec Cisco, Ubiquiti, or MikroTik depending on your scale and budget. No single vendor lock-in.',
       },
       {
         label: 'Enterprise WiFi with seamless roaming',
@@ -70,7 +70,7 @@ const serviceContent: Record<string, ServiceContent> = {
       {
         label: 'Full documentation and as-built drawings',
         description:
-          'Cable schedules, rack diagrams, IP address plans, VLAN maps. Everything we build is documented. You own the documentation — not us.',
+          'Cable schedules, rack diagrams, IP address plans, VLAN maps. Everything we build is documented. You own the documentation, not us.',
       },
     ],
     steps: [
@@ -80,7 +80,7 @@ const serviceContent: Record<string, ServiceContent> = {
       },
       {
         title: 'Design, specification, and approval',
-        body: 'We produce a full network design — cable routes, equipment list, VLAN topology, IP scheme. You approve the design and the budget before any procurement begins. No surprises.',
+        body: 'We produce a full network design: cable routes, equipment list, VLAN topology, IP scheme. You approve the design and the budget before any procurement begins. No surprises.',
       },
       {
         title: 'Installation, testing, and handover',
@@ -142,7 +142,7 @@ const serviceContent: Record<string, ServiceContent> = {
     eyebrow: 'Cybersecurity',
     headline: 'Protection before the breach. Not after.',
     description:
-      'Firewalls, endpoint detection and response, threat monitoring, and staff training. We build a layered security posture that stops threats before they become incidents — and responds fast when they try.',
+      'Firewalls, endpoint detection and response, threat monitoring, and staff training. We build a layered security posture that stops threats before they become incidents. We respond fast when they try.',
     context:
       'Lebanon-based organizations are targeted. Financial institutions, NGOs, hospitals, and government bodies have all faced ransomware, data exfiltration, and business email compromise in recent years. The pattern is always the same: no EDR, no monitoring, default firewall rules, and staff who clicked a link. We have seen the aftermath. We deploy the controls that would have prevented it.',
     keyMetric: { value: '< 1hr', label: 'Mean time to threat detection on monitored endpoints' },
@@ -150,7 +150,7 @@ const serviceContent: Record<string, ServiceContent> = {
       {
         label: 'Next-generation firewall deployment',
         description:
-          'Fortinet FortiGate or Cisco ASA with deep packet inspection, application control, and IPS enabled. Not just a packet filter — a policy-enforced perimeter with full traffic visibility.',
+          'Fortinet FortiGate or Cisco ASA with deep packet inspection, application control, and IPS enabled. Not just a packet filter. It is a policy-enforced perimeter with full traffic visibility.',
       },
       {
         label: 'Endpoint detection and response (EDR)',
@@ -160,7 +160,7 @@ const serviceContent: Record<string, ServiceContent> = {
       {
         label: '24/7 threat monitoring and alerting',
         description:
-          'Your environment monitored continuously. Suspicious activity generates alerts with context — not just log noise. Critical alerts escalated to your team immediately.',
+          'Your environment monitored continuously. Suspicious activity generates alerts with context, not just log noise. Critical alerts escalated to your team immediately.',
       },
       {
         label: 'Phishing simulation and staff training',
@@ -250,11 +250,11 @@ const serviceContent: Record<string, ServiceContent> = {
     description:
       'IP CCTV, access control, intrusion detection, and video analytics. A fully integrated physical security layer that gives you real-time visibility, a complete audit trail, and remote control from anywhere.',
     context:
-      'Physical security in Lebanon requires more than cameras. It requires cameras that record in low light, access control that logs every entry, and a system that can be monitored remotely when on-site staff are absent. We integrate surveillance, access control, and alarms into a single platform — so you are not watching three separate systems on three separate screens.',
+      'Physical security in Lebanon requires more than cameras. It requires cameras that record in low light, access control that logs every entry, and a system that can be monitored remotely when on-site staff are absent. We integrate surveillance, access control, and alarms into a single platform. You are not watching three separate systems on three separate screens.',
     keyMetric: { value: '100%', label: 'Perimeter coverage on every installation we design' },
     included: [
       {
-        label: 'IP CCTV — HD and 4K cameras',
+        label: 'IP CCTV: HD and 4K cameras',
         description:
           'Hikvision and Dahua IP cameras selected per location: dome, bullet, PTZ, and fisheye. Proper IR coverage for night-time recording. No blind spots by design.',
       },
@@ -281,17 +281,17 @@ const serviceContent: Record<string, ServiceContent> = {
       {
         label: 'Video analytics',
         description:
-          'License plate recognition, people counting, loitering detection, and perimeter zone alerts. Applied where relevant — not sold as a bundle you will never configure.',
+          'License plate recognition, people counting, loitering detection, and perimeter zone alerts. Applied where relevant, not sold as a bundle you will never configure.',
       },
     ],
     steps: [
       {
         title: 'Site assessment and threat modelling',
-        body: 'We walk your premises with your security team. We map entry points, identify blind spots, assess lighting conditions, and document your specific risks — then design around them.',
+        body: 'We walk your premises with your security team. We map entry points, identify blind spots, assess lighting conditions, and document your specific risks, then design around them.',
       },
       {
         title: 'System design and procurement',
-        body: 'Camera positions, cable routes, NVR/server spec, access control topology, and alarm zones — all documented in a design package before procurement. No surprises on installation day.',
+        body: 'Camera positions, cable routes, NVR/server spec, access control topology, and alarm zones: all documented in a design package before procurement. No surprises on installation day.',
       },
       {
         title: 'Installation, integration, and training',
@@ -311,7 +311,7 @@ const serviceContent: Record<string, ServiceContent> = {
       {
         sector: 'Schools and campuses',
         detail:
-          'Perimeter cameras on all entry gates. Access control limiting zones by role — staff, students, visitors. Panic buttons in classrooms. Incident logging for administration.',
+          'Perimeter cameras on all entry gates. Access control limiting zones by role: staff, students, visitors. Panic buttons in classrooms. Incident logging for administration.',
       },
       {
         sector: 'Retail and hospitality',
@@ -327,7 +327,7 @@ const serviceContent: Record<string, ServiceContent> = {
     problems: [
       {
         title: 'Camera blind spots that were never addressed',
-        body: 'The original installer placed cameras for convenience, not coverage. We redesign placements based on an actual threat model — not where the cable was easiest to run.',
+        body: 'The original installer placed cameras for convenience, not coverage. We redesign placements based on an actual threat model, not where the cable was easiest to run.',
       },
       {
         title: 'No audit trail for door access',
@@ -353,20 +353,20 @@ const serviceContent: Record<string, ServiceContent> = {
     eyebrow: 'Cloud & Managed Services',
     headline: 'Infrastructure that never stops working.',
     description:
-      'Microsoft 365, Google Workspace, cloud backup, and 24/7 remote monitoring — all managed under a single SLA. Proactive support, not reactive firefighting. Your systems looked after so your team can focus.',
+      'Microsoft 365, Google Workspace, cloud backup, and 24/7 remote monitoring: all managed under a single SLA. Proactive support, not reactive firefighting. Your systems looked after so your team can focus.',
     context:
-      'Most Lebanese businesses run on a mix of on-premise servers, personal Dropbox accounts, and unlicensed software — with no backup strategy and no IT support until something breaks. When it does break, the scramble for a technician costs hours and sometimes days. We manage your environment proactively: patches applied, backups verified, issues caught before users report them.',
+      'Most Lebanese businesses run on a mix of on-premise servers, personal Dropbox accounts, and unlicensed software, with no backup strategy and no IT support until something breaks. When it does break, the scramble for a technician costs hours and sometimes days. We manage your environment proactively: patches applied, backups verified, issues caught before users report them.',
     keyMetric: { value: '< 4hr', label: 'Mean response time across all managed clients' },
     included: [
       {
         label: 'Microsoft 365 and Google Workspace',
         description:
-          'Licensing, migration, and full configuration. User accounts, shared drives, email policies, MFA, and Conditional Access. Properly deployed — not just accounts created and left alone.',
+          'Licensing, migration, and full configuration. User accounts, shared drives, email policies, MFA, and Conditional Access. Properly deployed. Not just accounts created and left alone.',
       },
       {
         label: 'Cloud backup and disaster recovery',
         description:
-          '3-2-1 backup architecture: three copies, two media types, one offsite. Daily backup verification. Recovery time objectives documented and tested — not assumed.',
+          '3-2-1 backup architecture: three copies, two media types, one offsite. Daily backup verification. Recovery time objectives documented and tested, not assumed.',
       },
       {
         label: 'Remote monitoring and management (RMM)',
@@ -461,11 +461,11 @@ const serviceContent: Record<string, ServiceContent> = {
     description:
       'UPS systems, battery backup, generator integration, and solar. In Lebanon, power is not guaranteed. Your business continuity must be. We design power systems that keep your critical infrastructure running through every EDL cut.',
     context:
-      'Lebanon averages 3 to 12 hours of EDL power per day depending on the region. Every business runs on a generator, but most generators take 10 to 30 seconds to start — long enough to crash a server, corrupt a database, or kill a VoIP call. Most UPS installations are undersized, uncharged, or running on batteries that were never replaced. We have found UPS units with batteries from 2009 still nominally "protecting" a server room.',
+      'Lebanon averages 3 to 12 hours of EDL power per day depending on the region. Every business runs on a generator, but most generators take 10 to 30 seconds to start: long enough to crash a server, corrupt a database, or kill a VoIP call. Most UPS installations are undersized, uncharged, or running on batteries that were never replaced. We have found UPS units with batteries from 2009 still nominally "protecting" a server room.',
     keyMetric: { value: '0sec', label: 'Downtime during power transition on properly sized UPS' },
     included: [
       {
-        label: 'UPS systems — sized to critical load',
+        label: 'UPS systems: sized to critical load',
         description:
           'APC or Eaton UPS spec\'d to your actual load, not a round number. Runtime calculated for your generator start time plus a safety margin. Battery health monitoring included.',
       },
@@ -567,18 +567,18 @@ const serviceContent: Record<string, ServiceContent> = {
     description:
       'Laptops, servers, NAS, and workstations sourced from authorized distributors, configured to a standard build, and deployed by us. No grey imports. No configuration left to chance. Warranty that actually works.',
     context:
-      'Hardware sourcing in Lebanon is fragmented — grey imports with no warranty, consumer devices in business environments, and servers assembled without proper configuration. Most businesses have no standard hardware policy: staff use personal laptops, the "server" is a tower PC in a cupboard, and nobody knows what is installed on any machine. We change that with proper procurement, a standard build process, and real warranty coverage.',
+      'Hardware sourcing in Lebanon is fragmented: grey imports with no warranty, consumer devices in business environments, and servers assembled without proper configuration. Most businesses have no standard hardware policy: staff use personal laptops, the "server" is a tower PC in a cupboard, and nobody knows what is installed on any machine. We change that with proper procurement, a standard build process, and real warranty coverage.',
     keyMetric: { value: '< 48hr', label: 'Hardware deployment turnaround from order to operational' },
     included: [
       {
         label: 'Laptops, desktops, and workstations',
         description:
-          'Dell, HP, and Lenovo business-grade devices from authorized distributors. Proper warranty terms, no grey imports. Spec\'d to the role — not the cheapest option that passes.',
+          'Dell, HP, and Lenovo business-grade devices from authorized distributors. Proper warranty terms, no grey imports. Spec\'d to the role, not the cheapest option that passes.',
       },
       {
         label: 'Servers and NAS storage',
         description:
-          'HPE ProLiant and Dell PowerEdge rack servers. Synology and QNAP NAS for file serving and backup. Correctly spec\'d, rack-mounted, and cabled — not sitting on the floor.',
+          'HPE ProLiant and Dell PowerEdge rack servers. Synology and QNAP NAS for file serving and backup. Correctly spec\'d, rack-mounted, and cabled. Not sitting on the floor.',
       },
       {
         label: 'Standard OS image and configuration',
@@ -598,13 +598,13 @@ const serviceContent: Record<string, ServiceContent> = {
       {
         label: 'Warranty management',
         description:
-          'We manage warranty claims with manufacturers on your behalf. If a device fails under warranty, we handle the replacement process — you do not have to chase anyone.',
+          'We manage warranty claims with manufacturers on your behalf. If a device fails under warranty, we handle the replacement process. You do not have to chase anyone.',
       },
     ],
     steps: [
       {
         title: 'Requirements and specification',
-        body: 'We interview department heads and review existing hardware inventory. We spec devices to the actual workload — design teams get GPU-capable machines, finance teams get reliable business laptops, not the same device for everyone.',
+        body: 'We interview department heads and review existing hardware inventory. We spec devices to the actual workload: design teams get GPU-capable machines, finance teams get reliable business laptops, not the same device for everyone.',
       },
       {
         title: 'Procurement and configuration',
@@ -649,7 +649,7 @@ const serviceContent: Record<string, ServiceContent> = {
       },
       {
         title: 'No standard hardware build across the fleet',
-        body: 'Every machine is different — different OS version, different software, different settings. Support takes twice as long. We create and enforce a standard image.',
+        body: 'Every machine is different: different OS version, different software, different settings. Support takes twice as long. We create and enforce a standard image.',
       },
       {
         title: 'No file server, everything on local drives',
@@ -1094,7 +1094,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               Get a quote for {content.name}.
             </h2>
             <p style={{ color: 'var(--tn-text-2)', marginBottom: '36px', maxWidth: '440px', margin: '0 auto 36px' }}>
-              Tell us your current setup and what needs to change. We respond within 4 hours with a direct technical conversation — no sales script.
+              Tell us your current setup and what needs to change. We respond within 4 hours with a direct technical conversation. No sales script.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
               <a href="/contact" className="btn-primary">Talk to an Engineer</a>

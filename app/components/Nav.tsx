@@ -51,10 +51,12 @@ export function Nav({ locale = 'en' }: NavProps) {
         zIndex: 100,
         transition: 'background 0.3s ease, border-color 0.3s ease',
         background: scrolled
-          ? 'rgba(7,11,20,0.92)'
+          ? theme === 'dark'
+            ? 'rgba(7,11,20,0.92)'
+            : 'rgba(242,245,252,0.92)'
           : 'transparent',
         borderBottom: scrolled
-          ? '1px solid rgba(255,255,255,0.07)'
+          ? '1px solid var(--tn-border)'
           : '1px solid transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
       }}
@@ -148,7 +150,7 @@ export function Nav({ locale = 'en' }: NavProps) {
               {isAr ? 'EN' : 'ع'}
             </Link>
 
-            {/* Theme toggle — sun / moon */}
+            {/* Theme toggle: sun / moon */}
             <button
               onClick={toggle}
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}

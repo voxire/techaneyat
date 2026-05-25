@@ -176,7 +176,7 @@ export default function ArabicAboutPage() {
                   </p>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 0', flexDirection: 'row-reverse' }}>
                     <span style={{ width: '16px', height: '16px', borderRadius: '50%', background: 'var(--tn-accent-dim)', border: '1px solid var(--tn-border-accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '9px', color: 'var(--tn-accent)', flexShrink: 0 }}>✓</span>
-                    <span style={{ color: 'var(--tn-text)', fontSize: '14px', fontWeight: 500 }}>تكنيات — عقد واحد، جميع الخدمات</span>
+                    <span style={{ color: 'var(--tn-text)', fontSize: '14px', fontWeight: 500 }}>تكنيات: عقد واحد، جميع الخدمات</span>
                   </div>
                   <p style={{ marginTop: '20px', fontFamily: 'var(--tn-font-arabic)', fontSize: '12px', color: 'var(--tn-accent)' }}>
                     مورد واحد. عقد واحد. مكالمة واحدة عند الحاجة.
@@ -229,7 +229,7 @@ export default function ArabicAboutPage() {
             <p className="eyebrow" style={{ marginBottom: '16px' }}>فريقنا</p>
             <h2 style={{ marginBottom: '16px' }}>مهندسون لا مديرو حسابات.</h2>
             <p style={{ color: 'var(--tn-text-2)', fontSize: '16px', maxWidth: '560px', marginBottom: '48px', lineHeight: 1.9 }}>
-              كل مشروع يقوده مهندس يفهم المنظومة كاملة — من الكابلات المنظمة إلى إعداد السحابة. أنت تتحدث مع من بنى نظامك، لا مع وسيط.
+              كل مشروع يقوده مهندس يفهم المنظومة كاملة: من الكابلات المنظمة إلى إعداد السحابة. أنت تتحدث مع من بنى نظامك، لا مع وسيط.
             </p>
             <p style={{ color: 'var(--tn-text-3)', fontFamily: 'var(--tn-font-mono)', fontSize: '12px' }}>
               ملفات الفريق قريباً.

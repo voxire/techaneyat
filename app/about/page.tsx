@@ -54,12 +54,12 @@ const commitments = [
   {
     label: 'WE SECURE IT BY DEFAULT',
     heading: 'Security is not an optional add-on.',
-    body: 'Every network we build includes VLAN segmentation, firewall policy, and access controls. Every cloud environment includes MFA and backup verification. Security is part of the design — not sold separately after you get breached.',
+    body: 'Every network we build includes VLAN segmentation, firewall policy, and access controls. Every cloud environment includes MFA and backup verification. Security is part of the design, not sold separately after you get breached.',
   },
   {
     label: 'WE STAY ACCOUNTABLE',
     heading: 'One number to call. One team that answers.',
-    body: 'We do not disappear after the project closes. We monitor, maintain, and respond. If something breaks, you call us — not a different vendor, not a different SLA, not a different conversation. One contract covers it all.',
+    body: 'We do not disappear after the project closes. We monitor, maintain, and respond. If something breaks, you call us. Not a different vendor, not a different SLA, not a different conversation. One contract covers it all.',
   },
 ]
 
@@ -219,7 +219,7 @@ export default function AboutPage() {
                   When something breaks, everyone points at each other. The network vendor says it is a firewall issue. The firewall vendor says check the ISP. The ISP says the router is not their device. Your staff wait. Your business stops.
                 </p>
                 <p style={{ color: 'var(--tn-text-2)', fontSize: '16px', lineHeight: 1.85 }}>
-                  Techaneyat eliminates that. We design, build, and manage your entire technology backbone — network, cybersecurity, smart security, cloud, power, and hardware — under a single SLA. One number to call. One team accountable for everything.
+                  Techaneyat eliminates that. We design, build, and manage your entire technology backbone: network, cybersecurity, smart security, cloud, power, and hardware. All under a single SLA. One number to call. One team accountable for everything.
                 </p>
               </div>
               <div>
@@ -342,7 +342,7 @@ export default function AboutPage() {
                       ✓
                     </span>
                     <span style={{ color: 'var(--tn-text)', fontSize: '14px', fontWeight: 500 }}>
-                      Techaneyat — one contract, all services
+                      Techaneyat: one contract, all services
                     </span>
                   </div>
                   <p
@@ -464,7 +464,7 @@ export default function AboutPage() {
             <p className="eyebrow" style={{ marginBottom: '16px' }}>Our Team</p>
             <h2 style={{ marginBottom: '16px' }}>Engineers, not account managers.</h2>
             <p style={{ color: 'var(--tn-text-2)', fontSize: '16px', maxWidth: '560px', marginBottom: '48px', lineHeight: 1.8 }}>
-              Every client engagement is led by an engineer who understands the full stack — from structured cabling to cloud configuration. You talk to the person who built your system, not a relay.
+              Every client engagement is led by an engineer who understands the full stack: from structured cabling to cloud configuration. You talk to the person who built your system, not a relay.
             </p>
             <p style={{ color: 'var(--tn-text-3)', fontFamily: 'var(--tn-font-mono)', fontSize: '12px' }}>
               Team profiles coming soon.
