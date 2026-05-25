@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
+import { ServiceIcon3D, type ServiceIconType } from './ServiceIcon3D'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -19,157 +20,6 @@ const CABLE_DEFS = [
   { color: '#BB2828', rim: '#5E1010', hi: '#FF7878', dx:  14, dy:  4 }, // red
 ]
 
-// ─── Inline SVG Illustrations ─────────────────────────────────────────────────
-
-function ServerRackIllus() {
-  return (
-    <svg viewBox="0 0 120 160" fill="none" aria-hidden="true"
-      style={{ width: '100%', maxWidth: 120, height: 'auto' }}>
-      <rect x="10" y="10" width="100" height="140" rx="4"
-        stroke="var(--tn-accent)" strokeWidth="1.5" strokeOpacity="0.5" />
-      <rect x="18" y="18" width="84" height="16" rx="2"
-        stroke="var(--tn-accent)" strokeWidth="1" strokeOpacity="0.9" />
-      <circle cx="94" cy="26" r="3" fill="var(--tn-accent)" fillOpacity="0.9" />
-      <line x1="26" y1="26" x2="74" y2="26"
-        stroke="var(--tn-accent)" strokeWidth="0.75" strokeOpacity="0.4" />
-      {[42, 62, 82, 102, 122].map((y, i) => (
-        <g key={i}>
-          <rect x="18" y={y} width="84" height="14" rx="2"
-            stroke="var(--tn-accent)" strokeWidth="1" strokeOpacity="0.3" />
-          <circle cx="94" cy={y + 7} r="2.5"
-            fill="var(--tn-accent)" fillOpacity={i === 0 ? 0.5 : 0.2} />
-          <line x1="26" y1={y + 7} x2="68" y2={y + 7}
-            stroke="var(--tn-accent)" strokeWidth="0.5" strokeOpacity="0.2" />
-        </g>
-      ))}
-    </svg>
-  )
-}
-
-function FirewallIllus() {
-  return (
-    <svg viewBox="0 0 120 140" fill="none" aria-hidden="true"
-      style={{ width: '100%', maxWidth: 120, height: 'auto' }}>
-      <path d="M60 8 L102 26 L102 72 C102 98 83 118 60 128 C37 118 18 98 18 72 L18 26 Z"
-        stroke="var(--tn-accent)" strokeWidth="1.5" strokeOpacity="0.6" />
-      <path d="M60 18 L92 32 L92 70 C92 90 76 106 60 114 C44 106 28 90 28 70 L28 32 Z"
-        stroke="var(--tn-accent)" strokeWidth="0.75" strokeOpacity="0.2" />
-      <rect x="46" y="68" width="28" height="22" rx="3"
-        stroke="var(--tn-accent)" strokeWidth="1.5" strokeOpacity="0.9" />
-      <path d="M50 68 L50 60 C50 51 70 51 70 60 L70 68"
-        stroke="var(--tn-accent)" strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.9" />
-      <circle cx="60" cy="77" r="3" fill="var(--tn-accent)" fillOpacity="0.8" />
-      <line x1="60" y1="80" x2="60" y2="86"
-        stroke="var(--tn-accent)" strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.8" />
-    </svg>
-  )
-}
-
-function CameraIllus() {
-  return (
-    <svg viewBox="0 0 148 108" fill="none" aria-hidden="true"
-      style={{ width: '100%', maxWidth: 148, height: 'auto' }}>
-      <rect x="58" y="4" width="20" height="10" rx="2"
-        stroke="var(--tn-accent)" strokeWidth="1" strokeOpacity="0.4" />
-      <line x1="68" y1="14" x2="68" y2="30"
-        stroke="var(--tn-accent)" strokeWidth="1.5" strokeOpacity="0.5" />
-      <path d="M24 30 L108 30 C112 30 116 33 116 38 L116 74 C116 78 112 82 108 82 L24 82 C20 82 16 78 16 74 L16 38 C16 33 20 30 24 30 Z"
-        stroke="var(--tn-accent)" strokeWidth="1.5" strokeOpacity="0.7" />
-      <circle cx="52" cy="56" r="18" stroke="var(--tn-accent)" strokeWidth="1.5" strokeOpacity="0.9" />
-      <circle cx="52" cy="56" r="11" stroke="var(--tn-accent)" strokeWidth="1" strokeOpacity="0.5" />
-      <circle cx="52" cy="56" r="5" fill="var(--tn-accent)" fillOpacity="0.7" />
-      <rect x="110" y="38" width="8" height="30" rx="4"
-        stroke="var(--tn-accent)" strokeWidth="1" strokeOpacity="0.4" />
-      <circle cx="98" cy="44" r="3" fill="var(--tn-accent)" fillOpacity="0.9" />
-      <circle cx="98" cy="56" r="3" fill="var(--tn-accent)" fillOpacity="0.25" />
-    </svg>
-  )
-}
-
-function CloudIllus() {
-  return (
-    <svg viewBox="0 0 148 140" fill="none" aria-hidden="true"
-      style={{ width: '100%', maxWidth: 148, height: 'auto' }}>
-      <path d="M36 72 C24 72 14 62 14 50 C14 39 22 30 32 28 C32 16 42 6 56 6 C66 6 74 12 78 22 C82 18 90 16 98 16 C112 16 124 28 124 42 C132 44 138 52 138 62 C138 72 130 80 120 80 L36 80"
-        stroke="var(--tn-accent)" strokeWidth="1.5" strokeOpacity="0.7" />
-      <line x1="52" y1="80" x2="52" y2="98"
-        stroke="var(--tn-accent)" strokeWidth="1" strokeOpacity="0.35" strokeDasharray="3 3" />
-      <line x1="76" y1="80" x2="76" y2="98"
-        stroke="var(--tn-accent)" strokeWidth="1" strokeOpacity="0.35" strokeDasharray="3 3" />
-      <line x1="100" y1="80" x2="100" y2="98"
-        stroke="var(--tn-accent)" strokeWidth="1" strokeOpacity="0.35" strokeDasharray="3 3" />
-      <rect x="22" y="98" width="104" height="20" rx="3"
-        stroke="var(--tn-accent)" strokeWidth="1.5" strokeOpacity="0.7" />
-      <line x1="34" y1="108" x2="96" y2="108"
-        stroke="var(--tn-accent)" strokeWidth="0.75" strokeOpacity="0.35" />
-      <circle cx="118" cy="108" r="3" fill="var(--tn-accent)" fillOpacity="0.8" />
-      <rect x="22" y="124" width="104" height="12" rx="3"
-        stroke="var(--tn-accent)" strokeWidth="1" strokeOpacity="0.4" />
-    </svg>
-  )
-}
-
-function UPSIllus() {
-  return (
-    <svg viewBox="0 0 100 156" fill="none" aria-hidden="true"
-      style={{ width: '100%', maxWidth: 100, height: 'auto' }}>
-      <rect x="8" y="14" width="84" height="128" rx="6"
-        stroke="var(--tn-accent)" strokeWidth="1.5" strokeOpacity="0.7" />
-      <rect x="18" y="24" width="64" height="20" rx="3"
-        stroke="var(--tn-accent)" strokeWidth="1" strokeOpacity="0.5" />
-      <rect x="20" y="26" width="48" height="16" rx="2"
-        fill="var(--tn-accent)" fillOpacity="0.18" />
-      <rect x="20" y="26" width="48" height="16" rx="2"
-        stroke="var(--tn-accent)" strokeWidth="0.5" strokeOpacity="0.3" />
-      <path d="M56 30 L50 42 L56 42 L50 52 L64 36 L58 36 Z"
-        fill="var(--tn-accent)" fillOpacity="0.9" />
-      <rect x="16" y="54" width="30" height="20" rx="2"
-        stroke="var(--tn-accent)" strokeWidth="1" strokeOpacity="0.45" />
-      <rect x="54" y="54" width="30" height="20" rx="2"
-        stroke="var(--tn-accent)" strokeWidth="1" strokeOpacity="0.45" />
-      <rect x="16" y="98" width="68" height="30" rx="3"
-        stroke="var(--tn-accent)" strokeWidth="1" strokeOpacity="0.5" />
-      <line x1="24" y1="108" x2="76" y2="108"
-        stroke="var(--tn-accent)" strokeWidth="0.75" strokeOpacity="0.4" />
-      <circle cx="50" cy="140" r="6"
-        stroke="var(--tn-accent)" strokeWidth="1" strokeOpacity="0.5" />
-    </svg>
-  )
-}
-
-function DesktopIllus() {
-  return (
-    <svg viewBox="0 0 168 136" fill="none" aria-hidden="true"
-      style={{ width: '100%', maxWidth: 168, height: 'auto' }}>
-      <rect x="8" y="6" width="108" height="78" rx="5"
-        stroke="var(--tn-accent)" strokeWidth="1.5" strokeOpacity="0.7" />
-      <rect x="14" y="12" width="96" height="66" rx="2"
-        stroke="var(--tn-accent)" strokeWidth="0.75" strokeOpacity="0.2" />
-      <line x1="22" y1="24" x2="58" y2="24"
-        stroke="var(--tn-accent)" strokeWidth="1.2" strokeOpacity="0.55" />
-      <line x1="22" y1="33" x2="74" y2="33"
-        stroke="var(--tn-accent)" strokeWidth="1.2" strokeOpacity="0.4" />
-      <line x1="28" y1="42" x2="62" y2="42"
-        stroke="var(--tn-accent)" strokeWidth="1.2" strokeOpacity="0.35" />
-      <line x1="22" y1="51" x2="70" y2="51"
-        stroke="var(--tn-accent)" strokeWidth="1.2" strokeOpacity="0.45" />
-      <line x1="28" y1="60" x2="52" y2="60"
-        stroke="var(--tn-accent)" strokeWidth="1.2" strokeOpacity="0.3" />
-      <rect x="84" y="56" width="2" height="12" rx="1"
-        fill="var(--tn-accent)" fillOpacity="0.8" />
-      <line x1="62" y1="84" x2="62" y2="100"
-        stroke="var(--tn-accent)" strokeWidth="2" strokeOpacity="0.5" />
-      <line x1="44" y1="100" x2="80" y2="100"
-        stroke="var(--tn-accent)" strokeWidth="1.5" strokeOpacity="0.5" />
-      <rect x="128" y="42" width="32" height="52" rx="4"
-        stroke="var(--tn-accent)" strokeWidth="1.5" strokeOpacity="0.7" />
-      <circle cx="144" cy="54" r="3" fill="var(--tn-accent)" fillOpacity="0.7" />
-      <rect x="132" y="70" width="20" height="10" rx="2"
-        stroke="var(--tn-accent)" strokeWidth="0.75" strokeOpacity="0.3" />
-    </svg>
-  )
-}
-
 // ─── Service Data ─────────────────────────────────────────────────────────────
 
 interface Service {
@@ -180,7 +30,7 @@ interface Service {
   benefit: string
   href: string
   side: 'left' | 'right'
-  Illus: () => React.ReactElement
+  icon: ServiceIconType
 }
 
 const SERVICES: Service[] = [
@@ -193,7 +43,7 @@ const SERVICES: Service[] = [
     benefit: 'Redundant topology. Every link.',
     href: '/services/network',
     side: 'right',
-    Illus: ServerRackIllus,
+    icon: 'network',
   },
   {
     id: 'cybersecurity',
@@ -204,7 +54,7 @@ const SERVICES: Service[] = [
     benefit: '24/7 threat monitoring. Zero exceptions.',
     href: '/services/cybersecurity',
     side: 'left',
-    Illus: FirewallIllus,
+    icon: 'cybersecurity',
   },
   {
     id: 'smart-security',
@@ -215,7 +65,7 @@ const SERVICES: Service[] = [
     benefit: 'Every entry point. Fully logged.',
     href: '/services/smart-security',
     side: 'right',
-    Illus: CameraIllus,
+    icon: 'smart-security',
   },
   {
     id: 'cloud',
@@ -226,7 +76,7 @@ const SERVICES: Service[] = [
     benefit: '99.9% uptime. No asterisks.',
     href: '/services/cloud',
     side: 'left',
-    Illus: CloudIllus,
+    icon: 'cloud',
   },
   {
     id: 'power',
@@ -237,7 +87,7 @@ const SERVICES: Service[] = [
     benefit: 'Continuous power. Full documentation.',
     href: '/services/power',
     side: 'right',
-    Illus: UPSIllus,
+    icon: 'power',
   },
   {
     id: 'hardware',
@@ -248,7 +98,7 @@ const SERVICES: Service[] = [
     benefit: 'Configured. Delivered. Supported.',
     href: '/services/hardware',
     side: 'left',
-    Illus: DesktopIllus,
+    icon: 'hardware',
   },
 ]
 
@@ -593,7 +443,6 @@ export function CableScrollStory() {
       <div className="section-container" style={{ position: 'relative', zIndex: 2 }}>
         {SERVICES.map((svc, i) => {
           const isRight = svc.side === 'right'
-          const { Illus } = svc
           return (
             <div
               key={svc.id}
@@ -624,11 +473,11 @@ export function CableScrollStory() {
               <div
                 ref={el => { illusRefs.current[i] = el }}
                 className="glow-card station-illus-card"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 32px', minHeight: '220px', position: 'relative', overflow: 'hidden' }}
+                style={{ position: 'relative', overflow: 'hidden', minHeight: '280px' }}
               >
-                <div style={{ position: 'absolute', inset: 0, background: 'var(--tn-gradient-card)', borderRadius: 'inherit', pointerEvents: 'none' }} />
-                <div style={{ position: 'relative', width: '100%', maxWidth: '180px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Illus />
+                <div style={{ position: 'absolute', inset: 0, background: 'var(--tn-gradient-card)', borderRadius: 'inherit', pointerEvents: 'none', zIndex: 1 }} />
+                <div style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
+                  <ServiceIcon3D type={svc.icon} />
                 </div>
               </div>
             </div>
