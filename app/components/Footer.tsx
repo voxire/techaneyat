@@ -28,14 +28,7 @@ export function Footer({ locale = 'en' }: FooterProps) {
       }}
     >
       <div className="section-container">
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr',
-            gap: '48px',
-            marginBottom: '48px',
-          }}
-        >
+        <div className="footer-grid">
           {/* Brand column */}
           <div>
             <Link
@@ -183,18 +176,9 @@ export function Footer({ locale = 'en' }: FooterProps) {
         </div>
 
         {/* Bottom bar */}
-        <div
-          style={{
-            borderTop: '1px solid var(--tn-border)',
-            paddingTop: '24px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '12px',
-            alignItems: 'flex-start',
-          }}
-        >
+        <div className="footer-bottom">
           <p style={{ color: 'var(--tn-text-3)', fontSize: '13px' }}>
-            © 2025 Techaneyat Solutions. {isAr ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}
+            © 2026 Techaneyat Solutions. {isAr ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}
           </p>
           <a
             href="https://www.linkedin.com/company/techaneyat"

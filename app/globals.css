@@ -214,6 +214,38 @@ p {
   font-family: var(--tn-font-mono);
 }
 
+/* Footer — responsive 3-column grid */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 48px;
+  }
+}
+
+/* Footer bottom bar — copyright + social */
+.footer-bottom {
+  border-top: 1px solid var(--tn-border);
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (min-width: 768px) {
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
 /* Contact page — info + form two-column layout */
 .contact-grid {
   display: grid;
