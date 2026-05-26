@@ -525,6 +525,24 @@ export function NetworkMap() {
           </p>
         </div>
 
+        {/* Hint — above diagram */}
+        <p
+          className="nm2-hint-para"
+          style={{
+            textAlign: 'center',
+            marginBottom: '24px',
+            fontFamily: 'var(--tn-font-mono)',
+            fontSize: '10px',
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            color: 'var(--tn-text-3)',
+          }}
+        >
+          <span className="nm2-hint-hover">Hover</span>
+          <span className="nm2-hint-tap">Tap</span>
+          {' '}any sector to see what we deliver
+        </p>
+
         {/* Diagram */}
         <div className="nm2-diagram" ref={diagramRef}>
           <svg
@@ -799,24 +817,6 @@ export function NetworkMap() {
             </div>
           )}
         </div>
-
-        {/* Hint */}
-        <p
-          className="nm2-hint-para"
-          style={{
-            textAlign: 'center',
-            marginTop: '32px',
-            fontFamily: 'var(--tn-font-mono)',
-            fontSize: '10px',
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            color: 'var(--tn-text-3)',
-          }}
-        >
-          <span className="nm2-hint-hover">Hover</span>
-          <span className="nm2-hint-tap">Tap</span>
-          {' '}any sector to see what we deliver
-        </p>
 
         {/* ── Mobile accordion (replaces SVG diagram on small screens) ── */}
         <div className="nm2-mobile-grid">
