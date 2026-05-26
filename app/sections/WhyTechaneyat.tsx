@@ -83,7 +83,7 @@ export function WhyTechaneyat() {
       ref={sectionRef}
       style={{
         background: 'var(--tn-bg)',
-        padding: '100px 0',
+        padding: 'clamp(56px, 8vw, 100px) 0',
         borderTop: '1px solid var(--tn-border)',
       }}
     >

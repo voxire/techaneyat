@@ -340,7 +340,7 @@ export function NetworkMap() {
     <section
       style={{
         background: 'var(--tn-bg-2)',
-        padding: '120px 0',
+        padding: 'clamp(64px, 10vw, 120px) 0',
         position: 'relative',
         overflow: 'hidden',
       }}

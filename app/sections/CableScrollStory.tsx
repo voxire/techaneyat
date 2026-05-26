@@ -337,10 +337,10 @@ export function CableScrollStory() {
     <section
       ref={sectionRef}
       id="services"
-      style={{ position: 'relative', background: 'var(--tn-bg-2)', padding: '120px 0', overflow: 'hidden' }}
+      style={{ position: 'relative', background: 'var(--tn-bg-2)', padding: 'clamp(64px, 10vw, 120px) 0', overflow: 'hidden' }}
     >
       {/* ── Section header ── */}
-      <div className="section-container" style={{ textAlign: 'center', marginBottom: '80px' }}>
+      <div className="section-container" style={{ textAlign: 'center', marginBottom: 'clamp(40px, 6vw, 80px)' }}>
         <p className="eyebrow" style={{ justifyContent: 'center', marginBottom: '20px' }}>
           What We Do
         </p>
@@ -500,7 +500,8 @@ export function CableScrollStory() {
           .service-station {
             grid-template-columns: 1fr !important;
             grid-template-areas: "illus" "content" !important;
-            gap: 28px !important;
+            gap: 20px !important;
+            margin-bottom: 48px !important;
           }
           .cable-overlay { display: none !important; }
         }

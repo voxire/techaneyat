@@ -83,7 +83,7 @@ export function OwnershipPillars() {
       ref={sectionRef}
       style={{
         background: 'var(--tn-bg-2)',
-        padding: '100px 0',
+        padding: 'clamp(56px, 8vw, 100px) 0',
         borderTop: '1px solid var(--tn-border)',
         borderBottom: '1px solid var(--tn-border)',
       }}

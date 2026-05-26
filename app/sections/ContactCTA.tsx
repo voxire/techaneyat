@@ -27,7 +27,7 @@ export function ContactCTA() {
     <section
       style={{
         background: 'var(--tn-bg-2)',
-        padding: '140px 0',
+        padding: 'clamp(64px, 11vw, 140px) 0',
         textAlign: 'center',
         borderTop: '1px solid var(--tn-border)',
         position: 'relative',

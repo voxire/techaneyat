@@ -373,7 +373,7 @@ export function DataCenterDoor() {
     <section
       ref={sectionRef}
       aria-hidden="true"
-      style={{ height: '200vh', position: 'relative' }}
+      style={{ height: '150vh', position: 'relative' }}
     >
       <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
         <canvas

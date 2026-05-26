@@ -70,7 +70,7 @@ export function CaseStudiesGrid() {
   }, [])
 
   return (
-    <section style={{ background: 'var(--tn-bg)', padding: '120px 0' }}>
+    <section style={{ background: 'var(--tn-bg)', padding: 'clamp(64px, 10vw, 120px) 0' }}>
       <style>{`
         .cs-wrap { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
         .cs-header { text-align: center; margin-bottom: 64px; }
