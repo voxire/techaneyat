@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 
 type FooterProps = {
   locale?: string
@@ -33,18 +34,22 @@ export function Footer({ locale = 'en' }: FooterProps) {
           <div>
             <Link
               href={basePath || '/'}
-              style={{
-                fontFamily: 'var(--tn-font-display)',
-                fontWeight: 700,
-                fontSize: '20px',
-                color: 'var(--tn-text)',
-                textDecoration: 'none',
-                letterSpacing: '-0.02em',
-                display: 'block',
-                marginBottom: '16px',
-              }}
+              style={{ display: 'inline-flex', marginBottom: '16px', textDecoration: 'none' }}
+              aria-label="Techaneyat — Home"
             >
-              Techaneyat
+              <Image
+                src="/brand/logo.png"
+                alt="Techaneyat"
+                width={160}
+                height={40}
+                style={{
+                  height: '28px',
+                  width: 'auto',
+                  objectFit: 'contain',
+                  filter: 'brightness(0) invert(1)',
+                  opacity: 0.85,
+                }}
+              />
             </Link>
             <p
               style={{

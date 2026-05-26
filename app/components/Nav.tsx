@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useTheme } from '@/app/providers/ThemeProvider'
@@ -73,16 +74,25 @@ export function Nav({ locale = 'en' }: NavProps) {
         {/* Logo */}
         <Link
           href={basePath || '/'}
-          style={{
-            fontFamily: 'var(--tn-font-display)',
-            fontWeight: 700,
-            fontSize: '18px',
-            color: 'var(--tn-text)',
-            textDecoration: 'none',
-            letterSpacing: '-0.02em',
-          }}
+          style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}
+          aria-label="Techaneyat — Home"
         >
-          Techaneyat
+          <Image
+            src="/brand/logo.png"
+            alt="Techaneyat"
+            width={160}
+            height={40}
+            style={{
+              height: '32px',
+              width: 'auto',
+              objectFit: 'contain',
+              // Dark mode: logo is dark charcoal — invert to white
+              // Light mode: logo is dark charcoal — perfect as-is
+              filter: theme === 'dark' ? 'brightness(0) invert(1)' : 'none',
+              transition: 'filter 0.25s ease',
+            }}
+            priority
+          />
         </Link>
 
         {/* Desktop nav */}
