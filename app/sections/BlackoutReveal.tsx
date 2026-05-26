@@ -119,14 +119,14 @@ export function BlackoutReveal() {
         ctx.fillStyle    = TEAL_FRAME
         ctx.textAlign    = 'center'
         ctx.textBaseline = 'middle'
-        ctx.fillText('HOW WE WORK', W / 2, H / 2 - 64)
+        ctx.fillText('INFRASTRUCTURE RESILIENCE', W / 2, H / 2 - 64)
 
         // Main heading — mobile-safe minimum of 28px
         const headSize = Math.max(28, Math.round(Math.min(W * 0.075, 56)))
         ctx.font      = `700 ${headSize}px 'Space Grotesk', sans-serif`
         ctx.fillStyle = headingColor
-        ctx.fillText('We take ownership', W / 2, H / 2 - 16)
-        ctx.fillText('of your technology.', W / 2, H / 2 + headSize * 1.1 - 16)
+        ctx.fillText('Always online.', W / 2, H / 2 - 16)
+        ctx.fillText('Always secure.', W / 2, H / 2 + headSize * 1.1 - 16)
 
         // Sub — wrap to two lines on narrow screens
         const subSize = Math.max(13, Math.round(Math.min(W * 0.030, 16)))
@@ -134,13 +134,10 @@ export function BlackoutReveal() {
         ctx.fillStyle = subColor
         const subY = H / 2 + headSize * 2.4 - 16
         if (W < 520) {
-          ctx.fillText('Design, build, secure, and manage.', W / 2, subY)
-          ctx.fillText('One contract. One call resolves anything.', W / 2, subY + subSize * 1.6)
+          ctx.fillText('One partner. One SLA.', W / 2, subY)
+          ctx.fillText('Zero gaps in coverage.', W / 2, subY + subSize * 1.6)
         } else {
-          ctx.fillText(
-            'Design, build, secure, and manage. One contract. One call resolves anything.',
-            W / 2, subY,
-          )
+          ctx.fillText('One partner. One SLA. Zero gaps in coverage.', W / 2, subY)
         }
 
         ctx.restore()
