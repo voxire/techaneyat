@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Space_Grotesk, Inter, JetBrains_Mono, Noto_Kufi_Arabic } from 'next/font/google'
 import { SmoothScrollProvider } from '@/app/providers/SmoothScrollProvider'
 import { ThemeProvider } from '@/app/providers/ThemeProvider'
+import { Preloader } from '@/app/components/Preloader'
 import './globals.css'
 
 const spaceGrotesk = Space_Grotesk({
@@ -98,6 +99,7 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider>
+          <Preloader />
           <SmoothScrollProvider>{children}</SmoothScrollProvider>
         </ThemeProvider>
       </body>
