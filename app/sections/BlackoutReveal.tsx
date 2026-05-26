@@ -10,7 +10,6 @@ const BG   = '#070B14'
 const TEAL = '#00C8FF'
 
 function easeOut(t: number)   { return 1 - (1 - t) * (1 - t) }
-function easeInOut(t: number) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t }
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export function BlackoutReveal() {
@@ -18,14 +17,20 @@ export function BlackoutReveal() {
   const canvasRef   = useRef<HTMLCanvasElement>(null)
   const progressRef = useRef(0)
   const rafRef      = useRef<number>(0)
+  // Logical (CSS) dimensions tracked separately from physical canvas dimensions
+  const logWRef     = useRef(0)
+  const logHRef     = useRef(0)
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
 
     const resize = () => {
-      canvas.width  = window.innerWidth
-      canvas.height = window.innerHeight
+      const dpr = Math.min(window.devicePixelRatio || 1, 3)
+      logWRef.current = window.innerWidth
+      logHRef.current = window.innerHeight
+      canvas.width  = window.innerWidth  * dpr
+      canvas.height = window.innerHeight * dpr
     }
     resize()
     window.addEventListener('resize', resize)
@@ -49,10 +54,15 @@ export function BlackoutReveal() {
 
     // ── Draw loop ──────────────────────────────────────────────────────────
     const draw = () => {
-      const p = progressRef.current
-      const W = canvas.width
-      const H = canvas.height
+      const p   = progressRef.current
+      // Use logical (CSS) dimensions for all coordinate math
+      const W   = logWRef.current || window.innerWidth
+      const H   = logHRef.current || window.innerHeight
+      const dpr = Math.min(window.devicePixelRatio || 1, 3)
       const ctx = canvas.getContext('2d')!
+
+      // Apply DPR transform every frame — keeps coordinates in logical pixels
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
 
       // Theme-aware colors — re-read every frame so live switching works
       const isLight = document.documentElement.getAttribute('data-theme') === 'light'
@@ -102,31 +112,36 @@ export function BlackoutReveal() {
           ctx.shadowBlur  = 0
         })
 
-        // Eyebrow
+        // Eyebrow — larger minimum for mobile readability
         ctx.globalAlpha = rp
-        const eyebrowSize = Math.round(Math.min(W * 0.013, 11))
+        const eyebrowSize = Math.max(10, Math.round(Math.min(W * 0.026, 11)))
         ctx.font         = `500 ${eyebrowSize}px 'JetBrains Mono', monospace`
         ctx.fillStyle    = TEAL_FRAME
         ctx.textAlign    = 'center'
         ctx.textBaseline = 'middle'
         ctx.fillText('HOW WE WORK', W / 2, H / 2 - 64)
 
-        // Main heading (two lines)
-        const headSize = Math.round(Math.min(W * 0.052, 56))
+        // Main heading — mobile-safe minimum of 28px
+        const headSize = Math.max(28, Math.round(Math.min(W * 0.075, 56)))
         ctx.font      = `700 ${headSize}px 'Space Grotesk', sans-serif`
         ctx.fillStyle = headingColor
         ctx.fillText('We take ownership', W / 2, H / 2 - 16)
         ctx.fillText('of your technology.', W / 2, H / 2 + headSize * 1.1 - 16)
 
-        // Sub
-        const subSize = Math.round(Math.min(W * 0.018, 16))
+        // Sub — wrap to two lines on narrow screens
+        const subSize = Math.max(13, Math.round(Math.min(W * 0.030, 16)))
         ctx.font      = `400 ${subSize}px 'Inter', sans-serif`
         ctx.fillStyle = subColor
-        ctx.fillText(
-          'Design, build, secure, and manage. One contract. One call resolves anything.',
-          W / 2,
-          H / 2 + headSize * 2.4 - 16,
-        )
+        const subY = H / 2 + headSize * 2.4 - 16
+        if (W < 520) {
+          ctx.fillText('Design, build, secure, and manage.', W / 2, subY)
+          ctx.fillText('One contract. One call resolves anything.', W / 2, subY + subSize * 1.6)
+        } else {
+          ctx.fillText(
+            'Design, build, secure, and manage. One contract. One call resolves anything.',
+            W / 2, subY,
+          )
+        }
 
         ctx.restore()
       }

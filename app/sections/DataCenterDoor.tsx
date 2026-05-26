@@ -18,14 +18,19 @@ export function DataCenterDoor() {
   const canvasRef   = useRef<HTMLCanvasElement>(null)
   const progressRef = useRef(0)
   const rafRef      = useRef<number>(0)
+  const logWRef     = useRef(0)
+  const logHRef     = useRef(0)
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
 
     const resize = () => {
-      canvas.width  = window.innerWidth
-      canvas.height = window.innerHeight
+      const dpr = Math.min(window.devicePixelRatio || 1, 3)
+      logWRef.current = window.innerWidth
+      logHRef.current = window.innerHeight
+      canvas.width  = window.innerWidth  * dpr
+      canvas.height = window.innerHeight * dpr
     }
     resize()
     window.addEventListener('resize', resize)
@@ -51,9 +56,14 @@ export function DataCenterDoor() {
     const draw = () => {
       const p   = progressRef.current
       const ep  = easeInOut(p)
-      const W   = canvas.width
-      const H   = canvas.height
+      // Use logical (CSS) dimensions for all coordinate math
+      const W   = logWRef.current || window.innerWidth
+      const H   = logHRef.current || window.innerHeight
+      const dpr = Math.min(window.devicePixelRatio || 1, 3)
       const ctx = canvas.getContext('2d')!
+
+      // Apply DPR transform every frame — keeps coordinates in logical pixels
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
 
       // Theme-aware: outer bg adapts to light/dark; server room stays dark (it IS a server room)
       const isLight    = document.documentElement.getAttribute('data-theme') === 'light'
