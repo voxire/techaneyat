@@ -1,0 +1,215 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+const BG   = '#070B14'
+const TEAL = '#00C8FF'
+
+function easeOut(t: number)   { return 1 - (1 - t) * (1 - t) }
+function easeInOut(t: number) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t }
+
+// ─── Component ────────────────────────────────────────────────────────────────
+export function BlackoutReveal() {
+  const sectionRef  = useRef<HTMLElement>(null)
+  const canvasRef   = useRef<HTMLCanvasElement>(null)
+  const progressRef = useRef(0)
+  const rafRef      = useRef<number>(0)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const resize = () => {
+      canvas.width  = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    resize()
+    window.addEventListener('resize', resize)
+
+    const mm = gsap.matchMedia()
+
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const st = ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start:   'top top',
+        end:     'bottom bottom',
+        scrub:   1.4,
+        onUpdate: (self) => { progressRef.current = self.progress },
+      })
+      return () => st.kill()
+    })
+
+    mm.add('(prefers-reduced-motion: reduce)', () => {
+      progressRef.current = 1
+    })
+
+    // ── Draw loop ──────────────────────────────────────────────────────────
+    const draw = () => {
+      const p = progressRef.current
+      const W = canvas.width
+      const H = canvas.height
+      const ctx = canvas.getContext('2d')!
+
+      // Base fill
+      ctx.fillStyle = BG
+      ctx.fillRect(0, 0, W, H)
+
+      // ── Underlying content (revealed beneath the blackout) ──────────────
+      if (p > 0.28) {
+        const rp = easeOut((p - 0.28) / 0.72)
+        ctx.save()
+
+        // Subtle node mesh
+        const meshNodes: [number, number][] = [
+          [0.12, 0.3], [0.25, 0.6], [0.38, 0.25], [0.5, 0.5],
+          [0.62, 0.75], [0.75, 0.4], [0.88, 0.65],
+          [0.2, 0.8], [0.5, 0.15], [0.8, 0.2],
+        ]
+        const meshEdges: [number, number][] = [
+          [0,1],[1,3],[2,3],[3,4],[3,5],[4,6],[5,6],[0,2],[7,1],[8,2],[9,5],
+        ]
+        meshEdges.forEach(([a, b]) => {
+          const na = meshNodes[a], nb = meshNodes[b]
+          ctx.beginPath()
+          ctx.moveTo(na[0] * W, na[1] * H)
+          ctx.lineTo(nb[0] * W, nb[1] * H)
+          ctx.strokeStyle = `rgba(0,200,255,${rp * 0.12})`
+          ctx.lineWidth   = 0.6
+          ctx.stroke()
+        })
+        meshNodes.forEach(([rx, ry], i) => {
+          const np = Math.max(0, Math.min(1, rp * 2 - i * 0.12))
+          ctx.beginPath()
+          ctx.arc(rx * W, ry * H, i === 3 ? 5 : 2.5, 0, Math.PI * 2)
+          ctx.fillStyle   = i === 3 ? TEAL : `rgba(0,200,255,${np * 0.6})`
+          if (i === 3) { ctx.shadowColor = TEAL; ctx.shadowBlur = rp * 14 }
+          ctx.globalAlpha = np
+          ctx.fill()
+          ctx.shadowBlur  = 0
+        })
+
+        // Eyebrow
+        ctx.globalAlpha = rp
+        const eyebrowSize = Math.round(Math.min(W * 0.013, 11))
+        ctx.font         = `500 ${eyebrowSize}px 'JetBrains Mono', monospace`
+        ctx.fillStyle    = TEAL
+        ctx.textAlign    = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillText('HOW WE WORK', W / 2, H / 2 - 64)
+
+        // Main heading (two lines)
+        const headSize = Math.round(Math.min(W * 0.052, 56))
+        ctx.font      = `700 ${headSize}px 'Space Grotesk', sans-serif`
+        ctx.fillStyle = 'rgba(240,244,255,0.92)'
+        ctx.fillText('We take ownership', W / 2, H / 2 - 16)
+        ctx.fillText('of your technology.', W / 2, H / 2 + headSize * 1.1 - 16)
+
+        // Sub
+        const subSize = Math.round(Math.min(W * 0.018, 16))
+        ctx.font      = `400 ${subSize}px 'Inter', sans-serif`
+        ctx.fillStyle = 'rgba(240,244,255,0.45)'
+        ctx.fillText(
+          'Design, build, secure, and manage. One contract. One call resolves anything.',
+          W / 2,
+          H / 2 + headSize * 2.4 - 16,
+        )
+
+        ctx.restore()
+      }
+
+      // ── Blackout mask with radial hole ─────────────────────────────────
+      if (p < 0.97) {
+        const maxR  = Math.sqrt(W * W + H * H)
+        const holep = p < 0.05 ? 0 : easeOut((p - 0.05) / 0.92)
+        const radius = holep * maxR * 0.84
+
+        ctx.save()
+        ctx.fillStyle = '#000000'
+        ctx.beginPath()
+        ctx.rect(0, 0, W, H)
+        if (radius > 1) {
+          ctx.arc(W / 2, H / 2, radius, 0, Math.PI * 2, true) // anticlockwise = hole
+        }
+        ctx.fill('evenodd')
+        ctx.restore()
+      }
+
+      // ── LED pulse (visible in the dark, before reveal) ──────────────────
+      const ledAlpha = Math.max(0, (0.1 - p) / 0.1)
+      if (ledAlpha > 0) {
+        const pulse = Math.sin(Date.now() / 420) * 0.4 + 0.6
+        ctx.save()
+        ctx.globalAlpha  = ledAlpha * pulse
+        ctx.shadowColor  = TEAL
+        ctx.shadowBlur   = 22 * pulse
+        ctx.beginPath()
+        ctx.arc(W / 2, H / 2, 5, 0, Math.PI * 2)
+        ctx.fillStyle = TEAL
+        ctx.fill()
+        ctx.shadowBlur = 0
+
+        ctx.font         = '400 11px monospace'
+        ctx.fillStyle    = 'rgba(0,200,255,0.45)'
+        ctx.textAlign    = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillText('POWER LOST', W / 2, H / 2 + 28)
+        ctx.restore()
+      }
+
+      // ── Shockwave ring (at moment power restores) ───────────────────────
+      if (p > 0.04 && p < 0.32) {
+        const wp = easeOut((p - 0.04) / 0.28)
+        ctx.save()
+        ctx.globalAlpha   = (1 - wp) * 0.55
+        ctx.strokeStyle   = TEAL
+        ctx.lineWidth     = 1.8
+        ctx.beginPath()
+        ctx.arc(W / 2, H / 2, wp * Math.min(W, H) * 0.6, 0, Math.PI * 2)
+        ctx.stroke()
+        ctx.restore()
+      }
+
+      // Second ring (slightly delayed)
+      if (p > 0.09 && p < 0.38) {
+        const wp2 = easeOut((p - 0.09) / 0.29)
+        ctx.save()
+        ctx.globalAlpha = (1 - wp2) * 0.28
+        ctx.strokeStyle = TEAL
+        ctx.lineWidth   = 1
+        ctx.beginPath()
+        ctx.arc(W / 2, H / 2, wp2 * Math.min(W, H) * 0.65, 0, Math.PI * 2)
+        ctx.stroke()
+        ctx.restore()
+      }
+
+      rafRef.current = requestAnimationFrame(draw)
+    }
+
+    rafRef.current = requestAnimationFrame(draw)
+
+    return () => {
+      cancelAnimationFrame(rafRef.current)
+      mm.revert()
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
+
+  return (
+    <section
+      ref={sectionRef}
+      aria-hidden="true"
+      style={{ height: '250vh', position: 'relative' }}
+    >
+      <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
+        <canvas
+          ref={canvasRef}
+          style={{ display: 'block', width: '100%', height: '100%' }}
+        />
+      </div>
+    </section>
+  )
+}
