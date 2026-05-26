@@ -80,10 +80,10 @@ export function Nav({ locale = 'en' }: NavProps) {
           <Image
             src="/brand/logo.png"
             alt="Techaneyat"
-            width={190}
-            height={30}
+            width={240}
+            height={38}
             style={{
-              height: '30px',
+              height: '38px',
               width: 'auto',
               objectFit: 'contain',
               // Dark mode: logo is dark charcoal — invert to white
