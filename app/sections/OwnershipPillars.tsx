@@ -20,7 +20,7 @@ const PILLARS = [
       </svg>
     ),
     heading: 'We Build It',
-    body: 'From structured cabling and WiFi to servers, cloud, and power systems. We design and install your entire technology backbone properly from day one — not patched together over time.',
+    body: 'From structured cabling and WiFi to servers, cloud, and power systems. We design and install your entire technology backbone properly from day one. Not patched together over time.',
     items: ['Network & cabling', 'Cloud infrastructure', 'Power continuity', 'Computing & hardware'],
   },
   {
@@ -33,7 +33,7 @@ const PILLARS = [
       </svg>
     ),
     heading: 'We Secure It',
-    body: 'Cybersecurity, CCTV, access control, firewalls, and endpoint protection. Every solution we build has security at its core — not added as an afterthought when something goes wrong.',
+    body: 'Cybersecurity, CCTV, access control, firewalls, and endpoint protection. Every solution we build has security at its core. Not added as an afterthought when something goes wrong.',
     items: ['Firewalls & EDR', 'CCTV & access control', 'Threat monitoring 24/7', 'Incident response'],
   },
   {
@@ -97,7 +97,7 @@ export function OwnershipPillars() {
             We Take Ownership of Your Technology
           </h2>
           <p style={{ color: 'var(--tn-text-2)', fontSize: '18px', maxWidth: '520px', margin: '0 auto', lineHeight: 1.7 }}>
-            Design, build, secure, and manage — under one contract. One call resolves anything.
+            Design, build, secure, and manage. One contract. One call resolves anything.
           </p>
         </div>
 

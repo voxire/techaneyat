@@ -3,10 +3,12 @@ import { Nav } from '@/app/components/Nav'
 import { Footer } from '@/app/components/Footer'
 import { JsonLd } from '@/app/components/JsonLd'
 import { HeroTerminal } from '@/app/sections/HeroTerminal'
+import { BlackoutReveal } from '@/app/sections/BlackoutReveal'
+import { OwnershipPillars } from '@/app/sections/OwnershipPillars'
+import { DataCenterDoor } from '@/app/sections/DataCenterDoor'
 import { CableScrollStory } from '@/app/sections/CableScrollStory'
 import { NetworkMap } from '@/app/sections/NetworkMap'
 import { StatCounter } from '@/app/sections/StatCounter'
-import { OwnershipPillars } from '@/app/sections/OwnershipPillars'
 import { WhyTechaneyat } from '@/app/sections/WhyTechaneyat'
 import { CaseStudiesGrid } from '@/app/sections/CaseStudiesGrid'
 import { ContactCTA } from '@/app/sections/ContactCTA'
@@ -84,7 +86,11 @@ export default function HomePage() {
       <main>
         <HeroTerminal />
 
+        <BlackoutReveal />
+
         <OwnershipPillars />
+
+        <DataCenterDoor />
 
         <CableScrollStory />
 

@@ -39,7 +39,7 @@ const SERVICES: Service[] = [
     eyebrow: 'Network & Infrastructure',
     heading: 'The backbone everything runs on.',
     description:
-      'Structured cabling, switches, routers, WiFi, and fiber. We build networks that do not slow you down or let you down — designed from the start for zero single points of failure.',
+      'Structured cabling, switches, routers, WiFi, and fiber. We build networks that do not slow you down or let you down. Designed from the start for zero single points of failure.',
     benefit: 'Redundant topology. Every link.',
     href: '/services/network',
     side: 'right',
@@ -50,7 +50,7 @@ const SERVICES: Service[] = [
     eyebrow: 'Cybersecurity',
     heading: 'Defense built into your infrastructure.',
     description:
-      'Firewalls, endpoint protection, EDR, and threat monitoring. We protect your data before the problem happens — not after. Security is the foundation, not a bolt-on.',
+      'Firewalls, endpoint protection, EDR, and threat monitoring. We protect your data before the problem happens. Security is the foundation, not a bolt-on.',
     benefit: '24/7 threat monitoring. Zero exceptions.',
     href: '/services/cybersecurity',
     side: 'left',
@@ -83,7 +83,7 @@ const SERVICES: Service[] = [
     eyebrow: 'Energy & Power Continuity',
     heading: 'No downtime. Not for any reason.',
     description:
-      'UPS systems, battery backup, and solar. In Lebanon, power is not guaranteed — your business continuity should be. We design for the grid as it actually is.',
+      'UPS systems, battery backup, and solar. In Lebanon, power is not guaranteed. Your business continuity should be. We design for the grid as it actually is.',
     benefit: 'Continuous power. Full documentation.',
     href: '/services/power',
     side: 'right',
@@ -94,7 +94,7 @@ const SERVICES: Service[] = [
     eyebrow: 'Computing & Hardware',
     heading: 'Procurement, deployment, lifecycle.',
     description:
-      'Laptops, servers, NAS, and workstations — sourced, configured, and deployed by us. One vendor. Full accountability from purchase order to end of life.',
+      'Laptops, servers, NAS, and workstations: sourced, configured, and deployed by us. One vendor. Full accountability from purchase order to end of life.',
     benefit: 'Configured. Delivered. Supported.',
     href: '/services/hardware',
     side: 'left',
