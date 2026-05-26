@@ -83,11 +83,6 @@
   box-shadow: 0 0 20px var(--tn-accent-glow), 0 12px 32px rgba(7,11,20,0.10);
 }
 
-/* Light mode: btn-primary uses dark-mode hover teal shadow — override for light bg */
-[data-theme="light"] .btn-primary:hover {
-  box-shadow: 0 0 24px var(--tn-accent-glow), 0 6px 18px rgba(0,128,184,0.22);
-}
-
 /* Light mode: btn-ghost gets stronger border so it reads on light backgrounds */
 [data-theme="light"] .btn-ghost {
   border-color: var(--tn-border-accent);
@@ -250,28 +245,13 @@ p {
   text-decoration: none;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
   min-height: 48px;
   position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.2s ease;
 }
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 0 32px var(--tn-accent-glow), 0 8px 24px rgba(0, 200, 255, 0.25);
-}
-
-.btn-primary:hover::after {
-  opacity: 1;
 }
 
 .btn-primary:active {
@@ -295,12 +275,11 @@ p {
   text-decoration: none;
   background: transparent;
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.2s ease;
   min-height: 48px;
 }
 
 .btn-ghost:hover {
-  background: var(--tn-accent-dim);
   border-color: var(--tn-accent);
   transform: translateY(-1px);
 }

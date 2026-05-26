@@ -137,6 +137,7 @@ export function CaseStudiesGrid() {
           color: var(--tn-text);
           margin-bottom: 32px;
           letter-spacing: -0.01em;
+          min-height: calc(1.35em * 3);
         }
 
         .cs-metric-block {
@@ -169,7 +170,7 @@ export function CaseStudiesGrid() {
           margin-bottom: 28px;
           padding-left: 12px;
           border-left: 2px solid var(--tn-border-accent);
-          flex: 1;
+          min-height: calc(1.6em * 2);
         }
 
         .cs-tags {
@@ -177,6 +178,7 @@ export function CaseStudiesGrid() {
           flex-wrap: wrap;
           gap: 6px;
           margin-bottom: 28px;
+          margin-top: auto;
         }
         .cs-tag {
           font-family: var(--tn-font-mono);

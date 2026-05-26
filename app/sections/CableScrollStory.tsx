@@ -218,7 +218,7 @@ export function CableScrollStory() {
       return totals
     }
 
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
+    mm.add('(prefers-reduced-motion: no-preference) and (min-width: 768px)', () => {
       const totals = buildAndAnimate()
       if (!totals) return
 
@@ -319,6 +319,17 @@ export function CableScrollStory() {
       }
     })
 
+    // Mobile: skip cable system entirely, just fade stations in on scroll.
+    mm.add('(prefers-reduced-motion: no-preference) and (max-width: 767px)', () => {
+      stationRefs.current.forEach(el => {
+        if (!el) return
+        gsap.from(el, {
+          y: 24, opacity: 0, duration: 0.6, ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 88%' },
+        })
+      })
+    })
+
     mm.add('(prefers-reduced-motion: reduce)', () => {
       const totals = buildAndAnimate()
       if (!totals) return
@@ -340,7 +351,7 @@ export function CableScrollStory() {
       style={{ position: 'relative', background: 'var(--tn-bg-2)', padding: 'clamp(64px, 10vw, 120px) 0', overflow: 'hidden' }}
     >
       {/* ── Section header ── */}
-      <div className="section-container" style={{ textAlign: 'center', marginBottom: 'clamp(40px, 6vw, 80px)' }}>
+      <div className="section-container" style={{ position: 'relative', zIndex: 3, textAlign: 'center', marginBottom: 'clamp(40px, 6vw, 80px)' }}>
         <p className="eyebrow" style={{ justifyContent: 'center', marginBottom: '20px' }}>
           What We Do
         </p>
