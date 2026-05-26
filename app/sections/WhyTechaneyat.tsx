@@ -164,9 +164,9 @@ export function WhyTechaneyat() {
               We respond within 4 hours. No sales script. Just a direct technical conversation.
             </p>
           </div>
-          <div style={{ display: 'flex', gap: '12px', flexShrink: 0 }}>
-            <Link href="/contact" className="btn-primary">Talk to an Engineer</Link>
-            <Link href="/about" className="btn-ghost">About Us</Link>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', width: '100%' }}>
+            <Link href="/contact" className="btn-primary" style={{ flex: '1 1 auto', textAlign: 'center' }}>Talk to an Engineer</Link>
+            <Link href="/about" className="btn-ghost" style={{ flex: '1 1 auto', textAlign: 'center' }}>About Us</Link>
           </div>
         </div>
       </div>
