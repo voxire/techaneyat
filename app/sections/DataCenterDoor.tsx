@@ -197,14 +197,15 @@ export function DataCenterDoor() {
       }
 
       // ── Door ─────────────────────────────────────────────────────────────
-      const doorAngle = ep * 0.88         // 0 = closed, 0.88 rad ~50deg = open
+      // Swing past 90° so the door fully disappears at ep=1 (cos goes negative → clamp to 0)
+      const doorAngle = ep * (Math.PI / 2 + 0.2)  // 0 = closed, >π/2 = fully open & hidden
       const doorW = Math.min(W * 0.72, 620)
       const doorH = Math.min(H * 0.88, 720)
       const doorX = (W - doorW) / 2
       const doorY = (H - doorH) / 2
 
-      // Perspective compression: door width shrinks as it swings open
-      const skewW = doorW * Math.cos(doorAngle)
+      // Perspective compression: clamp to 0 so negative cos doesn't produce a reversed door
+      const skewW = doorW * Math.max(0, Math.cos(doorAngle))
 
       if (skewW > 2) {
         ctx.save()
@@ -303,40 +304,48 @@ export function DataCenterDoor() {
         ctx.restore()
       }
 
-      // ── Light bleed at the gap (where door has swung away from frame) ──
+      // ── Light bleed at the gap (fades out as door fully opens) ──
       const gapX = doorX + skewW
       const gapW = doorW - skewW
-      if (gapW > 1) {
+      // Only show bleed while door is still partially visible; fade out as it approaches gone
+      const bleedVisible = skewW > 2 && gapW > 1
+      if (bleedVisible) {
         ctx.save()
-        const bleedAlpha = Math.min(1, gapW / 70) * ep * 0.9
+        const bleedAlpha = Math.min(1, gapW / 70) * ep * 0.9 * Math.min(1, skewW / 60)
         ctx.globalAlpha  = bleedAlpha
+        const tealBleed  = isLight ? 'rgba(0,128,184,' : 'rgba(0,200,255,'
         const lightGrad  = ctx.createLinearGradient(gapX, 0, gapX + Math.min(gapW * 1.5, 140), 0)
-        lightGrad.addColorStop(0, `rgba(0,200,255,0.7)`)
-        lightGrad.addColorStop(0.4, `rgba(0,200,255,0.15)`)
-        lightGrad.addColorStop(1, `rgba(0,200,255,0)`)
+        lightGrad.addColorStop(0, `${tealBleed}0.7)`)
+        lightGrad.addColorStop(0.4, `${tealBleed}0.15)`)
+        lightGrad.addColorStop(1, `${tealBleed}0)`)
         ctx.fillStyle = lightGrad
         ctx.fillRect(gapX, doorY, Math.min(gapW * 2, W - gapX), doorH)
         ctx.restore()
       }
 
-      // ── Door frame ────────────────────────────────────────────────────────
-      ctx.strokeStyle = `rgba(0,200,255,${0.3 - ep * 0.12})`
-      ctx.lineWidth   = 2
-      ctx.strokeRect(doorX - 3, doorY - 3, doorW + 6, doorH + 6)
+      // ── Door frame — hidden once door is fully open ───────────────────────
+      const frameAlpha = Math.max(0, 0.3 - ep * 0.35)  // fades to 0 before ep=1
+      if (frameAlpha > 0.01) {
+        ctx.strokeStyle = `rgba(0,200,255,${frameAlpha})`
+        ctx.lineWidth   = 2
+        ctx.strokeRect(doorX - 3, doorY - 3, doorW + 6, doorH + 6)
+      }
 
-      // Frame bolts (corners)
-      const boltPositions: [number, number][] = [
-        [doorX - 3, doorY - 3],
-        [doorX + doorW + 3, doorY - 3],
-        [doorX - 3, doorY + doorH + 3],
-        [doorX + doorW + 3, doorY + doorH + 3],
-      ]
-      boltPositions.forEach(([bx, by]) => {
-        ctx.beginPath()
-        ctx.arc(bx, by, 4, 0, Math.PI * 2)
-        ctx.fillStyle   = `rgba(0,200,255,${0.3 - ep * 0.1})`
-        ctx.fill()
-      })
+      // Frame bolts — fade with the frame
+      if (frameAlpha > 0.01) {
+        const boltPositions: [number, number][] = [
+          [doorX - 3, doorY - 3],
+          [doorX + doorW + 3, doorY - 3],
+          [doorX - 3, doorY + doorH + 3],
+          [doorX + doorW + 3, doorY + doorH + 3],
+        ]
+        boltPositions.forEach(([bx, by]) => {
+          ctx.beginPath()
+          ctx.arc(bx, by, 4, 0, Math.PI * 2)
+          ctx.fillStyle = `rgba(0,200,255,${frameAlpha})`
+          ctx.fill()
+        })
+      }
 
       rafRef.current = requestAnimationFrame(draw)
     }
