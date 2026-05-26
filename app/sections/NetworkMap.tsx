@@ -431,6 +431,13 @@ export function NetworkMap() {
           .nm2-diagram { max-width: 100%; }
           .nm2-matrix  { min-width: 180px; }
         }
+        /* Touch devices: swap hint word */
+        .nm2-hint-tap  { display: none; }
+        .nm2-hint-hover { display: inline; }
+        @media (hover: none) {
+          .nm2-hint-hover { display: none; }
+          .nm2-hint-tap   { display: inline; }
+        }
       `}</style>
 
       <div className="nm2-wrap">
@@ -590,6 +597,7 @@ export function NetworkMap() {
                   className="nm2-sector"
                   onMouseEnter={() => handleEnter(s.id, i)}
                   onMouseLeave={handleLeave}
+                  onClick={() => hovered === s.id ? handleLeave() : handleEnter(s.id, i)}
                 >
                   {/* Layer 0: drop shadow ellipse */}
                   <ellipse
@@ -731,7 +739,9 @@ export function NetworkMap() {
             color: 'var(--tn-text-3)',
           }}
         >
-          Hover any sector to see what we deliver
+          <span className="nm2-hint-hover">Hover</span>
+          <span className="nm2-hint-tap">Tap</span>
+          {' '}any sector to see what we deliver
         </p>
       </div>
     </section>
