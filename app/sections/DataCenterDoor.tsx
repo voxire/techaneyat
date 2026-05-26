@@ -42,7 +42,7 @@ export function DataCenterDoor() {
         trigger: sectionRef.current,
         start:   'top top',
         end:     'bottom bottom',
-        scrub:   1.4,
+        scrub:   1.0,
         onUpdate: (self) => { progressRef.current = self.progress },
       })
       return () => st.kill()
@@ -373,7 +373,7 @@ export function DataCenterDoor() {
     <section
       ref={sectionRef}
       aria-hidden="true"
-      style={{ height: '300vh', position: 'relative' }}
+      style={{ height: '200vh', position: 'relative' }}
     >
       <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
         <canvas
