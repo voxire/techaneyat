@@ -55,7 +55,12 @@ export function DataCenterDoor() {
       const H   = canvas.height
       const ctx = canvas.getContext('2d')!
 
-      ctx.fillStyle = BG
+      // Theme-aware: outer bg adapts to light/dark; server room stays dark (it IS a server room)
+      const isLight    = document.documentElement.getAttribute('data-theme') === 'light'
+      const BG_OUTER   = isLight ? '#EBF0FA' : BG
+      const TEAL_FRAME = isLight ? '#0080B8' : TEAL
+
+      ctx.fillStyle = BG_OUTER
       ctx.fillRect(0, 0, W, H)
 
       // ── Server room (always drawn, revealed as door swings open) ─────────
@@ -63,7 +68,7 @@ export function DataCenterDoor() {
         ctx.save()
         ctx.globalAlpha = ep
 
-        // Room background, slightly warmer dark
+        // Room background — stays dark; server rooms are dark regardless of page theme
         ctx.fillStyle = '#060910'
         ctx.fillRect(0, 0, W, H)
 
@@ -147,8 +152,8 @@ export function DataCenterDoor() {
             // Status LED
             ctx.beginPath()
             ctx.arc(rx + rackW - 9, uy + unitH / 2, 2.5, 0, Math.PI * 2)
-            ctx.fillStyle   = litP > 0.5 ? TEAL : `rgba(0,200,255,${litP * 0.3})`
-            ctx.shadowColor = TEAL
+            ctx.fillStyle   = litP > 0.5 ? TEAL_FRAME : `rgba(0,200,255,${litP * 0.3})`
+            ctx.shadowColor = TEAL_FRAME
             ctx.shadowBlur  = litP > 0.5 ? 8 : 0
             ctx.fill()
             ctx.shadowBlur = 0
@@ -276,7 +281,7 @@ export function DataCenterDoor() {
         const hy = doorY + doorH * 0.5
         ctx.beginPath(); ctx.arc(hx, hy, 7, 0, Math.PI * 2)
         ctx.fillStyle   = `rgba(0,200,255,0.65)`
-        ctx.shadowColor = TEAL; ctx.shadowBlur = 10
+        ctx.shadowColor = TEAL_FRAME; ctx.shadowBlur = 10
         ctx.fill(); ctx.shadowBlur = 0
         ctx.beginPath(); ctx.arc(hx, hy, 7, 0, Math.PI * 2)
         ctx.strokeStyle = `rgba(0,200,255,0.9)`; ctx.lineWidth = 1; ctx.stroke()

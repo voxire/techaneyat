@@ -54,8 +54,16 @@ export function BlackoutReveal() {
       const H = canvas.height
       const ctx = canvas.getContext('2d')!
 
+      // Theme-aware colors — re-read every frame so live switching works
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light'
+      const BG_FRAME      = isLight ? '#EBF0FA' : BG
+      const TEAL_FRAME    = isLight ? '#0080B8' : TEAL
+      const headingColor  = isLight ? 'rgba(7,11,20,0.88)' : 'rgba(240,244,255,0.92)'
+      const subColor      = isLight ? 'rgba(7,11,20,0.55)' : 'rgba(240,244,255,0.45)'
+      const ledText       = isLight ? 'rgba(0,128,184,0.55)' : 'rgba(0,200,255,0.45)'
+
       // Base fill
-      ctx.fillStyle = BG
+      ctx.fillStyle = BG_FRAME
       ctx.fillRect(0, 0, W, H)
 
       // ── Underlying content (revealed beneath the blackout) ──────────────
@@ -77,7 +85,9 @@ export function BlackoutReveal() {
           ctx.beginPath()
           ctx.moveTo(na[0] * W, na[1] * H)
           ctx.lineTo(nb[0] * W, nb[1] * H)
-          ctx.strokeStyle = `rgba(0,200,255,${rp * 0.12})`
+          ctx.strokeStyle = isLight
+            ? `rgba(0,128,184,${rp * 0.18})`
+            : `rgba(0,200,255,${rp * 0.12})`
           ctx.lineWidth   = 0.6
           ctx.stroke()
         })
@@ -85,8 +95,8 @@ export function BlackoutReveal() {
           const np = Math.max(0, Math.min(1, rp * 2 - i * 0.12))
           ctx.beginPath()
           ctx.arc(rx * W, ry * H, i === 3 ? 5 : 2.5, 0, Math.PI * 2)
-          ctx.fillStyle   = i === 3 ? TEAL : `rgba(0,200,255,${np * 0.6})`
-          if (i === 3) { ctx.shadowColor = TEAL; ctx.shadowBlur = rp * 14 }
+          ctx.fillStyle   = i === 3 ? TEAL_FRAME : `rgba(0,128,184,${np * 0.6})`
+          if (i === 3) { ctx.shadowColor = TEAL_FRAME; ctx.shadowBlur = rp * 14 }
           ctx.globalAlpha = np
           ctx.fill()
           ctx.shadowBlur  = 0
@@ -96,7 +106,7 @@ export function BlackoutReveal() {
         ctx.globalAlpha = rp
         const eyebrowSize = Math.round(Math.min(W * 0.013, 11))
         ctx.font         = `500 ${eyebrowSize}px 'JetBrains Mono', monospace`
-        ctx.fillStyle    = TEAL
+        ctx.fillStyle    = TEAL_FRAME
         ctx.textAlign    = 'center'
         ctx.textBaseline = 'middle'
         ctx.fillText('HOW WE WORK', W / 2, H / 2 - 64)
@@ -104,14 +114,14 @@ export function BlackoutReveal() {
         // Main heading (two lines)
         const headSize = Math.round(Math.min(W * 0.052, 56))
         ctx.font      = `700 ${headSize}px 'Space Grotesk', sans-serif`
-        ctx.fillStyle = 'rgba(240,244,255,0.92)'
+        ctx.fillStyle = headingColor
         ctx.fillText('We take ownership', W / 2, H / 2 - 16)
         ctx.fillText('of your technology.', W / 2, H / 2 + headSize * 1.1 - 16)
 
         // Sub
         const subSize = Math.round(Math.min(W * 0.018, 16))
         ctx.font      = `400 ${subSize}px 'Inter', sans-serif`
-        ctx.fillStyle = 'rgba(240,244,255,0.45)'
+        ctx.fillStyle = subColor
         ctx.fillText(
           'Design, build, secure, and manage. One contract. One call resolves anything.',
           W / 2,
@@ -144,16 +154,16 @@ export function BlackoutReveal() {
         const pulse = Math.sin(Date.now() / 420) * 0.4 + 0.6
         ctx.save()
         ctx.globalAlpha  = ledAlpha * pulse
-        ctx.shadowColor  = TEAL
+        ctx.shadowColor  = TEAL_FRAME
         ctx.shadowBlur   = 22 * pulse
         ctx.beginPath()
         ctx.arc(W / 2, H / 2, 5, 0, Math.PI * 2)
-        ctx.fillStyle = TEAL
+        ctx.fillStyle = TEAL_FRAME
         ctx.fill()
         ctx.shadowBlur = 0
 
         ctx.font         = '400 11px monospace'
-        ctx.fillStyle    = 'rgba(0,200,255,0.45)'
+        ctx.fillStyle    = ledText
         ctx.textAlign    = 'center'
         ctx.textBaseline = 'middle'
         ctx.fillText('POWER LOST', W / 2, H / 2 + 28)
@@ -165,7 +175,7 @@ export function BlackoutReveal() {
         const wp = easeOut((p - 0.04) / 0.28)
         ctx.save()
         ctx.globalAlpha   = (1 - wp) * 0.55
-        ctx.strokeStyle   = TEAL
+        ctx.strokeStyle   = TEAL_FRAME
         ctx.lineWidth     = 1.8
         ctx.beginPath()
         ctx.arc(W / 2, H / 2, wp * Math.min(W, H) * 0.6, 0, Math.PI * 2)
@@ -178,7 +188,7 @@ export function BlackoutReveal() {
         const wp2 = easeOut((p - 0.09) / 0.29)
         ctx.save()
         ctx.globalAlpha = (1 - wp2) * 0.28
-        ctx.strokeStyle = TEAL
+        ctx.strokeStyle = TEAL_FRAME
         ctx.lineWidth   = 1
         ctx.beginPath()
         ctx.arc(W / 2, H / 2, wp2 * Math.min(W, H) * 0.65, 0, Math.PI * 2)
