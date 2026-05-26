@@ -64,12 +64,14 @@ export function Nav({ locale = 'en' }: NavProps) {
       }}
     >
       <div
-        className="section-container"
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           height: '64px',
+          maxWidth: '1560px',
+          margin: '0 auto',
+          padding: '0 clamp(24px, 4vw, 64px)',
         }}
       >
         {/* Logo */}
@@ -101,7 +103,7 @@ export function Nav({ locale = 'en' }: NavProps) {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '32px',
+            gap: 'clamp(32px, 5vw, 56px)',
           }}
           aria-label="Main navigation"
         >
@@ -109,7 +111,7 @@ export function Nav({ locale = 'en' }: NavProps) {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '28px',
+              gap: 'clamp(28px, 3vw, 44px)',
               listStyle: 'none',
             }}
             className="hidden-mobile"
