@@ -16,6 +16,7 @@ type NavProps = {
 const navLinks = [
   { label: 'Services', labelAr: 'الخدمات', href: '/services' },
   { label: 'Case Studies', labelAr: 'دراسات الحالة', href: '/case-studies' },
+  { label: 'Blog', labelAr: 'المدونة', href: '/blog' },
   { label: 'About', labelAr: 'من نحن', href: '/about' },
   { label: 'Contact', labelAr: 'تواصل معنا', href: '/contact' },
 ]
