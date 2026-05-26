@@ -446,9 +446,7 @@ export function NetworkMap() {
         @media (max-width: 767px) {
           /* Hide desktop diagram and hint on mobile */
           .nm2-diagram { display: none !important; }
-          .nm2-hint-hover, .nm2-hint-tap,
-          .nm2-hint-hover + span + span { display: none !important; }
-          p[style*="marginTop: 32px"] { display: none !important; }
+          .nm2-hint-para { display: none !important; }
 
           /* Show mobile accordion */
           .nm2-mobile-grid {
@@ -804,6 +802,7 @@ export function NetworkMap() {
 
         {/* Hint */}
         <p
+          className="nm2-hint-para"
           style={{
             textAlign: 'center',
             marginTop: '32px',
