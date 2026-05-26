@@ -143,6 +143,7 @@ export function NetworkMap() {
   const [hovered, setHovered]       = useState<string | null>(null)
   const [matrix, setMatrix]         = useState<MatrixState | null>(null)
   const [overlayPos, setOverlayPos] = useState<{ x: number; y: number } | null>(null)
+  const [expandedMobile, setExpandedMobile] = useState<string | null>(null)
 
   const diagramRef   = useRef<HTMLDivElement>(null)
   const pulse1Ref    = useRef<SVGCircleElement>(null)
@@ -437,6 +438,80 @@ export function NetworkMap() {
         @media (hover: none) {
           .nm2-hint-hover { display: none; }
           .nm2-hint-tap   { display: inline; }
+        }
+
+        /* ── Mobile accordion ── */
+        .nm2-mobile-grid { display: none; }
+
+        @media (max-width: 767px) {
+          /* Hide desktop diagram and hint on mobile */
+          .nm2-diagram { display: none !important; }
+          .nm2-hint-hover, .nm2-hint-tap,
+          .nm2-hint-hover + span + span { display: none !important; }
+          p[style*="marginTop: 32px"] { display: none !important; }
+
+          /* Show mobile accordion */
+          .nm2-mobile-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 40px;
+          }
+          .nm2-mobile-card {
+            border: 1px solid var(--tn-border);
+            border-radius: 10px;
+            background: var(--tn-bg-3);
+            cursor: pointer;
+            overflow: hidden;
+            transition: border-color 0.2s, box-shadow 0.2s;
+          }
+          .nm2-mobile-card--open {
+            border-color: var(--tn-border-accent);
+            box-shadow: 0 0 20px rgba(0,200,255,0.10);
+          }
+          .nm2-mobile-card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+          }
+          .nm2-mobile-icon {
+            width: 40px; height: 40px;
+            border-radius: 8px;
+            background: rgba(0,200,255,0.08);
+            border: 1px solid rgba(0,200,255,0.20);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+          }
+          .nm2-mobile-label {
+            flex: 1;
+            font-family: var(--tn-font-display);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--tn-text);
+            letter-spacing: 0.03em;
+          }
+          .nm2-mobile-arrow {
+            color: var(--tn-accent);
+            font-size: 20px;
+            font-weight: 300;
+            line-height: 1;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+          }
+          .nm2-mobile-desc {
+            padding: 0 16px 16px 70px;
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.65;
+            color: var(--tn-text-2);
+            animation: nm2-expand 0.18s ease;
+          }
+          @keyframes nm2-expand {
+            from { opacity: 0; transform: translateY(-6px); }
+            to   { opacity: 1; transform: translateY(0); }
+          }
         }
       `}</style>
 
@@ -743,6 +818,35 @@ export function NetworkMap() {
           <span className="nm2-hint-tap">Tap</span>
           {' '}any sector to see what we deliver
         </p>
+
+        {/* ── Mobile accordion (replaces SVG diagram on small screens) ── */}
+        <div className="nm2-mobile-grid">
+          {SECTORS.map((s) => {
+            const isOpen = expandedMobile === s.id
+            return (
+              <div
+                key={s.id}
+                className={`nm2-mobile-card${isOpen ? ' nm2-mobile-card--open' : ''}`}
+                onClick={() => setExpandedMobile(isOpen ? null : s.id)}
+              >
+                <div className="nm2-mobile-card-header">
+                  <div className="nm2-mobile-icon">
+                    <svg viewBox="-14 -14 28 28" width="22" height="22" color="var(--tn-accent)">
+                      {SectorIcons[s.id]}
+                    </svg>
+                  </div>
+                  <span className="nm2-mobile-label">{s.label}</span>
+                  <span className="nm2-mobile-arrow" aria-hidden="true">
+                    {isOpen ? '−' : '+'}
+                  </span>
+                </div>
+                {isOpen && (
+                  <p className="nm2-mobile-desc">{s.desc}</p>
+                )}
+              </div>
+            )
+          })}
+        </div>
       </div>
     </section>
   )
