@@ -237,7 +237,7 @@ export function HeroTerminal() {
             <div style={{
               flex: 1, textAlign: 'center',
               fontFamily: 'var(--tn-font-mono)', fontSize: '11px',
-              color: 'var(--tn-text-3)', letterSpacing: '0.04em',
+              color: 'rgba(240,244,255,0.82)', letterSpacing: '0.04em',
             }}>
               techaneyat.com
             </div>
