@@ -40,10 +40,10 @@ export function Footer({ locale = 'en' }: FooterProps) {
               <Image
                 src="/brand/logo.png"
                 alt="Techaneyat"
-                width={160}
+                width={190}
                 height={40}
                 style={{
-                  height: '28px',
+                  height: '26px',
                   width: 'auto',
                   objectFit: 'contain',
                   filter: 'brightness(0) invert(1)',
