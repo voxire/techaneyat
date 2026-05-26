@@ -31,6 +31,7 @@ const contactPageSchema = {
     email: 'Sales@techaneyat.com',
     address: {
       '@type': 'PostalAddress',
+      streetAddress: 'Block C, 3rd Floor, Rome Street',
       addressLocality: 'Beirut',
       addressCountry: 'LB',
     },
@@ -80,8 +81,9 @@ export default function ContactPage() {
                   {[
                     { label: 'Email', value: 'Sales@techaneyat.com', href: 'mailto:Sales@techaneyat.com' },
                     { label: 'Phone', value: '+961 76 100 766', href: 'tel:+96176100766' },
-                    { label: 'Location', value: 'Beirut, Lebanon', href: undefined },
+                    { label: 'Location', value: 'Block C, 3rd Floor, Rome Street, Beirut', href: 'https://maps.google.com/?q=Techaneyat+Beirut' },
                     { label: 'Response time', value: 'Within 4 hours', href: undefined },
+                    { label: 'Google rating', value: '4.9★ · 15 reviews', href: 'https://maps.google.com/?q=Techaneyat+Beirut' },
                   ].map((item) => (
                     <div key={item.label}>
                       <p

@@ -16,7 +16,7 @@ export type ServiceIllustrationKey =
 // ─── Network: Server Rack ─────────────────────────────────────────────────────
 function NetworkIllus() {
   return (
-    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="100%" style={{ display: 'block' }}>
       {/* Rack chassis */}
       <rect x="44" y="24" width="112" height="152" rx="4"
         stroke="var(--tn-text-3)" strokeWidth="1.5" fill="var(--tn-bg-3)" />
@@ -77,7 +77,7 @@ function NetworkIllus() {
 // ─── Cybersecurity: Shield + Circuit ─────────────────────────────────────────
 function CybersecurityIllus() {
   return (
-    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="100%" style={{ display: 'block' }}>
       {/* Shield outline */}
       <path
         d="M100 22 L152 44 L152 100 C152 136 126 160 100 172 C74 160 48 136 48 100 L48 44 Z"
@@ -129,7 +129,7 @@ function CybersecurityIllus() {
 // ─── Smart Security: IP Camera ────────────────────────────────────────────────
 function SmartSecurityIllus() {
   return (
-    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="100%" style={{ display: 'block' }}>
       {/* Ceiling mount bracket */}
       <rect x="88" y="24" width="24" height="12" rx="3"
         stroke="var(--tn-text-3)" strokeWidth="1.2" fill="var(--tn-bg-2)" />
@@ -186,7 +186,7 @@ function SmartSecurityIllus() {
 // ─── Cloud: Server + Cloud Hybrid ────────────────────────────────────────────
 function CloudIllus() {
   return (
-    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="100%" style={{ display: 'block' }}>
       {/* Cloud shape */}
       <path
         d="M68 88 C58 88 50 80 50 70 C50 60 58 52 68 52 C70 44 78 38 88 38 C94 38 100 41 104 46 C108 40 116 36 126 36 C142 36 156 50 156 66 C156 78 148 88 138 88 Z"
@@ -239,7 +239,7 @@ function CloudIllus() {
 // ─── Power: UPS Unit ──────────────────────────────────────────────────────────
 function PowerIllus() {
   return (
-    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="100%" style={{ display: 'block' }}>
       {/* UPS body */}
       <rect x="42" y="44" width="116" height="130" rx="6"
         stroke="var(--tn-text-3)" strokeWidth="1.5" fill="var(--tn-bg-2)" />
@@ -307,7 +307,7 @@ function PowerIllus() {
 // ─── Hardware: Workstation + Monitor ─────────────────────────────────────────
 function HardwareIllus() {
   return (
-    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="100%" style={{ display: 'block' }}>
       {/* Monitor */}
       <rect x="50" y="22" width="100" height="72" rx="4"
         stroke="var(--tn-accent)" strokeWidth="1.5" fill="var(--tn-bg-2)" />
@@ -389,10 +389,8 @@ export function ServiceIllustration({ type, className }: ServiceIllustrationProp
       style={{
         width: '100%',
         height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '16px',
+        padding: '20px',
+        boxSizing: 'border-box',
       }}
     >
       <Component />

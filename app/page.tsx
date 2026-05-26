@@ -6,6 +6,7 @@ import { HeroTerminal } from '@/app/sections/HeroTerminal'
 import { CableScrollStory } from '@/app/sections/CableScrollStory'
 import { NetworkMap } from '@/app/sections/NetworkMap'
 import { StatCounter } from '@/app/sections/StatCounter'
+import { OwnershipPillars } from '@/app/sections/OwnershipPillars'
 import { WhyTechaneyat } from '@/app/sections/WhyTechaneyat'
 import { CaseStudiesGrid } from '@/app/sections/CaseStudiesGrid'
 import { ContactCTA } from '@/app/sections/ContactCTA'
@@ -33,6 +34,7 @@ const organizationSchema = {
     'Techaneyat designs, builds, and manages the full technology backbone of organizations under one SLA. Network, cybersecurity, smart security, cloud, power continuity, and hardware. Based in Beirut, Lebanon.',
   address: {
     '@type': 'PostalAddress',
+    streetAddress: 'Block C, 3rd Floor, Rome Street',
     addressLocality: 'Beirut',
     addressCountry: 'LB',
   },
@@ -81,6 +83,8 @@ export default function HomePage() {
       <Nav locale="en" />
       <main>
         <HeroTerminal />
+
+        <OwnershipPillars />
 
         <CableScrollStory />
 

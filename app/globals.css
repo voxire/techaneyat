@@ -67,11 +67,11 @@
   /* Text — dark navy on light bg */
   --tn-text:        #070B14;
   --tn-text-2:      rgba(7, 11, 20, 0.62);
-  --tn-text-3:      rgba(7, 11, 20, 0.36);
+  --tn-text-3:      rgba(7, 11, 20, 0.52);  /* raised from 0.36 — small labels need contrast */
 
   /* Borders */
-  --tn-border:        rgba(7, 11, 20, 0.09);
-  --tn-border-accent: rgba(0, 128, 184, 0.22);
+  --tn-border:        rgba(7, 11, 20, 0.15);  /* raised from 0.09 — nav buttons need visibility */
+  --tn-border-accent: rgba(0, 128, 184, 0.35); /* raised from 0.22 — ghost buttons need contrast */
 
   /* Gradients */
   --tn-gradient-hero: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0,128,184,0.07) 0%, transparent 70%);
@@ -81,6 +81,25 @@
 /* Light mode: glow-card shadow is lighter */
 [data-theme="light"] .glow-card:hover {
   box-shadow: 0 0 20px var(--tn-accent-glow), 0 12px 32px rgba(7,11,20,0.10);
+}
+
+/* Light mode: btn-primary uses dark-mode hover teal shadow — override for light bg */
+[data-theme="light"] .btn-primary:hover {
+  box-shadow: 0 0 24px var(--tn-accent-glow), 0 6px 18px rgba(0,128,184,0.22);
+}
+
+/* Light mode: btn-ghost gets stronger border so it reads on light backgrounds */
+[data-theme="light"] .btn-ghost {
+  border-color: var(--tn-border-accent);
+}
+
+/* Mobile: hero trust stat items — 2×2 grid on narrow screens */
+@media (max-width: 540px) {
+  .hero-stat-bar {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 32px;
+  }
 }
 
 /* Light mode: transition on theme switch */

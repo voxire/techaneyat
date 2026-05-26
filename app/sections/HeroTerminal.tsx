@@ -299,7 +299,7 @@ export function HeroTerminal() {
       >
         <div ref={heroContentRef}>
           <p className="eyebrow" style={{ marginBottom: '36px', fontSize: '11px', letterSpacing: '0.22em' }}>
-            Smart Infrastructure Partner — Lebanon
+            Smart Infrastructure Partner · Lebanon
           </p>
 
           <h1 style={{
@@ -354,10 +354,11 @@ export function HeroTerminal() {
           </div>
 
           {/* Trust micro-stats */}
-          <div style={{
+          <div className="hero-stat-bar" style={{
             display: 'flex',
             gap: 'clamp(24px, 4vw, 48px)',
             flexWrap: 'wrap',
+            alignItems: 'flex-start',
           }}>
             {[
               { value: '10+', label: 'Years in Lebanon' },
@@ -387,6 +388,37 @@ export function HeroTerminal() {
                 </div>
               </div>
             ))}
+
+            {/* Google rating */}
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '2px' }}>
+                {[1,2,3,4,5].map(i => (
+                  <svg key={i} width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M7 1L8.545 5.09H13L9.545 7.41L10.91 11.5L7 9.18L3.09 11.5L4.455 7.41L1 5.09H5.455Z"
+                      fill={i <= 4 ? 'var(--tn-accent)' : 'none'}
+                      stroke="var(--tn-accent)"
+                      strokeWidth="0.8"
+                    />
+                  </svg>
+                ))}
+                <span style={{
+                  fontFamily: 'var(--tn-font-display)',
+                  fontSize: '14px',
+                  fontWeight: 700,
+                  color: 'var(--tn-text)',
+                  marginLeft: '2px',
+                }}>4.9</span>
+              </div>
+              <div style={{
+                fontFamily: 'var(--tn-font-mono)',
+                fontSize: '10px',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: 'var(--tn-text-3)',
+              }}>
+                Google · 15 reviews
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -39,7 +39,7 @@ const SERVICES: Service[] = [
     eyebrow: 'Network & Infrastructure',
     heading: 'The backbone everything runs on.',
     description:
-      'Structured cabling, fiber, wireless, and managed switches. Designed for zero single points of failure across your entire site.',
+      'Structured cabling, switches, routers, WiFi, and fiber. We build networks that do not slow you down or let you down — designed from the start for zero single points of failure.',
     benefit: 'Redundant topology. Every link.',
     href: '/services/network',
     side: 'right',
@@ -50,7 +50,7 @@ const SERVICES: Service[] = [
     eyebrow: 'Cybersecurity',
     heading: 'Defense built into your infrastructure.',
     description:
-      'Firewalls, endpoint protection, SIEM, and incident response. Security is not bolted on after the fact: it is the foundation.',
+      'Firewalls, endpoint protection, EDR, and threat monitoring. We protect your data before the problem happens — not after. Security is the foundation, not a bolt-on.',
     benefit: '24/7 threat monitoring. Zero exceptions.',
     href: '/services/cybersecurity',
     side: 'left',
@@ -59,9 +59,9 @@ const SERVICES: Service[] = [
   {
     id: 'smart-security',
     eyebrow: 'Smart Security',
-    heading: 'Surveillance with real intelligence.',
+    heading: 'Know exactly who enters your premises.',
     description:
-      'IP cameras, access control, and video analytics integrated into a single management layer.',
+      'CCTV, access control, alarms, and facial recognition integrated into a single management layer. Know who enters and respond before it becomes an incident.',
     benefit: 'Every entry point. Fully logged.',
     href: '/services/smart-security',
     side: 'right',
@@ -72,7 +72,7 @@ const SERVICES: Service[] = [
     eyebrow: 'Cloud & Managed Services',
     heading: 'Your workloads. Our responsibility.',
     description:
-      'Cloud migration, hybrid architecture, and day-to-day managed IT. Performance SLAs you can hold us to.',
+      'Microsoft 365, Google Workspace, cloud backup, and remote monitoring under SLA. Your systems managed proactively, not reactively.',
     benefit: '99.9% uptime. No asterisks.',
     href: '/services/cloud',
     side: 'left',
@@ -83,7 +83,7 @@ const SERVICES: Service[] = [
     eyebrow: 'Energy & Power Continuity',
     heading: 'No downtime. Not for any reason.',
     description:
-      'UPS systems, generators, and power conditioning designed for Lebanese grid conditions. Your operations run through everything.',
+      'UPS systems, battery backup, and solar. In Lebanon, power is not guaranteed — your business continuity should be. We design for the grid as it actually is.',
     benefit: 'Continuous power. Full documentation.',
     href: '/services/power',
     side: 'right',
@@ -94,7 +94,7 @@ const SERVICES: Service[] = [
     eyebrow: 'Computing & Hardware',
     heading: 'Procurement, deployment, lifecycle.',
     description:
-      'Servers, workstations, and peripherals sourced, configured, and warranted by us. One vendor. Full accountability.',
+      'Laptops, servers, NAS, and workstations — sourced, configured, and deployed by us. One vendor. Full accountability from purchase order to end of life.',
     benefit: 'Configured. Delivered. Supported.',
     href: '/services/hardware',
     side: 'left',
